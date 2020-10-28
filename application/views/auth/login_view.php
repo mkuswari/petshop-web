@@ -14,12 +14,17 @@
 									<div class="text-center">
 										<h1 class="h4 text-gray-900 mb-4">Silahkan Login</h1>
 									</div>
-									<form class="user">
+
+									<?= $this->session->flashdata('message'); ?>
+
+									<form class="user" method="POST" action="<?= base_url("auth"); ?>">
 										<div class="form-group">
-											<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Enter Email Address...">
+											<input type="text" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" name="email" placeholder="Enter Email Address..." value="<?= set_value("email"); ?>">
+											<?= form_error('email', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 										</div>
 										<div class="form-group">
-											<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+											<input type="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" id="password" name="password" placeholder="Password">
+											<?= form_error('password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 										</div>
 										<div class="form-group">
 											<div class="custom-control custom-checkbox small">
