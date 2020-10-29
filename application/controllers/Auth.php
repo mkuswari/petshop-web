@@ -14,6 +14,9 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
+		if ($this->session->userdata("email")) {
+			redirect("landing");
+		}
 
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim');
@@ -69,6 +72,10 @@ class Auth extends CI_Controller
 
 	public function register()
 	{
+		if ($this->session->userdata("email")) {
+			redirect("landing");
+		}
+
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
 			'is_unique' => 'E-mail ini sudah terdaftar'
@@ -107,5 +114,14 @@ class Auth extends CI_Controller
 		$this->session->unset_userdata('role_id');
 		$this->session->set_flashdata('message', '<div class="alert alert-success">Kamu berhasil logout</div>');
 		redirect("auth");
+	}
+
+	public function blocked()
+	{
+
+		$data["title"] = "Akses Ditolak";
+		$this->load->view("_components/backend/header", $data);
+		$this->load->view("auth/blocked_view");
+		$this->load->view("_components/backend/footer");
 	}
 }
