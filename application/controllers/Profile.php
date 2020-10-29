@@ -67,4 +67,41 @@ class Profile extends CI_Controller
 			redirect("profile");
 		}
 	}
+
+	public function changePassword()
+	{
+
+		$this->form_validation->set_rules("current_password", "Password sekarang", "required|trim");
+		$this->form_validation->set_rules("new_password", "Password Baru", "required|trim|min_length[4]", [
+			"min_length" => "Password minimal 4 Karakter"
+		]);
+		$this->form_validation->set_rules("password_confirm", "Konfirmasi Password", "required|trim|matches[new_password]", [
+			"matches" => "Konfirmasi password salah"
+		]);
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->index();
+		} else {
+			$data["users"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+			$currentPassword = $this->input->post("current_password");
+			$newPassword = $this->input->post("new_password");
+			if (!password_verify($currentPassword, $data["users"]["password"])) {
+				$this->session->set_flashdata('message', '<div class="alert alert-danger">Password kamu salah</div>');
+				redirect("profile");
+			} else {
+				if ($currentPassword == $newPassword) {
+					$this->session->set_flashdata('message', '<div class="alert alert-danger">Password baru tidak boleh sama dengan sebelumnya</div>');
+					redirect("profile");
+				} else {
+					// password sudah bisa diterima
+					$passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+
+					$this->Profile_model->updatePassword($passwordHash);
+
+					$this->session->set_flashdata('message', '<div class="alert alert-success">Password berhasil diupdate</div>');
+					redirect("profile");
+				}
+			}
+		}
+	}
 }

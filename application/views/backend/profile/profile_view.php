@@ -23,14 +23,13 @@
 					</div>
 				</div>
 			</div>
+			<?= $this->session->flashdata("message"); ?>
 		</div>
 		<div class="col-sm-7">
 			<div class="card">
 				<div class="card-body">
 					<h5 class="font-weight-bold">Informasi Peronal</h5>
 					<hr>
-
-					<?= $this->session->flashdata("message"); ?>
 
 					<form action="<?= base_url("profile/editprofile"); ?>" method="post" enctype="multipart/form-data">
 						<div class="form-group">
@@ -56,18 +55,21 @@
 				<div class="card-body">
 					<h5 class="font-weight-bold">Ganti Password</h5>
 					<hr>
-					<form action="<?= base_url("profile/update"); ?>" method="post" enctype="multipart/form-data">
+					<form action="<?= base_url("profile/changepassword"); ?>" method="post">
 						<div class="form-group">
-							<label for="password">Password Saat ini</label>
-							<input type="password" name="password" id="password" class="form-control">
+							<label for="current_password">Password Saat ini</label>
+							<input type="password" name="current_password" id="current_password" class="form-control <?= form_error('current_password') ? 'is-invalid' : ''; ?>">
+							<?= form_error('current_password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 						</div>
 						<div class="form-group">
-							<label for="password">Password Baru</label>
-							<input type="password" name="password" id="password" class="form-control">
+							<label for="new_password">Password Baru</label>
+							<input type="password" name="new_password" id="new_password" class="form-control <?= form_error('new_password') ? 'is-invalid' : ''; ?>">
+							<?= form_error('new_password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 						</div>
 						<div class="form-group">
-							<label for="password">Konfirmasi Password</label>
-							<input type="password" name="password" id="password" class="form-control">
+							<label for="new_password_confirm">Konfirmasi Password</label>
+							<input type="password" name="password_confirm" id="new_password_confirm" class="form-control <?= form_error('password_confirm') ? 'is-invalid' : ''; ?>">
+							<?= form_error('password_confirm', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 						</div>
 						<button type="submit" class="btn btn-primary">Ganti Password</button>
 					</form>
