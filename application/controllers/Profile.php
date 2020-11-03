@@ -14,10 +14,10 @@ class Profile extends CI_Controller
 
 	public function index()
 	{
-		must_admin_and_staff();
+		// must_admin_and_staff();
 
 		$data["title"] = "Profile Saya";
-		$data["users"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$this->load->view("_components/backend/header", $data);
 		$this->load->view("_components/backend/sidebar", $data);
 		$this->load->view("_components/backend/topbar", $data);
@@ -28,7 +28,7 @@ class Profile extends CI_Controller
 	public function editProfile()
 	{
 
-		must_admin_and_staff();
+		// must_admin_and_staff();
 
 		$this->form_validation->set_rules("name", "Nama", "required|trim");
 		$this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email");
@@ -49,7 +49,7 @@ class Profile extends CI_Controller
 				$this->load->library("upload", $config);
 
 				if ($this->upload->do_upload("avatar")) {
-					$data["users"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+					$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 					$oldImage = $data["users"]["avatar"];
 					if ($oldImage != 'default.jpg') {
 						unlink(FCPATH . 'assets/images/' . $oldImage);
@@ -82,7 +82,7 @@ class Profile extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
-			$data["users"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+			$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 			$currentPassword = $this->input->post("current_password");
 			$newPassword = $this->input->post("new_password");
 			if (!password_verify($currentPassword, $data["users"]["password"])) {

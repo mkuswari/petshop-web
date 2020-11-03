@@ -1,9 +1,10 @@
 body{
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Mulish', sans-serif;
+	font-weight: 500;
 }
 
 .navbar-brand{
-	font-family: 'Lora', serif;
+	font-family: 'Mulish', serif;
 	font-weight: 700;
 }
 

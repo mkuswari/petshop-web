@@ -54,7 +54,7 @@
 				Menu
 			</div>
 			<li class="nav-item">
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="<?= base_url("profile"); ?>">
 					<i class="fas fa-fw fa-user"></i>
 					<span>Profile Saya</span></a>
 			</li>
@@ -182,8 +182,8 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $users["name"]; ?></span>
-								<img class="img-profile rounded-circle" src="<?= base_url("assets/images/" . $users["avatar"]); ?>">
+								<span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user["name"]; ?></span>
+								<img class="img-profile rounded-circle" src="<?= base_url("assets/images/" . $user["avatar"]); ?>">
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -217,13 +217,13 @@
 					<div class="card mb-3" style="max-width: 540px;">
 						<div class="row no-gutters">
 							<div class="col-md-4">
-								<img src="<?= base_url("assets/images/" . $users["avatar"]); ?>" class="card-img">
+								<img src="<?= base_url("assets/images/" . $user["avatar"]); ?>" class="card-img">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title"><?= $users["name"]; ?></h5>
-									<p class="card-text"><?= $users["email"]; ?></p>
-									<p class="card-text"><small class="text-muted">Member Since : <?= date('d F Y', $users["date_created"]); ?></small></p>
+									<h5 class="card-title"><?= $user["name"]; ?></h5>
+									<p class="card-text"><?= $user["email"]; ?></p>
+									<p class="card-text"><small class="text-muted">Member Since : <?= date('d F Y', $user["date_created"]); ?></small></p>
 								</div>
 							</div>
 						</div>

@@ -8,46 +8,57 @@
 	</div>
 
 	<div class="row">
-		<div class="col-sm-5">
+		<div class="col-sm-4">
 			<div class="card mb-3" style="max-width: 100%;">
 				<div class="row no-gutters">
 					<div class="col-md-4">
-						<img src="<?= base_url("assets/images/" . $users["avatar"]); ?>" class="card-img">
+						<img src="<?= base_url("assets/images/" . $user["avatar"]); ?>" class="card-img">
 					</div>
 					<div class="col-md-8 align-self-center">
 						<div class="card-body">
-							<h5 class="card-title"><?= $users["name"]; ?></h5>
-							<p class="card-text"><?= $users["email"]; ?></p>
-							<p class="card-text"><small class="text-muted">Bergabung Sejak : <?= date('d F Y', $users["date_created"]); ?></small></p>
+							<h5 class="card-title"><?= $user["name"]; ?></h5>
+							<p class="card-text"><?= $user["email"]; ?></p>
+							<p class="card-text"><small class="text-muted">Bergabung Sejak : <?= date('d F Y', $user["date_created"]); ?></small></p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<?= $this->session->flashdata("message"); ?>
 		</div>
-		<div class="col-sm-7">
+		<div class="col-sm-8">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="font-weight-bold">Informasi Peronal</h5>
+					<h5 class="font-weight-bold">Informasi Personal</h5>
 					<hr>
 
 					<form action="<?= base_url("profile/editprofile"); ?>" method="post" enctype="multipart/form-data">
-						<div class="form-group">
-							<label for="name">Nama Lengkap</label>
-							<input type="text" name="name" id="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $users["name"]; ?>">
-							<?= form_error('name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="name">Nama Lengkap</label>
+							<div class="col-sm-10">
+								<input type="text" name="name" id="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $user["name"]; ?>">
+								<?= form_error('name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="email">Email</label>
-							<input type="text" name="email" id="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $users["email"]; ?>">
-							<?= form_error('email', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="email">Email</label>
+							<div class="col-sm-10">
+								<input type="text" name="email" id="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $user["email"]; ?>">
+								<?= form_error('email', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="avatar">Foto Profil</label>
-							<input type="file" name="avatar" id="avatar" class="form-control">
-							<small class="text-muted">Kosongkan jika tidak ingin merubah</small>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="avatar">Foto Profil</label>
+							<div class="col-sm-10">
+								<input type="file" name="avatar" id="avatar" class="form-control">
+								<small class="text-muted">Kosongkan jika tidak ingin merubah</small>
+							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">Update Profil</button>
+						<div class="row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-10">
+								<button type="submit" class="btn btn-primary">Update Profil</button>
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -56,22 +67,33 @@
 					<h5 class="font-weight-bold">Ganti Password</h5>
 					<hr>
 					<form action="<?= base_url("profile/changepassword"); ?>" method="post">
-						<div class="form-group">
-							<label for="current_password">Password Saat ini</label>
-							<input type="password" name="current_password" id="current_password" class="form-control <?= form_error('current_password') ? 'is-invalid' : ''; ?>">
-							<?= form_error('current_password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="current_password">Password Saat ini</label>
+							<div class="col-sm-10">
+								<input type="password" name="current_password" id="current_password" class="form-control <?= form_error('current_password') ? 'is-invalid' : ''; ?>">
+								<?= form_error('current_password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="new_password">Password Baru</label>
-							<input type="password" name="new_password" id="new_password" class="form-control <?= form_error('new_password') ? 'is-invalid' : ''; ?>">
-							<?= form_error('new_password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="new_password">Password Baru</label>
+							<div class="col-sm-10">
+								<input type="password" name="new_password" id="new_password" class="form-control <?= form_error('new_password') ? 'is-invalid' : ''; ?>">
+								<?= form_error('new_password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="new_password_confirm">Konfirmasi Password</label>
-							<input type="password" name="password_confirm" id="new_password_confirm" class="form-control <?= form_error('password_confirm') ? 'is-invalid' : ''; ?>">
-							<?= form_error('password_confirm', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="new_password_confirm">Konfirmasi</label>
+							<div class="col-sm-10">
+								<input type="password" name="password_confirm" id="new_password_confirm" class="form-control <?= form_error('password_confirm') ? 'is-invalid' : ''; ?>">
+								<?= form_error('password_confirm', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">Ganti Password</button>
+						<div class="row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-10">
+								<button type="submit" class="btn btn-primary">Ganti Password</button>
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>

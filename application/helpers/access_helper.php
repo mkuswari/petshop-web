@@ -11,7 +11,7 @@ function must_login()
 function must_admin()
 {
 	$isAdmin = get_instance();
-	if ($isAdmin->session->userdata("role_id") !== 1) {
+	if ($isAdmin->session->userdata("role_id") > 1) {
 		redirect("auth/blocked");
 	}
 }
@@ -19,7 +19,7 @@ function must_admin()
 function must_admin_and_staff()
 {
 	$isAdminAndStaff = get_instance();
-	if ($isAdminAndStaff->session->userdata("role_id") >= 3) {
+	if ($isAdminAndStaff->session->userdata("role_id") > 2) {
 		redirect("auth/blocked");
 	}
 }
