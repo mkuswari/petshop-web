@@ -15,9 +15,9 @@ class Profile extends CI_Controller
 	public function index()
 	{
 		// must_admin_and_staff();
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 
 		$data["title"] = "Profile Saya";
-		$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$this->load->view("_components/backend/header", $data);
 		$this->load->view("_components/backend/sidebar", $data);
 		$this->load->view("_components/backend/topbar", $data);
@@ -49,8 +49,8 @@ class Profile extends CI_Controller
 				$this->load->library("upload", $config);
 
 				if ($this->upload->do_upload("avatar")) {
-					$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-					$oldImage = $data["users"]["avatar"];
+					$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+					$oldImage = $data["users_session"]["avatar"];
 					if ($oldImage != 'default.jpg') {
 						unlink(FCPATH . 'assets/images/' . $oldImage);
 					}
@@ -82,10 +82,10 @@ class Profile extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
-			$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+			$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 			$currentPassword = $this->input->post("current_password");
 			$newPassword = $this->input->post("new_password");
-			if (!password_verify($currentPassword, $data["users"]["password"])) {
+			if (!password_verify($currentPassword, $data["users_session"]["password"])) {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger">Password kamu salah</div>');
 				redirect("profile");
 			} else {

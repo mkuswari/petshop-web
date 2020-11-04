@@ -12,13 +12,13 @@
 			<div class="card mb-3" style="max-width: 100%;">
 				<div class="row no-gutters">
 					<div class="col-md-4">
-						<img src="<?= base_url("assets/images/" . $user["avatar"]); ?>" class="card-img">
+						<img src="<?= base_url("assets/images/" . $user_session["avatar"]); ?>" class="card-img">
 					</div>
 					<div class="col-md-8 align-self-center">
 						<div class="card-body">
-							<h5 class="card-title"><?= $user["name"]; ?></h5>
-							<p class="card-text"><?= $user["email"]; ?></p>
-							<p class="card-text"><small class="text-muted">Bergabung Sejak : <?= date('d F Y', $user["date_created"]); ?></small></p>
+							<h5 class="card-title"><?= $user_session["name"]; ?></h5>
+							<p class="card-text"><?= $user_session["email"]; ?></p>
+							<p class="card-text"><small class="text-muted">Bergabung Sejak : <?= date('d F Y', $user_session["date_created"]); ?></small></p>
 						</div>
 					</div>
 				</div>
@@ -35,14 +35,14 @@
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label" for="name">Nama Lengkap</label>
 							<div class="col-sm-10">
-								<input type="text" name="name" id="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $user["name"]; ?>">
+								<input type="text" name="name" id="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $user_session["name"]; ?>">
 								<?= form_error('name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label" for="email">Email</label>
 							<div class="col-sm-10">
-								<input type="text" name="email" id="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $user["email"]; ?>">
+								<input type="text" name="email" id="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $user_session["email"]; ?>">
 								<?= form_error('email', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 						</div>

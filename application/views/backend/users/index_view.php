@@ -32,8 +32,8 @@
 								<td><?= $user["email"]; ?></td>
 								<td><?= $user["role_name"]; ?></td>
 								<td>
-									<a href="" class="btn btn-warning btn-sm">Edit</a>
-									<a href="<?= base_url("user/delete/" . $user["id"]) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus user ini?');">Hapus</a>
+									<a href="<?= base_url("user/edit/" . $user["user_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
+									<a href="<?= base_url("user/delete/" . $user["user_id"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus user ini?');">Hapus</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

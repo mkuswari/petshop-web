@@ -10,7 +10,7 @@
 	<meta name="author" content="">
 
 
-	<title>Cat Food Store - <?= $title; ?></title>
+	<title>Petashop - <?= $title; ?></title>
 
 	<!-- Custom fonts for this template-->
 	<link href="<?= base_url("assets/backend/vendor/fontawesome-free/css/all.min.css") ?>" rel="stylesheet" type="text/css">

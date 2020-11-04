@@ -8,7 +8,7 @@
 			<div class="sidebar-brand-icon">
 				<i class="fas fa-cat"></i>
 			</div>
-			<div class="sidebar-brand-text mx-3">Cat Food</div>
+			<div class="sidebar-brand-text mx-3">Petshop</div>
 		</a>
 
 		<!-- Divider -->
