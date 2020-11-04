@@ -46,6 +46,9 @@
 <!-- Page level custom scripts -->
 <script src="<?= base_url("assets/backend/js/demo/datatables-demo.js") ?>"></script>
 
+<!-- Sweet alert -->
+<script src="<?= base_url("assets/sweet-alert/sweetalert2.all.min.js") ?>"></script>
+<script src="<?= base_url("assets/backend/js/app.js") ?>"></script>
 </body>
 
 </html>

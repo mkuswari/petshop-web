@@ -80,7 +80,7 @@ class User extends CI_Controller
 			];
 
 			$this->User_model->addNewUser($userData);
-			$this->session->set_flashdata('message', '<div class="alert alert-success">Berhasil! User baru telah berhasil ditambahkan</div>');
+			$this->session->set_flashdata('message', 'Ditambah');
 			redirect("user");
 		}
 	}
@@ -142,7 +142,7 @@ class User extends CI_Controller
 			];
 
 			$this->User_model->updateUser($userData);
-			$this->session->set_flashdata('message', '<div class="alert alert-success">Berhasil! Data user berhasil diubah</div>');
+			$this->session->set_flashdata('message', 'Diubah');
 			redirect("user");
 		}
 	}
@@ -150,7 +150,7 @@ class User extends CI_Controller
 	public function delete($id)
 	{
 		$this->User_model->deleteUser($id);
-		$this->session->set_flashdata('message', '<div class="alert alert-success">Berhasil! User telah berhasil dihapus</div>');
+		$this->session->set_flashdata('message', 'Dihapus');
 		redirect("user");
 	}
 }

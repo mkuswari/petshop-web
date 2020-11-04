@@ -34,6 +34,22 @@
 				<i class="fas fa-fw fa-users"></i>
 				<span>Kelola Users</span></a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<?= base_url("category"); ?>">
+				<i class="fas fa-fw fa-tags"></i>
+				<span>Kelola Kategori</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="<?= base_url("user"); ?>">
+				<i class="fas fa-fw fa-shopping-bag"></i>
+				<span>Kelola Produk</span></a>
+		</li>
+
+		<li class="nav-item">
+			<a class="nav-link" href="<?= base_url("user"); ?>">
+				<i class="fas fa-fw fa-cat"></i>
+				<span>Paket Grooming</span></a>
+		</li>
 
 		<li class="nav-item">
 			<a class="nav-link" href="<?= base_url("profile"); ?>">
