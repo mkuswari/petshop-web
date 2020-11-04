@@ -1,7 +1,7 @@
 const flashData = $('.flash-data').data('flashdata');
 if (flashData) {
 	Swal.fire({
-		title: 'Data User ',
+		title: 'Yeay! Data Kamu',
 		text: 'Berhasil ' + flashData,
 		icon: 'success'
 	});
@@ -15,7 +15,7 @@ $('.button-delete').on('click', function (e) {
 
 	Swal.fire({
 		title: 'Apakah anda yakin?',
-		text: "Data user akan dihapus!",
+		text: "Data akan dihapus!",
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',

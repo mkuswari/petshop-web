@@ -7,7 +7,7 @@
 	<div class="card mb-4">
 		<div class="card-body">
 
-			<?= $this->session->flashdata('message'); ?>
+			<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
 
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%">
@@ -25,13 +25,13 @@
 							<tr>
 								<td>#</td>
 								<td>
-									<img class="img-profile rounded-circle" src="<?= base_url("assets/images/" . $user["avatar"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
+									<img class="img-profile rounded-circle" src="<?= base_url("assets/uploads/categories_thumbnails/" . $category["image"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
 								</td>
 								<td><?= $category["name"]; ?></td>
-								<td><?= $category["date_created"]; ?></td>
+								<td><?= date('d F Y', $category["date_created"]); ?></td>
 								<td>
 									<a href="<?= base_url("category/edit/" . $category["category_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
-									<a href="<?= base_url("category/delete/" . $category["category_id"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus user ini?');">Hapus</a>
+									<a href="<?= base_url("category/delete/" . $category["category_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>

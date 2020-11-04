@@ -7,7 +7,6 @@
 	<div class="card mb-4">
 		<div class="card-body">
 
-			<!-- <?= $this->session->flashdata('message'); ?> -->
 			<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
 
 			<div class="table-responsive">
