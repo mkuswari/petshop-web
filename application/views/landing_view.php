@@ -6,10 +6,17 @@
 		<div class="col-lg-3">
 
 			<h4 class="my-4">Kategori</h4>
-			<div class="list-group shadow">
-				<a href="#" class="list-group-item">Category 1</a>
-				<a href="#" class="list-group-item">Category 2</a>
-				<a href="#" class="list-group-item">Category 3</a>
+			<div class="list-group shadow p-2">
+				<?php if ($categories) : ?>
+					<?php foreach ($categories as $category) : ?>
+						<a href="#" class="list-group-item"><?= $category["name"]; ?></a>
+					<?php endforeach; ?>
+					<a href="" class="list-group-item text-muted">Lihat semua</a>
+				<?php else : ?>
+					<div class="text-center">
+						<small class="text-danger">Tidak ada kategori</small>
+					</div>
+				<?php endif; ?>
 			</div>
 
 		</div>

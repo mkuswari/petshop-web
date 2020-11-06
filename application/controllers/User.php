@@ -149,6 +149,11 @@ class User extends CI_Controller
 
 	public function delete($id)
 	{
+		$data["users"] = $this->db->get_where("users", ["user_id" => $this->input->post("user_id")])->row_array();
+		$oldAvatar = $data["users"]["avatar"];
+		if ($oldAvatar != "default.jpg") {
+			unlink(FCPATH . 'assets/images/' . $oldAvatar);
+		}
 		$this->User_model->deleteUser($id);
 		$this->session->set_flashdata('message', 'Dihapus');
 		redirect("user");

@@ -40,7 +40,7 @@
 				<span>Kelola Kategori</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="<?= base_url("user"); ?>">
+			<a class="nav-link" href="<?= base_url("product"); ?>">
 				<i class="fas fa-fw fa-shopping-bag"></i>
 				<span>Kelola Produk</span></a>
 		</li>
