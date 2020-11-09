@@ -14,9 +14,8 @@ class Main extends CI_Controller
 		$data["title"] = "Beli Makan untuk Kucing Kesayanganmu";
 		$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Main_model->getCategories();
-		$this->load->view("_components/frontend/header", $data);
-		$this->load->view("_components/frontend/navbar", $data);
+		$data["products"] = $this->Main_model->getProducts();
+
 		$this->load->view("landing_view", $data);
-		$this->load->view("_components/frontend/footer");
 	}
 }

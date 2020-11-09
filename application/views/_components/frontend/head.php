@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
 
 	<meta charset="utf-8">
@@ -22,5 +19,3 @@
 	<link href="<?= base_url("assets/frontend/css/main.css") ?>" rel="stylesheet">
 
 </head>
-
-<body>
