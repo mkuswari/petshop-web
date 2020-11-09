@@ -33,6 +33,7 @@ class Category extends CI_Controller
 
 			$this->load->view("backend/categories/create_view", $data);
 		} else {
+			$categoryId = uniqid();
 			$name = htmlspecialchars($this->input->post("name", true));
 			$stringSlug = preg_replace('/[^a-zA-Z0-9 &%|{.}=,?!*()"-_+$@;<>"]/', '', $name);
 			$trim = trim($stringSlug);
@@ -42,7 +43,7 @@ class Category extends CI_Controller
 			if ($image) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
-				$config["upload_path"] = "./assets/uploads/categories_thumbnails/";
+				$config["upload_path"] = "./assets/uploads/categories_images/";
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("image")) {
 					$image = $this->upload->data("file_name");
@@ -52,6 +53,7 @@ class Category extends CI_Controller
 				}
 			}
 			$categoryData = [
+				"category_id" => $categoryId,
 				"name" => $name,
 				"slug" => $slug,
 				"image" => $image,
@@ -84,13 +86,13 @@ class Category extends CI_Controller
 			if ($image) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
-				$config["upload_path"] = "./assets/uploads/categories_thumbnails/";
+				$config["upload_path"] = "./assets/uploads/categories_images/";
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("image")) {
 					$data["categories"] = $this->db->get_where("categories", ["category_id" => $this->input->post("category_id")])->row_array();
 					$oldImage = $data["categories"]["image"];
 					if ($oldImage) {
-						unlink(FCPATH . 'assets/uploads/categories_thumbnails/' . $oldImage);
+						unlink(FCPATH . 'assets/uploads/categories_images/' . $oldImage);
 					}
 					$newImage = $this->upload->data("file_name");
 					$image = $newImage;

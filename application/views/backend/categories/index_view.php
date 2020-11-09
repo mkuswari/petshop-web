@@ -51,7 +51,7 @@
 											<tr>
 												<td width="10"><?= $i++; ?></td>
 												<td width="100">
-													<img class="img-profile rounded-circle" src="<?= base_url("assets/uploads/categories_thumbnails/" . $category["image"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
+													<img class="img-profile rounded-circle" src="<?= base_url("assets/uploads/categories_images/" . $category["image"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
 												</td>
 												<td width="400"><?= $category["name"]; ?></td>
 												<td width="400"><?= $category["slug"]; ?></td>

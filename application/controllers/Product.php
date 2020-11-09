@@ -16,7 +16,7 @@ class Product extends CI_Controller
 	public function index()
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["title"] = "Kelola Produk";
+		$data["title"] = "Kelola Item";
 		$data["products"] = $this->Product_model->getAllProduct();
 
 		$this->load->view("backend/products/index_view", $data);
@@ -26,7 +26,7 @@ class Product extends CI_Controller
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Product_model->getProductCategory();
-		$data["title"] = "Kelola Produk";
+		$data["title"] = "Tambah Item";
 
 		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");
 		// $this->form_validation->set_rules("thumbnail", "Thumbnail Produk", "required");
@@ -38,29 +38,31 @@ class Product extends CI_Controller
 
 			$this->load->view("backend/products/create_view", $data);
 		} else {
+			$itemId = uniqid();
 			$name = htmlspecialchars($this->input->post("name", true));
 			$description = htmlspecialchars($this->input->post("description", true));
 			$stock = htmlspecialchars($this->input->post("stock", true));
 			$price = htmlspecialchars($this->input->post("price", true));
 			$categoryId = $this->input->post("category_id");
 			$slug = strtolower(str_replace("", "-", trim(preg_replace('/[^a-zA-Z0-9 &%|{.}=,?!*()"-_+$@;<>"]/', '', $name))));
-			$thumbnail = $_FILES["thumbnail"];
-			if ($thumbnail) {
+			$images = $_FILES["images"];
+			if ($images) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
-				$config["upload_path"] = "./assets/uploads/products_thumbnails/";
+				$config["upload_path"] = "./assets/uploads/items_images/";
 				$this->load->library("upload", $config);
-				if ($this->upload->do_upload("thumbnail")) {
-					$thumbnail = $this->upload->data("file_name");
+				if ($this->upload->do_upload("images")) {
+					$images = $this->upload->data("file_name");
 				} else {
 					// echo $this->display_error();
 					echo "Upload gagal";
 				}
 			}
 			$productData = [
+				"item_id" => $itemId,
 				"name" => $name,
 				"slug" => $slug,
-				"thumbnail" => $thumbnail,
+				"images" => $images,
 				"description" => $description,
 				"stock" => $stock,
 				"price" => $price,
@@ -98,20 +100,20 @@ class Product extends CI_Controller
 			$stock = htmlspecialchars($this->input->post("stock", true));
 			$price = htmlspecialchars($this->input->post("price", true));
 			$categoryId = $this->input->post("category_id", true);
-			$thumbnail = $_FILES["thumbnail"];
-			if ($thumbnail) {
+			$images = $_FILES["images"];
+			if ($images) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
-				$config["upload_path"] = "./assets/uploads/products_thumbnail/";
+				$config["upload_path"] = "./assets/uploads/items_images/";
 				$this->load->library("upload", $config);
-				if ($this->upload->do_upload("thumbnail")) {
+				if ($this->upload->do_upload("images")) {
 					$data["product"] = $this->db->get_where("products", ["product_id" => $this->input->post("product_id")])->row_array();
-					$oldThumbnail = $data["product"]["thumbnail"];
-					if ($oldThumbnail) {
-						unlink(FCPATH . 'assets/uploads/products_thumbnails/' . $oldThumbnail);
+					$oldImages = $data["product"]["images"];
+					if ($oldImages) {
+						unlink(FCPATH . 'assets/uploads/items_images/' . $oldImages);
 					}
-					$newThumbnail = $this->upload->data("file_name");
-					$thumbnail = $newThumbnail;
+					$newImages = $this->upload->data("file_name");
+					$images = $newImages;
 				} else {
 					$data["product"] = $this->db->get_where("products", ["product_id" => $this->input->post("product_id")])->row_array();
 					$thumbnail = $data["product"]["thumbnail"];

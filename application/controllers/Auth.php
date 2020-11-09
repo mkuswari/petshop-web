@@ -95,6 +95,7 @@ class Auth extends CI_Controller
 			$this->load->view("_components/auth/auth_footer");
 		} else {
 			$userData = [
+				'user_id' => uniqid(),
 				'name' => htmlspecialchars($this->input->post('name', true)),
 				'nickname' => htmlspecialchars($this->input->post('nickname', true)),
 				'email' => htmlspecialchars($this->input->post('email', true)),

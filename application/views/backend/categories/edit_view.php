@@ -61,7 +61,7 @@
 										<div class="form-action row">
 											<div class="col-sm-2"></div>
 											<div class="col-sm-10">
-												<button type="submit" class="btn btn-primary">Tambah Kategori</button>
+												<button type="submit" class="btn btn-primary">Ubah Kategori</button>
 												<a href="<?= base_url("category") ?>" class="btn btn-warning">Batalkan</a>
 											</div>
 										</div>
