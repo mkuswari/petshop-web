@@ -15,6 +15,10 @@
 								<?= form_error('name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
+								<input type="text" class="form-control form-control-user <?= form_error('nickname') ? 'is-invalid' : ''; ?> " id="nickname" name="nickname" placeholder="Nama Panggilan" value="<?= set_value('name'); ?>">
+								<?= form_error('nickname', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</div>
+							<div class="form-group">
 								<input type="email" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
 								<?= form_error('email', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>

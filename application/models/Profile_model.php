@@ -7,6 +7,9 @@ class Profile_model extends CI_Model
 	public function updateProfile($profileData)
 	{
 		$this->db->set("name", $profileData["name"]);
+		$this->db->set("nickname", $profileData["nickname"]);
+		$this->db->set("phone", $profileData["phone"]);
+		$this->db->set("address", $profileData["address"]);
 		$this->db->where("email", $profileData["email"]);
 		$this->db->update("users");
 	}

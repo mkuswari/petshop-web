@@ -19,11 +19,7 @@ class Product extends CI_Controller
 		$data["title"] = "Kelola Produk";
 		$data["products"] = $this->Product_model->getAllProduct();
 
-		$this->load->view("_components/backend/header", $data);
-		$this->load->view("_components/backend/sidebar");
-		$this->load->view("_components/backend/topbar", $data);
 		$this->load->view("backend/products/index_view", $data);
-		$this->load->view("_components/backend/footer");
 	}
 
 	public function create()
@@ -39,11 +35,8 @@ class Product extends CI_Controller
 		$this->form_validation->set_rules("price", "Harga Produk", "required|trim");
 		$this->form_validation->set_rules("category_id", "Kategori", "required");
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("_components/backend/header", $data);
-			$this->load->view("_components/backend/sidebar");
-			$this->load->view("_components/backend/topbar", $data);
+
 			$this->load->view("backend/products/create_view", $data);
-			$this->load->view("_components/backend/footer");
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
 			$description = htmlspecialchars($this->input->post("description", true));

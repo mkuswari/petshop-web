@@ -77,6 +77,7 @@ class Auth extends CI_Controller
 		}
 
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
 			'is_unique' => 'E-mail ini sudah terdaftar'
 		]);
@@ -95,6 +96,7 @@ class Auth extends CI_Controller
 		} else {
 			$userData = [
 				'name' => htmlspecialchars($this->input->post('name', true)),
+				'nickname' => htmlspecialchars($this->input->post('nickname', true)),
 				'email' => htmlspecialchars($this->input->post('email', true)),
 				'avatar' => 'default.jpg',
 				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),

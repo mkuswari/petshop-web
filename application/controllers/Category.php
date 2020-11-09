@@ -16,14 +16,10 @@ class Category extends CI_Controller
 	public function index()
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-
 		$data["title"] = "Kelola Kategori";
 		$data["categories"] = $this->Category_model->getAllCategory();
-		$this->load->view("_components/backend/header", $data);
-		$this->load->view("_components/backend/sidebar");
-		$this->load->view("_components/backend/topbar", $data);
+
 		$this->load->view("backend/categories/index_view", $data);
-		$this->load->view("_components/backend/footer");
 	}
 
 	public function create()
@@ -34,11 +30,8 @@ class Category extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) {
 			$data["title"] = "Tambah Kategori";
-			$this->load->view("_components/backend/header", $data);
-			$this->load->view("_components/backend/sidebar");
-			$this->load->view("_components/backend/topbar", $data);
-			$this->load->view("backend/categories/create_view");
-			$this->load->view("_components/backend/footer");
+
+			$this->load->view("backend/categories/create_view", $data);
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
 			$stringSlug = preg_replace('/[^a-zA-Z0-9 &%|{.}=,?!*()"-_+$@;<>"]/', '', $name);
@@ -79,11 +72,8 @@ class Category extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) {
 			$data["title"] = "Ubah Kategori";
-			$this->load->view("_components/backend/header", $data);
-			$this->load->view("_components/backend/sidebar");
-			$this->load->view("_components/backend/topbar", $data);
+
 			$this->load->view("backend/categories/edit_view", $data);
-			$this->load->view("_components/backend/footer");
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
 			$stringSlug = preg_replace('/[^a-zA-Z0-9 &%|{.}=,?!*()"-_+$@;<>"]/', '', $name);

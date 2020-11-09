@@ -12,9 +12,9 @@ class Main_model extends CI_Model
 
 	public function getProducts()
 	{
-		$this->db->select("products.*, categories.name AS category_name");
-		$this->db->from("products");
-		$this->db->join("categories", "categories.category_id = products.category_id");
+		$this->db->select("items.*, categories.name AS category_name");
+		$this->db->from("items");
+		$this->db->join("categories", "categories.category_id = items.category_id");
 		return $this->db->get()->result_array();
 	}
 }

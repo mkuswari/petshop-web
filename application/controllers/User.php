@@ -16,14 +16,10 @@ class User extends CI_Controller
 	public function index()
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-
 		$data["title"] = "Kelola User";
 		$data["users"] = $this->User_model->getAllUser();
-		$this->load->view("_components/backend/header", $data);
-		$this->load->view("_components/backend/sidebar");
-		$this->load->view("_components/backend/topbar", $data);
+
 		$this->load->view("backend/users/index_view", $data);
-		$this->load->view("_components/backend/footer");
 	}
 
 	public function create()
@@ -31,9 +27,14 @@ class User extends CI_Controller
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
-			'is_unique' => 'E-mail ini sudah terdaftar'
+			'is_unique' => 'E-mail ini sudah digunakan'
 		]);
+		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim|is_unique[users.phone]', [
+			'is_unique' => 'Nomor ini sudah digunakan'
+		]);
+		$this->form_validation->set_rules('address', 'Alamat', 'required|trim');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]', [
 			'min_length' => 'Password minimal harus 4 karakter'
 		]);
@@ -45,14 +46,14 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$data["title"] = "Tambah User";
 			$data["roles"] = $this->User_model->getAllRoles();
-			$this->load->view("_components/backend/header", $data);
-			$this->load->view("_components/backend/sidebar");
-			$this->load->view("_components/backend/topbar", $data);
+
 			$this->load->view("backend/users/create_view", $data);
-			$this->load->view("_components/backend/footer");
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
+			$nickName = htmlspecialchars($this->input->post("nickname", true));
 			$email = htmlspecialchars($this->input->post("email", true));
+			$phone = htmlspecialchars($this->input->post("phone", true));
+			$address = htmlspecialchars($this->input->post("address", true));
 			$password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
 			$roleId = $this->input->post("role_id");
 			$isActive = 1;
@@ -71,7 +72,10 @@ class User extends CI_Controller
 			}
 			$userData = [
 				"name" => $name,
+				"nickname" => $nickName,
 				"email" => $email,
+				"phone" => $phone,
+				"address" => $address,
 				"avatar" => $avatar,
 				"password" => $password,
 				"role_id" => $roleId,
@@ -90,22 +94,25 @@ class User extends CI_Controller
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email');
+		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim');
+		$this->form_validation->set_rules('address', 'Alamat Tinggal', 'required|trim');
 		$this->form_validation->set_rules('role_id', 'Hak Akses', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$data["title"] = "Ubah Data User";
 			$data["user"] = $this->User_model->getUserById($id);
 			$data["roles"] = $this->User_model->getAllRoles();
-			$this->load->view("_components/backend/header", $data);
-			$this->load->view("_components/backend/sidebar");
-			$this->load->view("_components/backend/topbar", $data);
+
 			$this->load->view("backend/users/edit_view", $data);
-			$this->load->view("_components/backend/footer");
 		} else {
 			// $id = $this->input->post("user_id");
 			$name = htmlspecialchars($this->input->post("name", true));
+			$nickName = htmlspecialchars($this->input->post("nickname", true));
 			$email = htmlspecialchars($this->input->post("email", true));
+			$phone = htmlspecialchars($this->input->post("phone", true));
+			$address = htmlspecialchars($this->input->post("address", true));
 			// $password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
 			$roleId = $this->input->post("role_id");
 			$isActive = 1;
@@ -134,7 +141,10 @@ class User extends CI_Controller
 			$userData = [
 				// "user_id" => $id,
 				"name" => $name,
+				"nickname" => $nickName,
 				"email" => $email,
+				"phone" => $phone,
+				"address"  => $address,
 				"avatar" => $avatar,
 				"role_id" => $roleId,
 				"is_active" => $isActive

@@ -18,11 +18,8 @@ class Profile extends CI_Controller
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 
 		$data["title"] = "Profile Saya";
-		$this->load->view("_components/backend/header", $data);
-		$this->load->view("_components/backend/sidebar", $data);
-		$this->load->view("_components/backend/topbar", $data);
-		$this->load->view("backend/profile/profile_view");
-		$this->load->view("_components/backend/footer");
+
+		$this->load->view("backend/profile/profile_view", $data);
 	}
 
 	public function editProfile()
@@ -31,13 +28,19 @@ class Profile extends CI_Controller
 		// must_admin_and_staff();
 
 		$this->form_validation->set_rules("name", "Nama", "required|trim");
+		$this->form_validation->set_radio("nickname", "Nama Panggilan", "required|trim");
 		$this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email");
+		$this->form_validation->set_rules("phone", "Nomor Ponsel", "required|trim");
+		$this->form_validation->set_rules("address", "Alamat", "required|trim");
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
 			$profileData = [
 				"name" => $this->input->post("name"),
+				"nickname" => $this->input->post("nickname"),
 				"email" => $this->input->post("email"),
+				"phone" => $this->input->post("phone"),
+				"address" => $this->input->post("address"),
 			];
 			// cek jika ada gambar yang diupload
 			$uploadImage = $_FILES["avatar"];
