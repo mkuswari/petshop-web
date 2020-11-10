@@ -4,121 +4,244 @@
 <?php $this->load->view("_components/frontend/head"); ?>
 
 <body>
-
+	<!-- Navigation -->
 	<?php $this->load->view("_components/frontend/navbar"); ?>
 
 	<!-- Page Content -->
-	<div class="container">
-
-		<div class="row py-5">
-
-			<div class="col-lg-3">
-
-				<h4 class="my-4">Kategori</h4>
-				<div class="list-group shadow p-2">
-					<?php if ($categories) : ?>
-						<?php foreach ($categories as $category) : ?>
-							<a href="#" class="list-group-item"><?= $category["name"]; ?></a>
-						<?php endforeach; ?>
-						<a href="" class="list-group-item text-muted">Lihat semua</a>
-					<?php else : ?>
-						<div class="text-center">
-							<small class="text-danger">Tidak ada kategori</small>
-						</div>
-					<?php endif; ?>
-				</div>
-
-			</div>
-			<!-- /.col-lg-3 -->
-
-			<div class="col-lg-9">
-
-				<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-					<ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-					</ol>
-					<div class="carousel-inner" role="listbox">
-						<div class="carousel-item active">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-						</div>
-					</div>
-				</div>
-
-				<hr>
-
-				<div class="row d-flex justify-content-between py-2">
-					<div class="col-6">
-						<h3 class="font-weight-bold my-4" style="font-family: 'Lora', sans-serif;">Produk Terbaru</h3>
-					</div>
-					<div class="col-6 align-self-center">
-						<form action="" method="POST">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Cari Produk...">
-								<div class="input-group-append">
-									<button class="btn btn-primary" type="submit">Cari</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-
+	<div class="page-content page-home">
+		<section class="store-carousel">
+			<div class="container">
 				<div class="row">
-
-					<?php if ($products) : ?>
-						<?php foreach ($products as $product) : ?>
-							<div class="col-lg-4 col-md-6 mb-4">
-								<div class="card h-100 shadow border-0">
-									<a href="#"><img class="card-img-top" src="<?= base_url("assets/uploads/products_thumbnails/" . $product["thumbnail"]); ?>" style="height: 170px; width: 100%; object-fit: cover; object-position: center;"></a>
-									<div class="card-body">
-										<h6 class="card-title">
-											<a href="#"><?= $product["name"]; ?></a>
-										</h6>
-										<h6>IDR. <?= $product["price"]; ?></h6>
-										<p class="card-text small"><?= $product["category_name"]; ?>
-										</p>
-									</div>
+					<div class="col-lg-12" data-aos="zoom-in">
+						<div id="storeCarousel" class="carousel slide" data-ride="carousel">
+							<ol class="carousel-indicators">
+								<li data-target="#storeCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#storeCarousel" data-slide-to="1"></li>
+								<li data-target="#storeCarousel" data-slide-to="2"></li>
+							</ol>
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<img src="assets/frontend/images/banner.jpg" class="d-block w-100" alt="Carousel Image" />
+								</div>
+								<div class="carousel-item">
+									<img src="assets/frontend/images/banner.jpg" class="d-block w-100" alt="Carousel Image" />
+								</div>
+								<div class="carousel-item">
+									<img src="assets/frontend/images/banner.jpg" class="d-block w-100" alt="Carousel Image" />
 								</div>
 							</div>
-						<?php endforeach; ?>
-					<?php else : ?>
-						<div class="alert alert-danger text-center">Tidak ada produk</div>
-					<?php endif; ?>
+						</div>
+					</div>
 				</div>
-				<!-- /.row -->
-
-				<div class="text-center">
-					<a href="">Lihat Semua</a>
-				</div>
-
 			</div>
-			<!-- /.col-lg-9 -->
-
-		</div>
-		<!-- /.row -->
-
-
+		</section>
+		<section class="store-trend-categories">
+			<div class="container">
+				<div class="row">
+					<div class="col-12" data-aos="fade-up">
+						<h5 class="font-weight-bold">Kategori</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="100">
+						<a class="component-categories d-block" href="index.html#">
+							<div class="categories-image">
+								<img src="assets/frontend/images/categories-gadgets.svg" alt="Gadgets Categories" class="w-100" />
+							</div>
+							<p class="categories-text">
+								Gadgets
+							</p>
+						</a>
+					</div>
+					<div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="200">
+						<a class="component-categories d-block" href="index.html#">
+							<div class="categories-image">
+								<img src="assets/frontend/images/categories-furniture.svg" alt="Furniture Categories" class="w-100" />
+							</div>
+							<p class="categories-text">
+								Furniture
+							</p>
+						</a>
+					</div>
+					<div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="300">
+						<a class="component-categories d-block" href="index.html#">
+							<div class="categories-image">
+								<img src="assets/frontend/images/categories-makeup.svg" alt="Makeup Categories" class="w-100" />
+							</div>
+							<p class="categories-text">
+								Makeup
+							</p>
+						</a>
+					</div>
+					<div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="400">
+						<a class="component-categories d-block" href="index.html#">
+							<div class="categories-image">
+								<img src="assets/frontend/images/categories-sneaker.svg" alt="Sneaker Categories" class="w-100" />
+							</div>
+							<p class="categories-text">
+								Sneaker
+							</p>
+						</a>
+					</div>
+					<div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="500">
+						<a class="component-categories d-block" href="index.html#">
+							<div class="categories-image">
+								<img src="assets/frontend/images/categories-tools.svg" alt="Tools Categories" class="w-100" />
+							</div>
+							<p class="categories-text">
+								Tools
+							</p>
+						</a>
+					</div>
+					<div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="600">
+						<a class="component-categories d-block" href="index.html#">
+							<div class="categories-image">
+								<img src="assets/frontend/images/categories-baby.svg" alt="Baby Categories" class="w-100" />
+							</div>
+							<p class="categories-text">
+								Baby
+							</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="store-new-products">
+			<div class="container">
+				<div class="row">
+					<div class="col-12" data-aos="fade-up">
+						<h5 class="font-weight-bold">Produk Item</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-apple-watch.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Apple Watch 4
+							</div>
+							<div class="products-price">
+								$890
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-orange-bogotta.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Orange Bogotta
+							</div>
+							<div class="products-price">
+								$94,509
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-sofa-ternyaman.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Sofa Ternyaman
+							</div>
+							<div class="products-price">
+								$1,409
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-bubuk-maketti.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Bubuk Maketti
+							</div>
+							<div class="products-price">
+								$225
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-tatakan-gelas.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Tatakan Gelas
+							</div>
+							<div class="products-price">
+								$45,184
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="600">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-mavic-kawe.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Mavic Kawe
+							</div>
+							<div class="products-price">
+								$503
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="700">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-black-edition-nike.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Black Edition Nike
+							</div>
+							<div class="products-price">
+								$70,482
+							</div>
+						</a>
+					</div>
+					<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="800">
+						<a class="component-products d-block" href="details.html">
+							<div class="products-thumbnail">
+								<div class="products-image" style="
+                      background-image: url('assets/frontend/images/products-monkey-toys.jpg');
+                    "></div>
+							</div>
+							<div class="products-text">
+								Monkey Toys
+							</div>
+							<div class="products-price">
+								$783
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
-	<!-- /.container -->
-
-	<section class="grooming-section bg-light py-5">
-		<div class="container">
-			<h2 class="font-weight-bold">Paket Grooming</h2>
-			<p class="text-muted">Kami juga menyediakan paket Grooming murah untuk Peliharaan Kesayangan anda.</p>
-		</div>
-	</section>
 
 	<?php $this->load->view("_components/frontend/footer"); ?>
 
 	<?php $this->load->view("_components/frontend/scripts"); ?>
-
 </body>
 
 </html>

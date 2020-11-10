@@ -1,7 +1,11 @@
-<!-- Footer -->
-<footer class="py-5">
+<footer>
 	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; CatFood Store | All Right Reserved <?= date('Y'); ?></p>
+		<div class="row">
+			<div class="col-12 text-center">
+				<p class="pt-4 pb-2">
+					<?= date('Y') ?> Copyright PetShop. All Rights Reserved.
+				</p>
+			</div>
+		</div>
 	</div>
-	<!-- /.container -->
 </footer>

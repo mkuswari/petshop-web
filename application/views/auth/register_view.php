@@ -1,52 +1,62 @@
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
 
-	<div class="card o-hidden border-0 shadow-lg my-5 col-lg-6 mx-auto">
-		<div class="card-body p-0">
-			<!-- Nested Row within Card Body -->
-			<div class="row">
-				<div class="col">
-					<div class="p-5">
-						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Buat Akun Baru!</h1>
-						</div>
-						<form class="user" method="POST" action="<?= base_url("auth/register"); ?>">
+<?php $this->load->view("_components/auth/head"); ?>
+
+<body>
+
+	<!-- Page Content -->
+	<div class="page-content page-auth">
+		<div class="section-store-auth" data-aos="fade-up">
+			<div class="container">
+				<div class="row align-items-center row-login">
+					<div class="col-lg-4 mx-auto">
+						<h2 class="font-weight-bold">Daftar Akun</h2>
+						<hr>
+						<?= $this->session->flashdata('message'); ?>
+						<form class="mt-3" action="<?= base_url("auth/register") ?>" method="POST">
 							<div class="form-group">
-								<input type="text" class="form-control form-control-user <?= form_error('name') ? 'is-invalid' : ''; ?> " id="name" name="name" placeholder="Nama Lengkap" value="<?= set_value('name'); ?>">
+								<label for="name">Nama Lengkap</label>
+								<input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" name="name" id="name" value="<?= set_value("name") ?>" />
 								<?= form_error('name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control form-control-user <?= form_error('nickname') ? 'is-invalid' : ''; ?> " id="nickname" name="nickname" placeholder="Nama Panggilan" value="<?= set_value('name'); ?>">
+								<label for="nickname">Nama Panggilan</label>
+								<input type="text" class="form-control <?= form_error('nickname') ? 'is-invalid' : ''; ?>" name="nickname" id="nickname" value="<?= set_value("nickname") ?>" />
 								<?= form_error('nickname', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
-								<input type="email" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+								<label for="email">E-mail</label>
+								<input type="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?= set_value("email") ?>" />
 								<?= form_error('email', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" id="password" name="password" placeholder="Password">
+								<label for="password">Password</label>
+								<input type="password" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" name="password" id="password" />
 								<?= form_error('password', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control form-control-user <?= form_error('password_confirm') ? 'is-invalid' : ''; ?>" id="password_confirm" name="password_confirm" placeholder="Konfirmasi Password">
+								<label for="password_confirm">Konfirmasi Password</label>
+								<input type="password" class="form-control <?= form_error('password_confirm') ? 'is-invalid' : ''; ?>" name="password_confirm" id="password_confirm" />
 								<?= form_error('password_confirm', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
-							<button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
-							<hr>
-							<a href="index.html" class="btn btn-google btn-user btn-block">
-								<i class="fab fa-google fa-fw"></i> Register with Google
-							</a>
+							<button type="submit" class="btn btn-success btn-block mt-4">
+								Daftar Sekarang
+							</button>
+							<div class="text-center mt-2">
+								<small>
+									Sudah punya akun? <a href="<?= base_url("auth") ?>">Login</a>
+								</small>
+							</div>
 						</form>
-						<hr>
-						<div class="text-center">
-							<a class="small" href="forgot-password.html">Lupa Passowrd?</a>
-						</div>
-						<div class="text-center">
-							<a class="small" href="<?= base_url("auth"); ?>">Suah Memiliki Akun? Login!</a>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-</div>
+	<?php $this->load->view("_components/auth/scripts"); ?>
+
+</body>
+
+</html>

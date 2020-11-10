@@ -16,7 +16,7 @@ class User extends CI_Controller
 
 	public function index()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["user_session"] = $this->_getLoginSession();
 		$data["page_title"] = "Kelola User";
 		$data["users"] = $this->User_model->getAllUser();
 
@@ -25,7 +25,7 @@ class User extends CI_Controller
 
 	public function create()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["user_session"] = $this->_getLoginSession();;
 		$data["title"] = "Tambah User";
 		$data["roles"] = $this->User_model->getAllRoles();
 
@@ -33,6 +33,12 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view("backend/users/create_view", $data);
 		} else {
+			$userId = uniqid();
+			$name = htmlspecialchars($this->input->post("name", true));
+			$nickName = htmlspecialchars($this->input->post("nickname", true));
+			$email = htmlspecialchars($this->input->post("email", true));
+			$phone = htmlspecialchars($this->input->post("phone", true));
+			$address = htmlspecialchars($this->input->post("address", true));
 			$avatar = $_FILES["avatar"];
 			if ($avatar) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
@@ -45,18 +51,24 @@ class User extends CI_Controller
 					$avatar = "default.jpg";
 				}
 			}
+			$password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
+			$roleId = $this->input->post("role_id");
+			$isActive = 1;
+			$dateCreated = time();
+
+			// Set Data
 			$userData = [
-				"user_id" => uniqid(),
-				"name" => htmlspecialchars($this->input->post("name", true)),
-				"nickname" => htmlspecialchars($this->input->post("nickname", true)),
-				"email" => htmlspecialchars($this->input->post("email", true)),
-				"phone" => htmlspecialchars($this->input->post("phone", true)),
-				"address" => htmlspecialchars($this->input->post("address", true)),
+				"user_id" => $userId,
+				"name" => $name,
+				"nickname" => $nickName,
+				"email" => $email,
+				"phone" => $phone,
+				"address" => $address,
 				"avatar" => $avatar,
-				"password" => htmlspecialchars($this->input->post("password"), PASSWORD_DEFAULT),
-				"role_id" => $this->input->post("role_id"),
-				"is_active" => 1,
-				"date_created" => time()
+				"password" => $password,
+				"role_id" => $roleId,
+				"is_active" => $isActive,
+				"date_created" => $dateCreated
 			];
 
 			$this->User_model->addNewUser($userData);
@@ -67,7 +79,7 @@ class User extends CI_Controller
 
 	public function edit($id)
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["user_session"] = $this->_getLoginSession();
 		$data["title"] = "Ubah Data User";
 		$data["user"] = $this->User_model->getUserById($id);
 		$data["roles"] = $this->User_model->getAllRoles();
@@ -76,6 +88,11 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view("backend/users/edit_view", $data);
 		} else {
+			$name = htmlspecialchars($this->input->post("name", true));
+			$nickName = htmlspecialchars($this->input->post("nickname", true));
+			$email = htmlspecialchars($this->input->post("email", true));
+			$phone = htmlspecialchars($this->input->post("phone", true));
+			$address = htmlspecialchars($this->input->post("address", true));
 			$avatar = $_FILES["avatar"];
 			if ($avatar) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
@@ -94,15 +111,19 @@ class User extends CI_Controller
 					$avatar = $data["users"]["avatar"];
 				}
 			}
+			$roleId = $this->input->post("role_id");
+			$isActive = 1;
+
+			// Set Data
 			$userData = [
-				"name" => htmlspecialchars($this->input->post("name", true)),
-				"nickname" => htmlspecialchars($this->input->post("nickname", true)),
-				"email" => htmlspecialchars($this->input->post("email", true)),
-				"phone" => htmlspecialchars($this->input->post("phone", true)),
-				"address"  => htmlspecialchars($this->input->post("address", true)),
+				"name" => $name,
+				"nickname" => $nickName,
+				"email" => $email,
+				"phone" => $phone,
+				"address" => $address,
 				"avatar" => $avatar,
-				"role_id" => $this->input->post("role_id"),
-				"is_active" => 1
+				"role_id" => $roleId,
+				"is_active" => $isActive,
 			];
 			$this->User_model->updateUser($userData);
 			$this->session->set_flashdata('message', 'Diubah');
@@ -112,7 +133,7 @@ class User extends CI_Controller
 
 	public function delete($id)
 	{
-		$data["users"] = $this->db->get_where("users", ["user_id" => $this->input->post("user_id")])->row_array();
+		$data["users"] = $this->_getLoginSession();
 		$oldAvatar = $data["users"]["avatar"];
 		if ($oldAvatar != "default.jpg") {
 			unlink(FCPATH . 'assets/images/' . $oldAvatar);
@@ -151,5 +172,10 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim');
 		$this->form_validation->set_rules('address', 'Alamat Tinggal', 'required|trim');
 		$this->form_validation->set_rules('role_id', 'Hak Akses', 'required');
+	}
+
+	private function _getLoginSession()
+	{
+		$this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 	}
 }

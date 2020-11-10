@@ -18,14 +18,11 @@ class Auth extends CI_Controller
 			redirect("landing");
 		}
 
-		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email');
-		$this->form_validation->set_rules('password', 'Password', 'required|trim');
+		$data["page_title"] = "Login";
 
+		$this->_loginValidation();
 		if ($this->form_validation->run() == FALSE) {
-			$data["title"] = "Login";
-			$this->load->view("_components/auth/auth_header", $data);
-			$this->load->view("auth/login_view");
-			$this->load->view("_components/auth/auth_footer");
+			$this->load->view("auth/login_view", $data);
 		} else {
 			$this->_loginAction();
 		}
@@ -37,8 +34,6 @@ class Auth extends CI_Controller
 		$password = $this->input->post("password");
 
 		$userData = $this->db->get_where("users", ["email" => $email])->row_array();
-
-
 		if ($userData) {
 			if ($userData['is_active'] == 1) {
 				if (password_verify($password, $userData["password"])) {
@@ -57,7 +52,7 @@ class Auth extends CI_Controller
 						redirect("home");
 					}
 				} else {
-					$this->session->set_flashdata('message', '<div class="alert alert-danger">Password yang kamu masukkan salah</div>');
+					$this->session->set_flashdata('message', '<div class="alert alert-danger">Password kamu salah</div>');
 					redirect("auth");
 				}
 			} else {
@@ -76,34 +71,33 @@ class Auth extends CI_Controller
 			redirect("landing");
 		}
 
-		$this->form_validation->set_rules('name', 'Name', 'required|trim');
-		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
-		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
-			'is_unique' => 'E-mail ini sudah terdaftar'
-		]);
-		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]', [
-			'min_length' => 'Password minimal harus 4 karakter'
-		]);
-		$this->form_validation->set_rules('password_confirm', 'Konfirmasi Password', 'required|trim|matches[password]', [
-			'matches' => 'Konfirmasi Password tidak sesuai'
-		]);
+		$data["page_title"] = "Register";
 
+		$this->_registerValidation();
 		if ($this->form_validation->run() == FALSE) {
-			$data["title"] = "Register";
-			$this->load->view("_components/auth/auth_header", $data);
-			$this->load->view("auth/register_view");
-			$this->load->view("_components/auth/auth_footer");
+			$this->load->view("auth/register_view", $data);
 		} else {
+			$userId = uniqid();
+			$name = htmlspecialchars($this->input->post("name", true));
+			$nickname = htmlspecialchars($this->input->post("nickname", true));
+			$email = htmlspecialchars($this->input->post("email", true));
+			$avatar = "default.jpg";
+			$password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
+			$roleId = 3;
+			$isActive = 1;
+			$dateCreated = time();
+
+			// Set Data
 			$userData = [
-				'user_id' => uniqid(),
-				'name' => htmlspecialchars($this->input->post('name', true)),
-				'nickname' => htmlspecialchars($this->input->post('nickname', true)),
-				'email' => htmlspecialchars($this->input->post('email', true)),
-				'avatar' => 'default.jpg',
-				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'role_id' => 3,
-				'is_active' => 1,
-				'date_created' => time()
+				'user_id' => $userId,
+				'name' => $name,
+				'nickname' => $nickname,
+				'email' => $email,
+				'avatar' => $avatar,
+				'password' => $password,
+				'role_id' => $roleId,
+				'is_active' => $isActive,
+				'date_created' => $dateCreated
 			];
 			$this->Auth_model->userRegistration($userData);
 			$this->session->set_flashdata('message', '<div class="alert alert-success">Berhasil Register! Silahkan Login</div>');
@@ -121,10 +115,29 @@ class Auth extends CI_Controller
 
 	public function blocked()
 	{
+		$data["page_title"] = "Akses Ditolak";
 
-		$data["title"] = "Akses Ditolak";
-		$this->load->view("_components/backend/header", $data);
-		$this->load->view("auth/blocked_view");
-		$this->load->view("_components/backend/footer");
+		$this->load->view("auth/blocked_view", $data);
+	}
+
+	private function _loginValidation()
+	{
+		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'required|trim');
+	}
+
+	private function _registerValidation()
+	{
+		$this->form_validation->set_rules('name', 'Name', 'required|trim');
+		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
+		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
+			'is_unique' => 'E-mail ini sudah terdaftar'
+		]);
+		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]', [
+			'min_length' => 'Password minimal harus 4 karakter'
+		]);
+		$this->form_validation->set_rules('password_confirm', 'Konfirmasi Password', 'required|trim|matches[password]', [
+			'matches' => 'Konfirmasi Password tidak sesuai'
+		]);
 	}
 }

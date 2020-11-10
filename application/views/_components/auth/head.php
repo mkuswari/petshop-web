@@ -4,7 +4,7 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 
-	<title><?= $title; ?></title>
+	<title>PetShop - <?= $page_title; ?></title>
 
 	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 	<link href="<?= base_url("assets/frontend/style/main.css") ?>" rel="stylesheet" />
