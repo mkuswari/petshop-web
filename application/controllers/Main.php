@@ -11,11 +11,20 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-		$data["title"] = "Beli Makan untuk Kucing Kesayanganmu";
+		$data["page_title"] = "Beli Makan untuk Kucing Kesayanganmu";
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["products"] = $this->Main_model->getProducts();
+
+		$this->load->view("frontend/landing_view", $data);
+	}
+
+	public function productPage()
+	{
+		$data["page_title"] = "Belanja";
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Main_model->getCategories();
 		$data["products"] = $this->Main_model->getProducts();
 
-		$this->load->view("landing_view", $data);
+		$this->load->view("frontend/product_view", $data);
 	}
 }

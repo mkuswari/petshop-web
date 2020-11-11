@@ -24,7 +24,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
+						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
 						<a href="<?= base_url("product/create") ?>" class="btn btn-primary"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Produk</a>
 					</div>
 
@@ -48,11 +48,12 @@
 										</tr>
 									</thead>
 									<tbody>
+										<?php $i = 1; ?>
 										<?php foreach ($products as $product) : ?>
 											<tr>
-												<td>#</td>
+												<td><?= $i++; ?></td>
 												<td>
-													<img class="img-profile rounded-circle" src="<?= base_url("assets/uploads/products_thumbnails/" . $product["thumbnail"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
+													<img class="img-fluid" src="<?= base_url("assets/uploads/items_images/" . $product["images"]); ?>" style="width: 250px;">
 												</td>
 												<td><?= $product["name"]; ?></td>
 												<td>
@@ -62,8 +63,8 @@
 												<td><?= $product["price"]; ?></td>
 												<td><?= $product["category_name"]; ?></td>
 												<td>
-													<a href="<?= base_url("product/edit/" . $product["product_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
-													<a href="<?= base_url("product/delete/" . $product["product_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
+													<a href="<?= base_url("product/edit/" . $product["item_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
+													<a href="<?= base_url("product/delete/" . $product["item_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach; ?>

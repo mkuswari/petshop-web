@@ -16,7 +16,7 @@ class User extends CI_Controller
 
 	public function index()
 	{
-		$data["user_session"] = $this->_getLoginSession();
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["page_title"] = "Kelola User";
 		$data["users"] = $this->User_model->getAllUser();
 
@@ -25,7 +25,7 @@ class User extends CI_Controller
 
 	public function create()
 	{
-		$data["user_session"] = $this->_getLoginSession();;
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["title"] = "Tambah User";
 		$data["roles"] = $this->User_model->getAllRoles();
 
@@ -44,6 +44,7 @@ class User extends CI_Controller
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
 				$config["upload_path"] = "./assets/images/";
+				$config["file_name"] = $userId;
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
 					$avatar = $this->upload->data("file_name");
@@ -79,7 +80,7 @@ class User extends CI_Controller
 
 	public function edit($id)
 	{
-		$data["user_session"] = $this->_getLoginSession();
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["title"] = "Ubah Data User";
 		$data["user"] = $this->User_model->getUserById($id);
 		$data["roles"] = $this->User_model->getAllRoles();
@@ -97,6 +98,7 @@ class User extends CI_Controller
 			if ($avatar) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["upload_path"] = "./assets/images/";
+				$config["file_name"] = $id;
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
 					$data["users"] = $this->db->get_where("users", ["user_id" => $this->input->post("user_id")])->row_array();
@@ -133,11 +135,6 @@ class User extends CI_Controller
 
 	public function delete($id)
 	{
-		$data["users"] = $this->_getLoginSession();
-		$oldAvatar = $data["users"]["avatar"];
-		if ($oldAvatar != "default.jpg") {
-			unlink(FCPATH . 'assets/images/' . $oldAvatar);
-		}
 		$this->User_model->deleteUser($id);
 		$this->session->set_flashdata('message', 'Dihapus');
 		redirect("user");
@@ -172,10 +169,5 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim');
 		$this->form_validation->set_rules('address', 'Alamat Tinggal', 'required|trim');
 		$this->form_validation->set_rules('role_id', 'Hak Akses', 'required');
-	}
-
-	private function _getLoginSession()
-	{
-		$this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 	}
 }

@@ -16,7 +16,7 @@ class Product extends CI_Controller
 	public function index()
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["title"] = "Kelola Item";
+		$data["page_title"] = "Kelola Item";
 		$data["products"] = $this->Product_model->getAllProduct();
 
 		$this->load->view("backend/products/index_view", $data);
@@ -26,14 +26,9 @@ class Product extends CI_Controller
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Product_model->getProductCategory();
-		$data["title"] = "Tambah Item";
+		$data["page_title"] = "Tambah Item";
 
-		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");
-		// $this->form_validation->set_rules("thumbnail", "Thumbnail Produk", "required");
-		$this->form_validation->set_rules("description", "Deskripsi Produk", "required|trim");
-		$this->form_validation->set_rules("stock", "Stock Produk", "required|trim");
-		$this->form_validation->set_rules("price", "Harga Produk", "required|trim");
-		$this->form_validation->set_rules("category_id", "Kategori", "required");
+		$this->_validationCreate();
 		if ($this->form_validation->run() == FALSE) {
 
 			$this->load->view("backend/products/create_view", $data);
@@ -44,11 +39,18 @@ class Product extends CI_Controller
 			$stock = htmlspecialchars($this->input->post("stock", true));
 			$price = htmlspecialchars($this->input->post("price", true));
 			$categoryId = $this->input->post("category_id");
-			$slug = strtolower(str_replace("", "-", trim(preg_replace('/[^a-zA-Z0-9 &%|{.}=,?!*()"-_+$@;<>"]/', '', $name))));
+			// buat slug produk
+			//Buat slug
+			$string = preg_replace('/[^a-zA-Z0-9 \&%|{.}=,?!*()"-_+$@;<>\']/', '', $name); //filter karakter unik dan replace dengan kosong ('')
+			$trim = trim($string); // hilangkan spasi berlebihan dengan fungsi trim
+			$pre_slug = strtolower(str_replace(" ", "-", $trim)); // hilangkan spasi, kemudian ganti spasi dengan tanda strip (-)
+			$slug = $pre_slug; // tambahkan ektensi .html pada slug
+			// upload image produk
 			$images = $_FILES["images"];
 			if ($images) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
-				$config["max_size"] = 1024; //1 MB
+				// $config["max_size"] = 1024; //1 MB
+				$config["file_name"] = $itemId;
 				$config["upload_path"] = "./assets/uploads/items_images/";
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("images")) {
@@ -77,37 +79,36 @@ class Product extends CI_Controller
 	public function edit($id)
 	{
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["product"] = $this->db->get_where("products", ["product_id" => $id])->row_array();
+		$data["product"] = $this->db->get_where("items", ["item_id" => $id])->row_array();
 		$data["categories"] = $this->Product_model->getProductCategory();
-		$data["title"] = "Edit Data Produk";
+		$data["page_title"] = "Edit Data Produk";
 
-		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");
-		$this->form_validation->set_rules("description", "Deskripsi Produk", "required|trim");
-		$this->form_validation->set_rules("stock", "Stok Produk", "required|trim");
-		$this->form_validation->set_rules("price", "Harga Produk", "required|trim");
-		$this->form_validation->set_rules("category_id", "Kategori", "required");
+		$this->_validationUpdate();
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("_components/backend/header", $data);
-			$this->load->view("_components/backend/sidebar");
-			$this->load->view("_components/backend/topbar", $data);
 			$this->load->view("backend/products/edit_view", $data);
-			$this->load->view("_components/backend/footer");
 		} else {
 			// validasi berhasil
 			$name = htmlspecialchars($this->input->post("name", true));
-			$slug = strtolower(str_replace("", "-", trim(preg_replace('/[^a-zA-Z0-9 &%|{.}=,?!*()"-_+$@;<>"]/', '', $name))));
 			$description = htmlspecialchars($this->input->post("description", true));
 			$stock = htmlspecialchars($this->input->post("stock", true));
 			$price = htmlspecialchars($this->input->post("price", true));
 			$categoryId = $this->input->post("category_id", true);
+			// buat slug produk
+			//Buat slug
+			$string = preg_replace('/[^a-zA-Z0-9 \&%|{.}=,?!*()"-_+$@;<>\']/', '', $name); //filter karakter unik dan replace dengan kosong ('')
+			$trim = trim($string); // hilangkan spasi berlebihan dengan fungsi trim
+			$pre_slug = strtolower(str_replace(" ", "-", $trim)); // hilangkan spasi, kemudian ganti spasi dengan tanda strip (-)
+			$slug = $pre_slug; // tambahkan ektensi .html pada slug
+			// upload images produk
 			$images = $_FILES["images"];
 			if ($images) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
+				$config["file_name"] = $id;
 				$config["upload_path"] = "./assets/uploads/items_images/";
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("images")) {
-					$data["product"] = $this->db->get_where("products", ["product_id" => $this->input->post("product_id")])->row_array();
+					$data["product"] = $this->db->get_where("items", ["item_id" => $this->input->post("item_id")])->row_array();
 					$oldImages = $data["product"]["images"];
 					if ($oldImages) {
 						unlink(FCPATH . 'assets/uploads/items_images/' . $oldImages);
@@ -115,14 +116,14 @@ class Product extends CI_Controller
 					$newImages = $this->upload->data("file_name");
 					$images = $newImages;
 				} else {
-					$data["product"] = $this->db->get_where("products", ["product_id" => $this->input->post("product_id")])->row_array();
-					$thumbnail = $data["product"]["thumbnail"];
+					$data["product"] = $this->db->get_where("items", ["item_id" => $this->input->post("item_id")])->row_array();
+					$images = $data["product"]["images"];
 				}
 			}
 			$productData = [
 				"name" => $name,
 				"slug" => $slug,
-				"thumbnail" => $thumbnail,
+				"images" => $images,
 				"description" => $description,
 				"stock" => $stock,
 				"price" => $price,
@@ -139,5 +140,24 @@ class Product extends CI_Controller
 		$this->Product_model->deleteProduct($id);
 		$this->session->set_flashdata('message', 'Dihapus');
 		redirect("product");
+	}
+
+	private function _validationCreate()
+	{
+		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");
+		// $this->form_validation->set_rules("thumbnail", "Thumbnail Produk", "required");
+		$this->form_validation->set_rules("description", "Deskripsi Produk", "required|trim");
+		$this->form_validation->set_rules("stock", "Stock Produk", "required|trim");
+		$this->form_validation->set_rules("price", "Harga Produk", "required|trim");
+		$this->form_validation->set_rules("category_id", "Kategori", "required");
+	}
+
+	private function _validationUpdate()
+	{
+		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");
+		$this->form_validation->set_rules("description", "Deskripsi Produk", "required|trim");
+		$this->form_validation->set_rules("stock", "Stok Produk", "required|trim");
+		$this->form_validation->set_rules("price", "Harga Produk", "required|trim");
+		$this->form_validation->set_rules("category_id", "Kategori", "required");
 	}
 }

@@ -24,6 +24,7 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view("auth/login_view", $data);
 		} else {
+			// memanggil method aksi login
 			$this->_loginAction();
 		}
 	}
@@ -33,9 +34,12 @@ class Auth extends CI_Controller
 		$email = $this->input->post("email");
 		$password = $this->input->post("password");
 
+		// cek apakah dengan email yang di input ada
 		$userData = $this->db->get_where("users", ["email" => $email])->row_array();
 		if ($userData) {
+			// cek apakah akun user sudah aktif
 			if ($userData['is_active'] == 1) {
+				// cek apakah password yang dimasukkan benar
 				if (password_verify($password, $userData["password"])) {
 					$data = [
 						"email" => $userData["email"],
@@ -44,6 +48,7 @@ class Auth extends CI_Controller
 
 					$this->session->set_userdata($data);
 
+					// Cek hak akses
 					if ($userData["role_id"] == 1) {
 						redirect("dashboard");
 					} elseif ($userData["role_id"] == 2) {

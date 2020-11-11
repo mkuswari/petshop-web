@@ -24,15 +24,15 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
+						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
 					</div>
 
 					<div class="card mb-4">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-10 mx-auto">
-									<form action="<?= base_url("product/edit/" . $product["product_id"]); ?>" method="post" enctype="multipart/form-data">
-										<input type="hidden" name="product_id" value="<?= $product["product_id"]; ?>">
+									<form action="<?= base_url("product/edit/" . $product["item_id"]); ?>" method="post" enctype="multipart/form-data">
+										<input type="hidden" name="item_id" value="<?= $product["item_id"]; ?>">
 										<div class="form-group row">
 											<label for="name" class="col-sm-2 col-form-label">Nama Produk</label>
 											<div class="col-sm-10">
@@ -51,12 +51,12 @@
 											<div class="col-sm-10">
 												<div class="row">
 													<div class="col-sm-4">
-														<img src="<?= base_url("assets/uploads/products_thumbnails/" . $product["thumbnail"]); ?>" width="100%">
+														<img src="<?= base_url("assets/uploads/items_images/" . $product["images"]); ?>" width="100%">
 													</div>
 													<div class="col-sm-8 align-self-center">
-														<input type="file" class="form-control <?= form_error('thumbnail') ? 'is-invalid' : ''; ?>" id="thumbnail" name="thumbnail">
+														<input type="file" class="form-control <?= form_error('images') ? 'is-invalid' : ''; ?>" id="images" name="images">
 														<small class="text-muted">Kosongkan jika tidak ingin merubah</small>
-														<?= form_error('thumbnail', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+														<?= form_error('images', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 													</div>
 												</div>
 											</div>
@@ -136,6 +136,16 @@
 
 
 	<?php $this->load->view("_components/backend/scripts"); ?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			// Format mata uang.
+			$('#price').mask('000.000.000', {
+				reverse: true
+			});
+
+		})
+	</script>
 
 </body>
 

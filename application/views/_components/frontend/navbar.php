@@ -9,10 +9,10 @@
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item align-self-center active">
-					<a class="nav-link" href="index.html">Home </a>
+					<a class="nav-link" href="<?= base_url() ?>">Home </a>
 				</li>
 				<li class="nav-item align-self-center">
-					<a class="nav-link" href="categories.html">Belanja</a>
+					<a class="nav-link" href="<?= base_url("produk") ?>">Belanja</a>
 				</li>
 				<li class="nav-item align-self-center">
 					<a class="nav-link" href="index.html#">Grooming</a>

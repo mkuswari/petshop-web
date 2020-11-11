@@ -24,7 +24,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
+						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
 					</div>
 
 					<div class="card mb-4">
@@ -40,10 +40,10 @@
 											</div>
 										</div>
 										<div class="form-group row">
-											<label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail Produk</label>
+											<label for="images" class="col-sm-2 col-form-label">Gambar Produk</label>
 											<div class="col-sm-10">
-												<input type="file" class="form-control <?= form_error('thumbnail') ? 'is-invalid' : ''; ?>" id="thumbnail" name="thumbnail">
-												<?= form_error('thumbnail', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+												<input type="file" class="form-control <?= form_error('images') ? 'is-invalid' : ''; ?>" id="images" name="images">
+												<?= form_error('images', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 											</div>
 										</div>
 										<div class="form-group row">
@@ -116,6 +116,16 @@
 
 
 	<?php $this->load->view("_components/backend/scripts"); ?>
+	<!-- <script type="text/javascript">
+		$(document).ready(function() {
+
+			// Format mata uang.
+			$('#price').mask('000.000.000', {
+				reverse: true
+			});
+
+		})
+	</script> -->
 
 </body>
 

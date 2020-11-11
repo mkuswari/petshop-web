@@ -24,7 +24,7 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
+						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
 					</div>
 
 					<div class="card mb-4">
@@ -52,7 +52,7 @@
 											<div class="col-sm-10">
 												<div class="row">
 													<div class="col-sm-3">
-														<img src="<?= base_url("assets/uploads/categories_thumbnails/" . $category["image"]); ?>" width="100%">
+														<img src="<?= base_url("assets/uploads/categories_images/" . $category["image"]); ?>" width="100%">
 													</div>
 												</div>
 												<input type="file" class="form-control" id="image" name="image">

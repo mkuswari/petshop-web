@@ -20,25 +20,25 @@ class Product_model extends CI_Model
 
 	public function addNewProduct($productData)
 	{
-		$this->db->insert("products", $productData);
+		$this->db->insert("items", $productData);
 	}
 
 	public function updateProduct($productData)
 	{
 		$this->db->set("name", $productData["name"]);
 		$this->db->set("slug", $productData["slug"]);
-		$this->db->set("thumbnail", $productData["thumbnail"]);
+		$this->db->set("images", $productData["images"]);
 		$this->db->set("description", $productData["description"]);
 		$this->db->set("stock", $productData["stock"]);
 		$this->db->set("price", $productData["price"]);
 		$this->db->set("category_id", $productData["category_id"]);
-		$this->db->where("product_id", $this->input->post("product_id"));
-		$this->db->update("products", $productData);
+		$this->db->where("item_id", $this->input->post("item_id"));
+		$this->db->update("items", $productData);
 	}
 
 	public function deleteProduct($id)
 	{
-		$this->db->where("product_id", $id);
-		$this->db->delete("products");
+		$this->db->where("item_id", $id);
+		$this->db->delete("items");
 	}
 }
