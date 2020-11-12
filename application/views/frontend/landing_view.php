@@ -74,7 +74,7 @@
 					<?php if ($products) : ?>
 						<?php foreach ($products as $product) : ?>
 							<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-								<a class="component-products d-block" href="details.html">
+								<a class="component-products d-block" href="<?= base_url("main/detailproduct/" . $product["slug"]) ?>">
 									<div class="products-thumbnail">
 										<img src="<?= base_url("assets/uploads/items_images/" . $product["images"]) ?>" class="products-image">
 									</div>

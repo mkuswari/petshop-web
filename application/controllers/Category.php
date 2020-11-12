@@ -45,7 +45,7 @@ class Category extends CI_Controller
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
 				$config["upload_path"] = "./assets/uploads/categories_images/";
-				$config["file_name"] = $this->category_id;
+				$config["file_name"] = $categoryId;
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("image")) {
 					$image = $this->upload->data("file_name");

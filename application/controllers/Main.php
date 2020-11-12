@@ -27,4 +27,13 @@ class Main extends CI_Controller
 
 		$this->load->view("frontend/product_view", $data);
 	}
+
+	public function detailProduct($slug)
+	{
+		$data["page_title"] = $this->Main_model->getTitleBySlug($slug);
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["product"] = $this->Main_model->getProductBySlug($slug);
+
+		$this->load->view("frontend/detail_view", $data);
+	}
 }

@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 // Custom nama routing
 $route['produk'] = 'main/productpage';
+$route["detail"] = 'main/detailproduct';
