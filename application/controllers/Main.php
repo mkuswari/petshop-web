@@ -13,7 +13,7 @@ class Main extends CI_Controller
 	{
 		$data["page_title"] = "Beli Makan untuk Kucing Kesayanganmu";
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["products"] = $this->Main_model->getProducts();
+		// $data["products"] = $this->Main_model->getProducts();
 
 		$this->load->view("frontend/landing_view", $data);
 	}

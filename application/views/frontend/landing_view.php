@@ -4,173 +4,140 @@
 <?php $this->load->view("_components/frontend/head"); ?>
 
 <body>
+
 	<!-- Navigation -->
 	<?php $this->load->view("_components/frontend/navbar"); ?>
-
 	<!-- Page Content -->
-	<div class="page-content page-home">
-		<section class="store-carousel">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12" data-aos="zoom-in">
-						<div id="storeCarousel" class="carousel slide" data-ride="carousel">
-							<ol class="carousel-indicators">
-								<li data-target="#storeCarousel" data-slide-to="0" class="active"></li>
-								<li data-target="#storeCarousel" data-slide-to="1"></li>
-								<li data-target="#storeCarousel" data-slide-to="2"></li>
-							</ol>
-							<div class="carousel-inner">
-								<div class="carousel-item active">
-									<img src="assets/frontend/images/banner.jpg" class="d-block w-100" alt="Carousel Image" />
-								</div>
-								<div class="carousel-item">
-									<img src="assets/frontend/images/banner.jpg" class="d-block w-100" alt="Carousel Image" />
-								</div>
-								<div class="carousel-item">
-									<img src="assets/frontend/images/banner.jpg" class="d-block w-100" alt="Carousel Image" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+	<div class="container mt-3">
 
-		<section class="info-panel py-4">
-			<div class="container">
-				<div class="card">
-					<div class="card-body">
-						<div class="row d-flex justify-content-between ">
-							<div class="col-sm-4 text-center">
-								<img src="<?= base_url("assets/images/info-panel/buy.png") ?>" width="25%">
-								<h4 class="font-weight-bold mt-2">Belanja</h4>
-								<p class="text-muted">Beli kebutuhan peliharaan anda</p>
-							</div>
-							<div class="col-sm-4 text-center">
-								<img src="<?= base_url("assets/images/info-panel/grooming.png") ?>" width="25%">
-								<h4 class="font-weight-bold mt-2">Grooming</h4>
-								<p class="text-muted">Rawat peliharaan kesayangan anda</p>
-							</div>
-							<div class="col-sm-4 text-center">
-								<img src="<?= base_url("assets/images/info-panel/information.png") ?>" width="25%">
-								<h4 class="font-weight-bold mt-2">Informasi</h4>
-								<p class="text-muted">Dapatkan informasi tentang peliharaan</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+		<div class="row">
 
-		<section class="store-new-products py-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-12" data-aos="fade-up">
-						<h5 class="font-weight-bold">Produk Kami</h5>
-						<p class="text-muted">Beli keperluan untuk peliharaan kesayangan kamu</p>
-					</div>
-				</div>
-				<div class="row">
-					<?php if ($products) : ?>
-						<?php foreach ($products as $product) : ?>
-							<div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-								<a class="component-products d-block" href="<?= base_url("main/detailproduct/" . $product["slug"]) ?>">
-									<div class="products-thumbnail">
-										<img src="<?= base_url("assets/uploads/items_images/" . $product["images"]) ?>" class="products-image">
-									</div>
-									<div class="products-text">
-										<?= $product["name"] ?>
-									</div>
-									<div class="products-price">
-										IDR. <?= $product["price"] ?>
-									</div>
-								</a>
-							</div>
-						<?php endforeach; ?>
-					<?php else : ?>
-						<div class="alert alert-danger">Belum ada produk</div>
-					<?php endif; ?>
-				</div>
-			</div>
-		</section>
+			<div class="col-lg-3">
 
-		<section class="grooming-package py-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-12" data-aos="fade-up">
-						<h5 class="font-weight-bold">Kami menawarkan paket Grooming</h5>
-						<p class="text-muted">Pastikan peliharaan anda tetap bersih dan sehat dengan layanan grooming kami</p>
-					</div>
+				<h4 class="my-4 font-weight-bold">Kategori</h4>
+				<div class="list-group shadow">
+					<a href="#" class="list-group-item border-0">Category 1</a>
+					<a href="#" class="list-group-item border-0">Category 2</a>
+					<a href="#" class="list-group-item border-0">Category 3</a>
 				</div>
-				<div class="row mt-4">
-					<div class="col-sm-3">
-						<div class="card">
-							<div class="card-body">
-								<div class="text-center">
-									<h3>Paket 1</h3>
-									<p>
-										<small class="text-muted">
-											Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sint beatae, inventore veritatis repudiandae id. Deleniti iure similique odio repellat nihil voluptatibus suscipit, est perspiciatis hic aspernatur, dolore dicta magni.
-										</small>
-									</p>
-									<a href="" class="btn btn-success btn-block">Pilih Paket</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="card">
-							<div class="card-body">
-								<div class="text-center">
-									<h3>Paket 1</h3>
-									<p>
-										<small class="text-muted">
-											Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sint beatae, inventore veritatis repudiandae id. Deleniti iure similique odio repellat nihil voluptatibus suscipit, est perspiciatis hic aspernatur, dolore dicta magni.
-										</small>
-									</p>
-									<a href="" class="btn btn-success btn-block">Pilih Paket</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="card">
-							<div class="card-body">
-								<div class="text-center">
-									<h3>Paket 1</h3>
-									<p>
-										<small class="text-muted">
-											Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sint beatae, inventore veritatis repudiandae id. Deleniti iure similique odio repellat nihil voluptatibus suscipit, est perspiciatis hic aspernatur, dolore dicta magni.
-										</small>
-									</p>
-									<a href="" class="btn btn-success btn-block">Pilih Paket</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="card">
-							<div class="card-body">
-								<div class="text-center">
-									<h3>Paket 1</h3>
-									<p>
-										<small class="text-muted">
-											Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sint beatae, inventore veritatis repudiandae id. Deleniti iure similique odio repellat nihil voluptatibus suscipit, est perspiciatis hic aspernatur, dolore dicta magni.
-										</small>
-									</p>
-									<a href="" class="btn btn-success btn-block">Pilih Paket</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
 			</div>
-		</section>
+			<!-- /.col-lg-3 -->
+
+			<div class="col-lg-9">
+
+				<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner" role="listbox">
+						<div class="carousel-item active">
+							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+						</div>
+						<div class="carousel-item">
+							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+
+				<div class="row">
+					<div class="col-7">
+						<h4 class="font-weight-bold">Produk yang kami jual</h4>
+						<p class="small text-muted">Berikut produk yang kami jual untuk anda</p>
+					</div>
+					<div class="col-5 align-self-center">
+						<div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="Cari produk" aria-label="Recipient's username" aria-describedby="button-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-lg-4 col-md-6 mb-4">
+						<div class="card h-100">
+							<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+							<div class="card-body">
+								<h4 class="card-title">
+									<a href="#">Item One</a>
+								</h4>
+								<h5>$24.99</h5>
+								<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 mb-4">
+						<div class="card h-100">
+							<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+							<div class="card-body">
+								<h4 class="card-title">
+									<a href="#">Item Two</a>
+								</h4>
+								<h5>$24.99</h5>
+								<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 mb-4">
+						<div class="card h-100">
+							<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+							<div class="card-body">
+								<h4 class="card-title">
+									<a href="#">Item Three</a>
+								</h4>
+								<h5>$24.99</h5>
+								<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+							</div>
+							<div class="card-footer">
+								<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				<!-- /.row -->
+				<div class="text-center mb-5">
+					<a href="">Lihat semua produk</a>
+				</div>
+
+			</div>
+			<!-- /.col-lg-9 -->
+
+		</div>
+		<!-- /.row -->
+
 	</div>
+	<!-- /.container -->
 
+	<!-- Footer -->
 	<?php $this->load->view("_components/frontend/footer"); ?>
 
 	<?php $this->load->view("_components/frontend/scripts"); ?>
+
 </body>
 
 </html>

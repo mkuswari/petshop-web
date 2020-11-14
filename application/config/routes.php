@@ -53,6 +53,11 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// auth routes
+$route['login'] = 'auth';
+$route['register'] = 'auth/register';
+$route['logout'] = 'auth/logout';
+
 // Custom nama routing
 $route['produk'] = 'main/productpage';
 $route["detail"] = 'main/detailproduct';
