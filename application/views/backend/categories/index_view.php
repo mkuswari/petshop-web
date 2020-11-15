@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
-						<a href="<?= base_url("category/create") ?>" class="btn btn-primary"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Kategori</a>
+						<a href="#" class="btn btn-primary showCreateModal" onclick="addCategory()"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Kategori</a>
 					</div>
 
 					<div class="card mb-4">
@@ -34,34 +34,18 @@
 							<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
 
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%">
+								<table class="table table-bordered" id="table" width="100%">
 									<thead>
 										<tr>
-											<th>No. </th>
-											<th>Image</th>
+											<th width="50">No. </th>
+											<th width="300">Image</th>
 											<th>Nama</th>
 											<th>Slug</th>
-											<th>Tanggal Dibuat</th>
-											<th>Aksi</th>
+											<th width="200">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php $i = 1; ?>
-										<?php foreach ($categories as $category) : ?>
-											<tr>
-												<td width="10"><?= $i++; ?></td>
-												<td width="100">
-													<img class="img-profile rounded-circle" src="<?= base_url("assets/uploads/categories_images/" . $category["image"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
-												</td>
-												<td width="400"><?= $category["name"]; ?></td>
-												<td width="400"><?= $category["slug"]; ?></td>
-												<td><?= date('d F Y', $category["date_created"]); ?></td>
-												<td width="150">
-													<a href="<?= base_url("category/edit/" . $category["category_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
-													<a href="<?= base_url("category/delete/" . $category["category_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
-												</td>
-											</tr>
-										<?php endforeach; ?>
+										<!-- Table generate from ajax -->
 									</tbody>
 								</table>
 							</div>
@@ -90,7 +74,239 @@
 	</a>
 
 
+
 	<?php $this->load->view("_components/backend/scripts"); ?>
+
+	<!-- ajax -->
+	<script>
+		let saveMethod;
+		let table;
+		let baseUrl = '<?= base_url() ?>';
+
+		$(document).ready(function() {
+			//datatables
+			table = $('#table').DataTable({
+
+				"processing": true, //Feature control the processing indicator.
+				"serverSide": true, //Feature control DataTables' server-side processing mode.
+				"order": [], //Initial no order.
+
+				// Load data for the table's content from an Ajax source
+				"ajax": {
+					"url": "<?= base_url('category/ajaxlist') ?>",
+					"type": "POST"
+				},
+
+				//Set column definition initialisation properties.
+				"columnDefs": [{
+						"targets": [-1], //last column
+						"orderable": false, //set not orderable
+					},
+					{
+						"targets": [-2], //2 last column (photo)
+						"orderable": false, //set not orderable
+					},
+				],
+
+			});
+
+			//set input/textarea/select event when change value, remove class error and remove text help block 
+			$("input").change(function() {
+				$(this).parent().parent().removeClass('has-error');
+				$(this).next().empty();
+			});
+
+		});
+
+		function addCategory() {
+			saveMethod = 'add';
+			$('#form')[0].reset(); // reset form on modals
+			$('.form-group').removeClass('has-error'); // clear error class
+			$('.help-block').empty(); // clear error string
+			$('#modal_form').modal('show'); // show bootstrap modal
+			$('.modal-title').text('Tambah Kategori'); // Set Title to Bootstrap modal title
+
+			$('#photo-preview').hide(); // hide photo preview modal
+
+			$('#label-photo').text('Upload Image'); // label photo upload
+		}
+
+		function editCategory(id) {
+			saveMethod = 'update';
+			$('#form')[0].reset(); // reset form on modals
+			$('.form-group').removeClass('has-error'); // clear error class
+			$('.help-block').empty(); // clear error string
+
+			// load data from ajax
+			$.ajax({
+				url: "<?= base_url('category/ajaxedit') ?>/" + id,
+				type: "GET",
+				dataType: "JSON",
+				success: function(data) {
+					$('[name="category_id"]').val(data.category_id);
+					$('[name="name"]').val(data.name);
+					$('[name="slug"]').val(data.slug);
+					$('#modal_form').modal('show'); // show bootstrap modal
+					$('.modal-title').text('Ubah Kategori'); // Set Title to Bootstrap modal title
+
+					$('#photo-preview').show(); // show photo preview modal
+					if (data.image) {
+						$('#label-photo').text('Change Photo'); // label photo upload
+						$('#photo-preview div').html('<img src="' + baseUrl + 'assets/uploads/categories/' + data.image + '" style="width: 100%; height: 250px; object-fit:cover; object-position:center;">');
+
+					} else {
+						$('#label-photo').text('Upload Photo'); // label photo upload
+						$('#photo-preview div').text('(No photo)');
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert('Error get data from ajax');
+				}
+			});
+		}
+
+		function reloadTable() {
+			table.ajax.reload(null, false); //reload datatable ajax 
+		}
+
+		function save() {
+			$('#btnSave').text('Memproses...'); //change button text
+			$('#btnSave').attr('disabled', true); //set button disable 
+			let url;
+
+			if (saveMethod == 'add') {
+				url = "<?= base_url('category/ajaxadd') ?>";
+			} else {
+				url = "<?= base_url('category/ajaxupdate') ?>";
+			}
+
+			// ajax adding data to database
+
+			var formData = new FormData($('#form')[0]);
+			$.ajax({
+				url: url,
+				type: "POST",
+				data: formData,
+				contentType: false,
+				processData: false,
+				dataType: "JSON",
+				success: function(data) {
+
+					if (data.status) //if success close modal and reload ajax table
+					{
+						$('#modal_form').modal('hide');
+						Swal.fire({
+							title: 'Berhasil',
+							text: 'Kategori berhasil ditambahkan',
+							icon: 'success'
+						});
+						reloadTable();
+					} else {
+						for (var i = 0; i < data.inputerror.length; i++) {
+							$('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('is-invalid'); //select parent twice to select div form-group class and add has-error class
+							$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]); //select span help-block class set text error string
+						}
+					}
+					$('#btnSave').text('save'); //change button text
+					$('#btnSave').attr('disabled', false); //set button enable 
+
+
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					Swal.fire({
+						title: 'Gagal',
+						text: 'Kategori gagal ditambahkan',
+						icon: 'error'
+					});
+					$('#btnSave').text('save'); //change button text
+					$('#btnSave').attr('disabled', false); //set button enable 
+
+				}
+			});
+		}
+
+		function deleteCategory(id) {
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$.ajax({
+						url: "<?= base_url('category/ajaxdelete') ?>/" + id,
+						type: "POST",
+						dataType: "JSON",
+						success: function(data) {
+							//if success reload ajax table
+							$('#modal_form').modal('hide');
+							reloadTable();
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							Swal.fire(
+								'Deleted!',
+								'Your file has been deleted.',
+								'error'
+							)
+						}
+					});
+					Swal.fire(
+						'Deleted!',
+						'Your file has been deleted.',
+						'success'
+					)
+				}
+			})
+		}
+	</script>
+
+	<!-- Modal here -->
+	<!-- Modal Update -->
+	<div class="modal fade" id="modal_form" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" id="form">
+					<input type="hidden" value="" name="category_id">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalLabel">Tambah Kategori</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="name">Nama Kategori</label>
+							<input type="text" class="form-control" id="name" name="name">
+							<span class="help-block"></span>
+						</div>
+						<div class="form-group">
+							<label for="name">Slug Kategori</label>
+							<input type="text" class="form-control" id="slug" name="slug" placeholder="Slug akan digenerate otomatis" disabled>
+							<span class="help-block"></span>
+						</div>
+						<div class="form-group" id="photo-preview">
+							<label class="">Photo</label>
+							<div>
+								<span class="help-block"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="image" id="label-photo">Image Kategori</label>
+							<input type="file" class="form-control" id="image" name="image">
+							<span class="help-block"></span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="button" class="btn btn-primary" id="btnSave" onclick="save()">Simpan</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 </body>
 

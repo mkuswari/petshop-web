@@ -33,9 +33,8 @@ class User extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view("backend/users/create_view", $data);
 		} else {
-			$userId = uniqid();
 			$name = htmlspecialchars($this->input->post("name", true));
-			$nickName = htmlspecialchars($this->input->post("nickname", true));
+			$nickName = strtolower(htmlspecialchars($this->input->post("nickname", true)));
 			$email = htmlspecialchars($this->input->post("email", true));
 			$phone = htmlspecialchars($this->input->post("phone", true));
 			$address = htmlspecialchars($this->input->post("address", true));
@@ -44,7 +43,6 @@ class User extends CI_Controller
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
 				$config["upload_path"] = "./assets/images/";
-				$config["file_name"] = $userId;
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
 					$avatar = $this->upload->data("file_name");
@@ -59,13 +57,12 @@ class User extends CI_Controller
 
 			// Set Data
 			$userData = [
-				"user_id" => $userId,
 				"name" => $name,
 				"nickname" => $nickName,
-				"email" => $email,
+				"avatar" => $avatar,
 				"phone" => $phone,
 				"address" => $address,
-				"avatar" => $avatar,
+				"email" => $email,
 				"password" => $password,
 				"role_id" => $roleId,
 				"is_active" => $isActive,
@@ -90,7 +87,7 @@ class User extends CI_Controller
 			$this->load->view("backend/users/edit_view", $data);
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
-			$nickName = htmlspecialchars($this->input->post("nickname", true));
+			$nickName = strtolower(htmlspecialchars($this->input->post("nickname", true)));
 			$email = htmlspecialchars($this->input->post("email", true));
 			$phone = htmlspecialchars($this->input->post("phone", true));
 			$address = htmlspecialchars($this->input->post("address", true));
@@ -98,7 +95,6 @@ class User extends CI_Controller
 			if ($avatar) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["upload_path"] = "./assets/images/";
-				$config["file_name"] = $id;
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
 					$data["users"] = $this->db->get_where("users", ["user_id" => $this->input->post("user_id")])->row_array();
@@ -120,10 +116,10 @@ class User extends CI_Controller
 			$userData = [
 				"name" => $name,
 				"nickname" => $nickName,
-				"email" => $email,
+				"avatar" => $avatar,
 				"phone" => $phone,
 				"address" => $address,
-				"avatar" => $avatar,
+				"email" => $email,
 				"role_id" => $roleId,
 				"is_active" => $isActive,
 			];
