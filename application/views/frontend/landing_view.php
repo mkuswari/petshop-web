@@ -16,9 +16,10 @@
 
 				<h4 class="my-4 font-weight-bold">Kategori</h4>
 				<div class="list-group shadow">
-					<a href="#" class="list-group-item border-0">Category 1</a>
-					<a href="#" class="list-group-item border-0">Category 2</a>
-					<a href="#" class="list-group-item border-0">Category 3</a>
+					<?php foreach ($categories as $category) : ?>
+						<a href="#" class="list-group-item border-0"><?= $category["name"] ?></a>
+					<?php endforeach; ?>
+					<a href="#" class="list-group-item border-0 text-center text-muted">Lihat semua</a>
 				</div>
 
 			</div>
@@ -53,76 +54,107 @@
 					</a>
 				</div>
 
-				<div class="row">
-					<div class="col-7">
-						<h4 class="font-weight-bold">Produk yang kami jual</h4>
-						<p class="small text-muted">Berikut produk yang kami jual untuk anda</p>
-					</div>
-					<div class="col-5 align-self-center">
-						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Cari produk" aria-label="Recipient's username" aria-describedby="button-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
+				<section class="some-products py-5">
+					<div class="row">
+						<div class="col-7">
+							<h4 class="font-weight-bold">Produk yang kami jual</h4>
+							<p class="small text-muted">Berikut produk yang kami jual untuk anda</p>
+						</div>
+						<div class="col-5 align-self-center">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" placeholder="Cari produk" aria-label="Recipient's username" aria-describedby="button-addon2">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item One</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+					<hr>
+					<?php if ($products) : ?>
+						<div class="row">
+							<?php foreach ($products as $product) : ?>
+								<div class="col-lg-4 col-md-6 mb-4">
+									<div class="card h-100 shadow border-0">
+										<a href="#"><img class="card-img-top" src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" style="height: 180px; object-fit: cover; object-position: center;"></a>
+										<div class="card-body">
+											<h5 class="card-title">
+												<a href="#"><?= $product["name"] ?></a>
+											</h5>
+											<h6>IDR. <?= $product["price"] ?></h6>
+										</div>
+									</div>
+								</div>
+							<?php endforeach; ?>
+						</div>
+						<!-- /.row -->
+						<div class="text-center mb-5">
+							<a href="">Lihat semua produk</a>
+						</div>
+					<?php else : ?>
+						<div class="alert alert-danger">
+							Maaf, belum ada produk tersedia untuk saat ini.
+						</div>
+					<?php endif; ?>
+				</section>
+
+				<section class="groomings py-5">
+					<div class="row">
+						<div class="col-7">
+							<h4 class="font-weight-bold">Kami juga menawarkan jasa Grooming</h4>
+							<p class="small text-muted">Dengan beragam paket grooming yang sesuai dengan kebutuhan anda.</p>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="#">Item One</a>
+									</h4>
+									<h5>$24.99</h5>
+									<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+								</div>
 							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+						</div>
+
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="#">Item Two</a>
+									</h4>
+									<h5>$24.99</h5>
+									<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="#">Item Three</a>
+									</h4>
+									<h5>$24.99</h5>
+									<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+								</div>
 							</div>
 						</div>
 					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Two</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item Three</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-
-				</div>
-				<!-- /.row -->
-				<div class="text-center mb-5">
-					<a href="">Lihat semua produk</a>
-				</div>
+				</section>
 
 			</div>
 			<!-- /.col-lg-9 -->

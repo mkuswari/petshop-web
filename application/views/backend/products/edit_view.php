@@ -51,7 +51,7 @@
 											<div class="col-sm-10">
 												<div class="row">
 													<div class="col-sm-4">
-														<img src="<?= base_url("assets/uploads/items_images/" . $product["images"]); ?>" width="100%">
+														<img src="<?= base_url("assets/uploads/items/" . $product["images"]); ?>" width="100%">
 													</div>
 													<div class="col-sm-8 align-self-center">
 														<input type="file" class="form-control <?= form_error('images') ? 'is-invalid' : ''; ?>" id="images" name="images">

@@ -73,7 +73,7 @@
 											<div class="col-sm-10">
 												<div class="row">
 													<div class="col-sm-2">
-														<img src="<?= base_url("assets/images/" . $user["avatar"]); ?>" width="100%">
+														<img src="<?= base_url("assets/uploads/avatars/" . $user["avatar"]); ?>" width="100%">
 													</div>
 													<div class="col-sm-10 align-self-center">
 														<input type="file" class="form-control" id="avatar" name="avatar">

@@ -15,3 +15,9 @@
 	<script src="<?= base_url("assets/backend/js/demo/datatables-demo.js") ?>"></script>
 	<script src="<?= base_url("assets/sweet-alert/sweetalert2.all.min.js") ?>"></script>
 	<script src="<?= base_url("assets/backend/js/app.js") ?>"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote();
+		});
+	</script>

@@ -42,7 +42,8 @@ class User extends CI_Controller
 			if ($avatar) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
-				$config["upload_path"] = "./assets/images/";
+				$config["upload_path"] = "./assets/uploads/avatars/";
+				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
 					$avatar = $this->upload->data("file_name");
@@ -71,7 +72,7 @@ class User extends CI_Controller
 
 			$this->User_model->addNewUser($userData);
 			$this->session->set_flashdata('message', 'Ditambah');
-			redirect("user");
+			redirect("kelola-user");
 		}
 	}
 
@@ -94,19 +95,20 @@ class User extends CI_Controller
 			$avatar = $_FILES["avatar"];
 			if ($avatar) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
-				$config["upload_path"] = "./assets/images/";
+				$config["upload_path"] = "./assets/uploads/avatars/";
+				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
-					$data["users"] = $this->db->get_where("users", ["user_id" => $this->input->post("user_id")])->row_array();
-					$oldAvatar = $data["users"]["avatar"];
+					$user = $this->User_model->getUserById($id);
+					$oldAvatar = $user["avatar"];
 					if ($oldAvatar != "default.jpg") {
-						unlink(FCPATH . 'assets/images/' . $oldAvatar);
+						unlink('./assets/uploads/avatars/' . $oldAvatar);
 					}
 					$newAvatar = $this->upload->data("file_name");
 					$avatar = $newAvatar;
 				} else {
-					$data["users"] = $this->db->get_where("users", ["user_id" => $this->input->post("user_id")])->row_array();
-					$avatar = $data["users"]["avatar"];
+					$user = $this->User_model->getUserById($id);
+					$avatar = $user["avatar"];
 				}
 			}
 			$roleId = $this->input->post("role_id");
@@ -125,16 +127,22 @@ class User extends CI_Controller
 			];
 			$this->User_model->updateUser($userData);
 			$this->session->set_flashdata('message', 'Diubah');
-			redirect("user");
+			redirect("kelola-user");
 		}
 	}
 
 	public function delete($id)
 	{
+		$user = $this->User_model->getUserById($id);
+		if (file_exists('./assets/uploads/avatars/' . $user["avatar"]) && $user["avatar"] != "default.jpg") {
+			unlink('./assets/uploads/avatars/' . $user["avatar"]);
+		}
 		$this->User_model->deleteUser($id);
 		$this->session->set_flashdata('message', 'Dihapus');
-		redirect("user");
+		redirect("kelola-user");
 	}
+
+
 
 	// validation function
 	private function _validationAdd()

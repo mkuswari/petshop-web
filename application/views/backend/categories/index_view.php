@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
-						<a href="#" class="btn btn-primary showCreateModal" onclick="addCategory()"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Kategori</a>
+						<a href="javascript:void(0)" class="btn btn-primary showCreateModal" onclick="addCategory()"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Kategori</a>
 					</div>
 
 					<div class="card mb-4">
@@ -74,6 +74,47 @@
 	</a>
 
 
+	<!-- Modal here -->
+	<!-- Modal Update -->
+	<div class="modal fade" id="modal_form" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" id="form">
+					<input type="hidden" value="" name="category_id">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalLabel">Tambah Kategori</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="name">Nama Kategori</label>
+							<input type="text" class="form-control" id="name" name="name">
+						</div>
+						<div class="form-group">
+							<label for="name">Slug Kategori</label>
+							<input type="text" class="form-control" id="slug" name="slug" placeholder="Slug akan digenerate otomatis" disabled>
+						</div>
+						<div class="form-group" id="photo-preview">
+							<label class="">Photo</label>
+							<div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="image" id="label-photo">Image Kategori</label>
+							<input type="file" class="form-control" id="image" name="image">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="button" class="btn btn-primary" id="btnSave" onclick="save()">Simpan</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 
 	<?php $this->load->view("_components/backend/scripts"); ?>
 
@@ -112,7 +153,7 @@
 
 			//set input/textarea/select event when change value, remove class error and remove text help block 
 			$("input").change(function() {
-				$(this).parent().parent().removeClass('has-error');
+				$(this).removeClass('has-error');
 				$(this).next().empty();
 			});
 
@@ -121,8 +162,8 @@
 		function addCategory() {
 			saveMethod = 'add';
 			$('#form')[0].reset(); // reset form on modals
-			$('.form-group').removeClass('has-error'); // clear error class
-			$('.help-block').empty(); // clear error string
+			$('.form-control').removeClass('is-invalid'); // clear error class
+			$('.invalid-feedback').empty(); // clear error string
 			$('#modal_form').modal('show'); // show bootstrap modal
 			$('.modal-title').text('Tambah Kategori'); // Set Title to Bootstrap modal title
 
@@ -134,8 +175,8 @@
 		function editCategory(id) {
 			saveMethod = 'update';
 			$('#form')[0].reset(); // reset form on modals
-			$('.form-group').removeClass('has-error'); // clear error class
-			$('.help-block').empty(); // clear error string
+			$('.form-control').removeClass('is-invalid'); // clear error class
+			$('.invalid-feedback').empty(); // clear error string
 
 			// load data from ajax
 			$.ajax({
@@ -160,7 +201,11 @@
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					alert('Error get data from ajax');
+					Swal.fire({
+						title: 'Error',
+						text: 'Gagal mendapatkan data dari AJAX',
+						icon: 'error'
+					});
 				}
 			});
 		}
@@ -194,20 +239,36 @@
 
 					if (data.status) //if success close modal and reload ajax table
 					{
-						$('#modal_form').modal('hide');
-						Swal.fire({
-							title: 'Berhasil',
-							text: 'Kategori berhasil ditambahkan',
-							icon: 'success'
-						});
+
+						if (saveMethod == 'add') {
+							$('#modal_form').modal('hide');
+							Swal.fire({
+								title: 'Berhasil',
+								text: 'Kategori berhasil ditambahkan',
+								icon: 'success'
+							});
+						} else {
+							$('#modal_form').modal('hide');
+							Swal.fire({
+								title: 'Berhasil',
+								text: 'Kategori berhasil diubah',
+								icon: 'success'
+							});
+						}
+
 						reloadTable();
 					} else {
-						for (var i = 0; i < data.inputerror.length; i++) {
-							$('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('is-invalid'); //select parent twice to select div form-group class and add has-error class
-							$('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[i]); //select span help-block class set text error string
-						}
+						// for (let i = 0; i < data.inputerror.length; i++) {
+						// 	$('[form-control="' + data.inputerror[i] + '"]').parent().addClass('is-invalid'); //select parent twice to select div form-group class and add has-error class
+						// 	$('[form-control="' + data.inputerror[i] + '"]').next().text(data.error_string[i]); //select span help-block class set text error string
+						// }
+						Swal.fire({
+							title: 'Gagal',
+							text: 'Lengkapi semua form',
+							icon: 'error'
+						});
 					}
-					$('#btnSave').text('save'); //change button text
+					$('#btnSave').text('Simpan'); //change button text
 					$('#btnSave').attr('disabled', false); //set button enable 
 
 
@@ -218,7 +279,7 @@
 						text: 'Kategori gagal ditambahkan',
 						icon: 'error'
 					});
-					$('#btnSave').text('save'); //change button text
+					$('#btnSave').text('Simpan'); //change button text
 					$('#btnSave').attr('disabled', false); //set button enable 
 
 				}
@@ -263,50 +324,6 @@
 		}
 	</script>
 
-	<!-- Modal here -->
-	<!-- Modal Update -->
-	<div class="modal fade" id="modal_form" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form action="#" id="form">
-					<input type="hidden" value="" name="category_id">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modalLabel">Tambah Kategori</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="name">Nama Kategori</label>
-							<input type="text" class="form-control" id="name" name="name">
-							<span class="help-block"></span>
-						</div>
-						<div class="form-group">
-							<label for="name">Slug Kategori</label>
-							<input type="text" class="form-control" id="slug" name="slug" placeholder="Slug akan digenerate otomatis" disabled>
-							<span class="help-block"></span>
-						</div>
-						<div class="form-group" id="photo-preview">
-							<label class="">Photo</label>
-							<div>
-								<span class="help-block"></span>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="image" id="label-photo">Image Kategori</label>
-							<input type="file" class="form-control" id="image" name="image">
-							<span class="help-block"></span>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-						<button type="button" class="btn btn-primary" id="btnSave" onclick="save()">Simpan</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
 
 </body>
 

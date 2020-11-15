@@ -103,7 +103,7 @@
 											<div class="col-sm-2"></div>
 											<div class="col-sm-10">
 												<button type="submit" class="btn btn-primary">Tambah User</button>
-												<a href="<?= base_url("user") ?>" class="btn btn-warning">Batalkan</a>
+												<button type="reset" class="btn btn-warning">Reset</button>
 											</div>
 										</div>
 									</form>

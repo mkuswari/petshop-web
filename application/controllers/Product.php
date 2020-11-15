@@ -33,12 +33,12 @@ class Product extends CI_Controller
 
 			$this->load->view("backend/products/create_view", $data);
 		} else {
-			$itemId = uniqid();
 			$name = htmlspecialchars($this->input->post("name", true));
 			$description = htmlspecialchars($this->input->post("description", true));
 			$stock = htmlspecialchars($this->input->post("stock", true));
 			$price = htmlspecialchars($this->input->post("price", true));
 			$categoryId = $this->input->post("category_id");
+			$dateCreated = time();
 			// buat slug produk
 			//Buat slug
 			$string = preg_replace('/[^a-zA-Z0-9 \&%|{.}=,?!*()"-_+$@;<>\']/', '', $name); //filter karakter unik dan replace dengan kosong ('')
@@ -50,8 +50,8 @@ class Product extends CI_Controller
 			if ($images) {
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				// $config["max_size"] = 1024; //1 MB
-				$config["file_name"] = $itemId;
-				$config["upload_path"] = "./assets/uploads/items_images/";
+				$config["upload_path"] = "./assets/uploads/items/";
+				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("images")) {
 					$images = $this->upload->data("file_name");
@@ -61,18 +61,18 @@ class Product extends CI_Controller
 				}
 			}
 			$productData = [
-				"item_id" => $itemId,
 				"name" => $name,
 				"slug" => $slug,
 				"images" => $images,
 				"description" => $description,
 				"stock" => $stock,
 				"price" => $price,
-				"category_id" => $categoryId
+				"category_id" => $categoryId,
+				"date_created" => $dateCreated
 			];
 			$this->Product_model->addNewProduct($productData);
 			$this->session->set_flashdata('message', 'Ditambah');
-			redirect("product");
+			redirect("kelola-produk");
 		}
 	}
 
@@ -105,19 +105,20 @@ class Product extends CI_Controller
 				$config["allowed_types"] = "jpg|jpeg|png|bmp|gif";
 				$config["max_size"] = 1024; //1 MB
 				$config["file_name"] = $id;
-				$config["upload_path"] = "./assets/uploads/items_images/";
+				$config["upload_path"] = "./assets/uploads/items/";
+				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("images")) {
-					$data["product"] = $this->db->get_where("items", ["item_id" => $this->input->post("item_id")])->row_array();
-					$oldImages = $data["product"]["images"];
+					$product = $this->Product_model->getProductById($id);
+					$oldImages = $product["images"];
 					if ($oldImages) {
-						unlink(FCPATH . 'assets/uploads/items_images/' . $oldImages);
+						unlink('./assets/uploads/items/' . $oldImages);
 					}
 					$newImages = $this->upload->data("file_name");
 					$images = $newImages;
 				} else {
-					$data["product"] = $this->db->get_where("items", ["item_id" => $this->input->post("item_id")])->row_array();
-					$images = $data["product"]["images"];
+					$product = $this->Product_model->getProductById($id);
+					$images = $product["images"];
 				}
 			}
 			$productData = [
@@ -131,15 +132,19 @@ class Product extends CI_Controller
 			];
 			$this->Product_model->updateProduct($productData);
 			$this->session->set_flashdata('message', 'Diubah');
-			redirect("product");
+			redirect("kelola-produk");
 		}
 	}
 
 	public function delete($id)
 	{
+		$product = $this->Product_model->getProductById($id);
+		if (file_exists('./assets/uploads/items/' . $product["images"]) && $product["images"]) {
+			unlink('./assets/uploads/items/' . $product["images"]);
+		}
 		$this->Product_model->deleteProduct($id);
 		$this->session->set_flashdata('message', 'Dihapus');
-		redirect("product");
+		redirect("kelola-produk");
 	}
 
 	private function _validationCreate()

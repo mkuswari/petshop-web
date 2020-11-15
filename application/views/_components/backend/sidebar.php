@@ -26,7 +26,7 @@
 		Menu
 	</div>
 	<li class="nav-item">
-		<a href="<?= base_url("user") ?>" class="nav-link">
+		<a href="<?= base_url("kelola-user") ?>" class="nav-link">
 			<i class="fas fa-fw fa-users"></i>
 			<span>Kelola User</span>
 		</a>
@@ -38,8 +38,8 @@
 		</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="<?= base_url("category") ?>">Kelola Kategori</a>
-				<a class="collapse-item" href="<?= base_url("product") ?>">Kelola Item</a>
+				<a class="collapse-item" href="<?= base_url("kelola-kategori") ?>">Kelola Kategori</a>
+				<a class="collapse-item" href="<?= base_url("kelola-produk") ?>">Kelola Item</a>
 			</div>
 		</div>
 	</li>

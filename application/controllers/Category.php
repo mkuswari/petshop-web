@@ -158,10 +158,16 @@ class Category extends CI_Controller
 		$data['status'] = TRUE;
 
 		if ($this->input->post("name") == "") {
-			$data['inputerror'] = 'name';
 			$data['error_string'] = 'Nama Kategori harus di isi';
+			$data['inputerror'] = 'name';
 			$data['status'] = FALSE;
 		}
+
+		// if ($this->input->file("image") == "") {
+		// 	$data['inputerror'][] = 'image';
+		// 	$data['error_string'][] = 'Gambar harus di upload';
+		// 	$data['status'][] = FALSE;
+		// }
 
 		if ($data['status'] === FALSE) {
 			echo json_encode($data);

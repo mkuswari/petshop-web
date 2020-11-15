@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
-						<a href="<?= base_url("user/create") ?>" class="btn btn-primary"><i class="fas fa-user-plus fa-sm text-white-50"></i> Tambah User</a>
+						<a href="<?= base_url("kelola-user/tambah") ?>" class="btn btn-primary"><i class="fas fa-user-plus fa-sm text-white-50"></i> Tambah User</a>
 					</div>
 
 					<div class="card mb-4">
@@ -54,7 +54,7 @@
 											<tr>
 												<td width="10"><?= $i++; ?></td>
 												<td width="20">
-													<img class="img-profile rounded-circle" src="<?= base_url("assets/images/" . $user["avatar"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
+													<img class="img-profile rounded-circle" src="<?= base_url("assets/uploads/avatars/" . $user["avatar"]); ?>" style="width: 50px; height: 50px; object-fit: cover; object-position: center;">
 												</td>
 												<td width="250"><?= $user["name"]; ?></td>
 												<td width="150"><?= $user["nickname"]; ?></td>
@@ -69,8 +69,8 @@
 													<?php endif; ?>
 												</td>
 												<td>
-													<a href="<?= base_url("user/edit/" . $user["user_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
-													<a href="<?= base_url("user/delete/" . $user["user_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
+													<a href="<?= base_url("kelola-user/ubah/" . $user["user_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>
+													<a href="<?= base_url("kelola-user/hapus/" . $user["user_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -102,6 +102,40 @@
 
 
 	<?php $this->load->view("_components/backend/scripts"); ?>
+
+	<!-- spesifik js -->
+	<script>
+		const flashData = $('.flash-data').data('flashdata');
+		if (flashData) {
+			Swal.fire({
+				title: 'Yeay! Berhasil',
+				text: 'Data User Berhasil ' + flashData,
+				icon: 'success'
+			});
+		}
+
+		// tombol hapus
+		$('.button-delete').on('click', function(e) {
+
+			e.preventDefault();
+			const href = $(this).attr('href');
+
+			Swal.fire({
+				title: 'Apakah anda yakin?',
+				text: "Data User akan dihapus!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Ya, Hapus!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					document.location.href = href;
+				}
+			})
+
+		})
+	</script>
 
 </body>
 
