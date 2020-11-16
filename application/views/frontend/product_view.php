@@ -18,12 +18,14 @@
 				</div>
 			</div>
 			<div class="col align-self-center">
-				<div class="input-group mb-3">
-					<input type="text" class="form-control" placeholder="Cari produk" aria-label="Recipient's username" aria-describedby="button-addon2">
-					<div class="input-group-append">
-						<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
+				<form action="<?= base_url("produk") ?>" method="POST">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Cari produk" name="keyword">
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="submit">Cari</button>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 
@@ -33,7 +35,7 @@
 		<?php if ($products) : ?>
 			<div class="row">
 				<?php foreach ($products as $product) : ?>
-					<div class="col-sm-3">
+					<div class="col-sm-3 mt-4">
 						<div class="card h-100 shadow border-0">
 							<a href="<?= base_url("produk/" . $product["slug"]) ?>"><img class="card-img-top" src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" style="height: 180px; object-fit: cover; object-position: center;"></a>
 							<div class="card-body">
@@ -48,7 +50,7 @@
 			</div>
 		<?php else : ?>
 			<div class="alert alert-danger">
-				Maaf, belum ada produk yang tersedia.
+				Maaf, Data tidak tersedia.
 			</div>
 		<?php endif; ?>
 

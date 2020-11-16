@@ -26,7 +26,11 @@ class Main extends CI_Controller
 		$data["page_title"] = "Belanja";
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Main_model->getCategories();
-		$data["products"] = $this->Main_model->getProducts();
+		$data["products"] = $this->Main_model->getAllProducts();
+
+		if ($this->input->post("keyword")) {
+			$data["products"] = $this->Main_model->getSearchResult();
+		}
 
 		$this->load->view("frontend/product_view", $data);
 	}
@@ -37,9 +41,19 @@ class Main extends CI_Controller
 		$data["page_title"] = $getTitle["name"];
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["product"] = $this->Main_model->getProductBySlug($slug);
-		$data["products"] = $this->Main_model->getProducts();
+		$data["products"] = $this->Main_model->getLatestProduct();
 
 		$this->load->view("frontend/detail_view", $data);
+	}
+
+
+	public function categoryPage()
+	{
+		$data["page_title"] = "Kategori";
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->input->post("email")])->row_array();
+		$data["categories"] = $this->Main_model->getAllCategories();
+
+		$this->load->view("frontend/categories_view", $data);
 	}
 
 	public function grooming($slug)

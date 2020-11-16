@@ -34,8 +34,8 @@ $route['kelola-grooming'] = 'grooming';
 
 
 // routes for front office
-$route['tentang-kami'] = 'main/aboutus';
 $route['produk'] = 'main/productpage';
 $route['produk/(:any)'] = 'main/detailproduct/$1';
-// $route['proses-pendaftaran-grooming'] = 'main/registergrooming';
+$route['kategori'] = 'main/categorypage';
 $route['pendaftaran-grooming/(:any)'] = 'main/grooming/$1';
+$route['tentang-kami'] = 'main/aboutus';

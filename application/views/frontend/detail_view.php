@@ -36,10 +36,10 @@
 				<a href="" class="btn btn-light btn-block text-muted">Kembali</a>
 			</div>
 		</div>
-		<div class="row py-3 ml-0">
-			<h5 class="font-weight-bold">Deskripsi Produk</h5>
-			<p class="text-muted"><?= $product["description"] ?></p>
-		</div>
+		<!-- <div class="row py-3 ml-0"> -->
+		<h5 class="font-weight-bold">Deskripsi Produk</h5>
+		<p class="text-muted"><?= $product["description"] ?></p>
+		<!-- </div> -->
 	</div> <!-- /.container -->
 
 	<section class="categories-section bg-light py-5">
