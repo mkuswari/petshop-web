@@ -42,6 +42,14 @@ class Main_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function getAllProductsWithPagination($limit, $start)
+	{
+		// $this->db->select("items.*, categories.name AS category_name");
+		// $this->db->from("items");
+		// $this->db->join("categories", "categories.category_id = items.category_id");
+		return $this->db->get("items", $limit, $start)->result_array();
+	}
+
 	public function getTitleBySlug($slug)
 	{
 		$this->db->select("name");

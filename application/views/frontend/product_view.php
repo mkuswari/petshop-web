@@ -48,6 +48,9 @@
 					</div>
 				<?php endforeach; ?>
 			</div>
+
+			<?= $pagination; ?>
+
 		<?php else : ?>
 			<div class="alert alert-danger">
 				Maaf, Data tidak tersedia.
