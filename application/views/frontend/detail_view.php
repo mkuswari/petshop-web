@@ -4,63 +4,73 @@
 <?php $this->load->view("_components/frontend/head"); ?>
 
 <body>
+
 	<!-- Navigation -->
 	<?php $this->load->view("_components/frontend/navbar"); ?>
-
 	<!-- Page Content -->
-	<!-- Page Content -->
-	<div class="page-content page-details">
-		<section class="store-breadcrumbs" data-aos="fade-down" data-aos-delay="100">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="<?= base_url("produk") ?>">Produk</a></li>
-								<li class="breadcrumb-item active" aria-current="page">
-									<?= $product["name"]; ?>
-								</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section class="store-gallery py-5" id="gallery">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-7" data-aos="zoom-in">
-						<img src="<?= base_url("assets/uploads/items_images/" . $product["images"]) ?>" class="w-100 main-image" style="max-height: 500px; object-fit: cover; object-position: center;">
-					</div>
-					<div class="col-lg-5" data-aos="zoom-in">
-						<h3><?= $product["name"] ?></h3>
-						<div class="font-weight-bold">Harga : <span class="text-warning">IDR. <?= $product["price"] ?></span></div>
-						<div class="font-weight-bold">Stock : <span class="text-warning"><?= $product["stock"]; ?></span> Qty</div>
-						<div class="card">
-							<div class="card-body">
-								<p class="small text-muted"><?= $product["description"]; ?></p>
-							</div>
-						</div>
-						<hr>
-						<a class="btn btn-success nav-link px-4 text-white btn-block mb-3" href="cart.html">Tambahkan ke Keranjang</a>
-						<a class="btn btn-light nav-link px-4 btn-block mb-3" href="cart.html">Kembali</a>
-					</div>
-				</div>
-			</div>
-		</section>
+	<div class="container py-5">
 
-		<section class="similar-items py-5 bg-light">
-			<div class="container">
-				<h3 class="font-weight-bold">Item yang lain</h3>
-				<p class="text-muted">Berikut beberapa item lain yang kami jual</p>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="<?= base_url("produk") ?>">Produk</a></li>
+				<li class="breadcrumb-item active" aria-current="page"><?= $product["name"] ?></li>
+			</ol>
+		</nav>
+
+		<hr>
+
+		<div class="row">
+			<div class="col-sm-5">
+				<figure class="figure">
+					<img src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" class="figure-img shadow-sm img-fluid rounded" alt="...">
+				</figure>
 			</div>
-		</section>
+			<div class="col-sm-5">
+				<a href="" class="text-dark text-decoration-none">
+					<h5 class="font-weight-bold"><?= $product["name"] ?></h5>
+				</a>
+				<p class="lead text-muted">IDR. <span class="text-warning font-weight-bold"><?= $product["price"] ?></span></p>
+				<p class="text-muted">Stok : <?= $product["stock"] ?> Qty</p>
+				<hr>
+				<a href="" class="btn btn-warning btn-block text-white">Add to Cart</a>
+				<a href="" class="btn btn-light btn-block text-muted">Kembali</a>
+			</div>
+		</div>
+		<div class="row py-3 ml-0">
+			<h5 class="font-weight-bold">Deskripsi Produk</h5>
+			<p class="text-muted"><?= $product["description"] ?></p>
+		</div>
+	</div> <!-- /.container -->
 
-	</div>
+	<section class="categories-section bg-light py-5">
+		<div class="container">
+			<h3 class="font-weight-bold">Produk lain</h3>
+			<p class="text-muted">Beberapa produk lain yang mungkin kamu cari</p>
+			<hr>
+			<div class="row">
+				<?php foreach ($products as $product) : ?>
+					<div class="col-sm-3">
+						<a href="<?= base_url("produk/" . $product["slug"]) ?>">
+							<figure class="figure">
+								<img src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" class="figure-img img-fluid rounded" style="width: 100%; height: 180px; object-fit: cover; object-position: center;">
+								<figcaption class="figure-caption text-center font-weight-bold"><?= $product["name"] ?></figcaption>
+							</figure>
+						</a>
+					</div>
+				<?php endforeach; ?>
+			</div>
+			<div class="text-center">
+				<a href="<?= base_url("produk") ?>">Lihat semua Produk</a>
+			</div>
 
+		</div>
+	</section>
+
+	<!-- Footer -->
 	<?php $this->load->view("_components/frontend/footer"); ?>
 
 	<?php $this->load->view("_components/frontend/scripts"); ?>
+
 </body>
 
 </html>

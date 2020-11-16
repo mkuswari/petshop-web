@@ -31,9 +31,11 @@ class Main extends CI_Controller
 
 	public function detailProduct($slug)
 	{
-		$data["page_title"] = $this->Main_model->getTitleBySlug($slug);
+		$getTitle = $this->Main_model->getTitleBySlug($slug);
+		$data["page_title"] = $getTitle["name"];
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["product"] = $this->Main_model->getProductBySlug($slug);
+		$data["products"] = $this->Main_model->getProducts();
 
 		$this->load->view("frontend/detail_view", $data);
 	}

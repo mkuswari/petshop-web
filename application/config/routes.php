@@ -18,9 +18,6 @@ $route['kelola-user/hapus/(:num)'] = 'user/delete/$1';
 
 // categories routes
 $route['kelola-kategori'] = 'category';
-$route['kelola-kategori/tambah'] = 'category/create';
-$route['kelola-kategori/ubah/(:num)'] = 'category/edit/$1';
-$route['kelola-kategori/hapus/(:num)'] = 'category/delete/$1';
 
 // items routes
 $route['kelola-produk'] = 'product';
@@ -28,6 +25,14 @@ $route['kelola-produk/tambah'] = 'product/create';
 $route['kelola-produk/ubah/(:num)'] = 'product/edit/$1';
 $route['kelola-produk/hapus/(:num)'] = 'product/delete/$1';
 
+// paket grooming route
+$route['paket-grooming'] = 'package';
+
 // Custom nama routing
 $route['produk'] = 'main/productpage';
 $route["detail"] = 'main/detailproduct';
+
+
+// routes for front office
+$route['produk'] = 'main/productpage';
+$route['produk/(:any)'] = 'main/detailproduct/$1';

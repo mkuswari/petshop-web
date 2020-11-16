@@ -10,7 +10,7 @@
 					<a class="nav-link" href="<?= base_url() ?>">Home</a>
 				</li>
 				<li class="nav-item align-self-center">
-					<a class="nav-link" href="#">Produk</a>
+					<a class="nav-link" href="<?= base_url("produk") ?>">Produk</a>
 				</li>
 				<li class="nav-item align-self-center">
 					<a class="nav-link" href="#">Grooming</a>

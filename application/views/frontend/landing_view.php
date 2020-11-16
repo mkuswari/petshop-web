@@ -75,10 +75,10 @@
 							<?php foreach ($products as $product) : ?>
 								<div class="col-lg-4 col-md-6 mb-4">
 									<div class="card h-100 shadow border-0">
-										<a href="#"><img class="card-img-top" src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" style="height: 180px; object-fit: cover; object-position: center;"></a>
+										<a href="<?= base_url("produk/" . $product["slug"]) ?>"><img class="card-img-top" src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" style="height: 180px; object-fit: cover; object-position: center;"></a>
 										<div class="card-body">
 											<h5 class="card-title">
-												<a href="#"><?= $product["name"] ?></a>
+												<a href="<?= base_url("produk/" . $product["slug"]) ?>"><?= $product["name"] ?></a>
 											</h5>
 											<h6>IDR. <?= $product["price"] ?></h6>
 										</div>

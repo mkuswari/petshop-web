@@ -5,6 +5,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
+
 	<title>PetShop - <?= $page_title; ?></title>
 
 	<!-- Bootstrap core CSS -->
