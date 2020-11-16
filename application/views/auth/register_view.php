@@ -57,7 +57,7 @@
 									</form>
 									<hr>
 									<div class="text-center">
-										<span class="small">Sudah punya akun? <a href="<?= base_url("register") ?>">Login</a></span>
+										<span class="small">Sudah punya akun? <a href="<?= base_url("login") ?>">Login</a></span>
 									</div>
 								</div>
 							</div>

@@ -25,12 +25,14 @@
 	<div class="sidebar-heading">
 		Menu
 	</div>
-	<li class="nav-item">
-		<a href="<?= base_url("kelola-user") ?>" class="nav-link">
-			<i class="fas fa-fw fa-users"></i>
-			<span>Kelola User</span>
-		</a>
-	</li>
+	<?php if ($this->session->userdata("role_id") == 1) : ?>
+		<li class="nav-item">
+			<a href="<?= base_url("kelola-user") ?>" class="nav-link">
+				<i class="fas fa-fw fa-users"></i>
+				<span>Kelola User</span>
+			</a>
+		</li>
+	<?php endif; ?>
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 			<i class="fas fa-fw fa-shopping-bag"></i>
@@ -50,8 +52,8 @@
 		</a>
 		<div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="<?= base_url("category") ?>">Kelola Tipe</a>
-				<a class="collapse-item" href="<?= base_url("product") ?>">Kelola Grooming</a>
+				<a class="collapse-item" href="<?= base_url("paket-grooming") ?>">Kelola Tipe</a>
+				<a class="collapse-item" href="<?= base_url("kelola-grooming") ?>">Kelola Grooming</a>
 			</div>
 		</div>
 	</li>

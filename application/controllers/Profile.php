@@ -46,19 +46,19 @@ class Profile extends CI_Controller
 			$uploadImage = $_FILES["avatar"];
 
 			if ($uploadImage) {
-				$config["allowed_types"] = "gif|jpg|png|bmp";
+				$config["allowed_types"] = "gif|jpg|png|bmp|jpeg";
 				$config["max_size"] = "1024";
-				$config["upload_path"] = "./assets/images/";
+				$config["upload_path"] = "./assets/uploads/avatars/";
+				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
-
 				if ($this->upload->do_upload("avatar")) {
-					$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-					$oldImage = $data["users_session"]["avatar"];
-					if ($oldImage != 'default.jpg') {
-						unlink(FCPATH . 'assets/images/' . $oldImage);
+					$userSession = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+					$oldAvatar = $userSession["avatar"];
+					if ($oldAvatar != "default.jpg") {
+						unlink('./assets/uploads/avatars/' . $oldAvatar);
 					}
-					$newImage = $this->upload->data("file_name");
-					$this->db->set("avatar", $newImage);
+					$newAvatar = $this->upload->data("file_name");
+					$this->db->set("avatar", $newAvatar);
 				} else {
 					echo $this->upload->display_errors();
 				}
@@ -88,7 +88,7 @@ class Profile extends CI_Controller
 			$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 			$currentPassword = $this->input->post("current_password");
 			$newPassword = $this->input->post("new_password");
-			if (!password_verify($currentPassword, $data["users_session"]["password"])) {
+			if (password_verify($currentPassword, $data["users_session"]["password"])) {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger">Password kamu salah</div>');
 				redirect("profile");
 			} else {

@@ -13,10 +13,10 @@
 					<a class="nav-link" href="<?= base_url("produk") ?>">Produk</a>
 				</li>
 				<li class="nav-item align-self-center">
-					<a class="nav-link" href="#">Grooming</a>
+					<a class="nav-link" href="<?= base_url("pendaftaran-grooming") ?>">Grooming</a>
 				</li>
 				<li class="nav-item align-self-center">
-					<a class="nav-link" href="#">Tentang</a>
+					<a class="nav-link" href="<?= base_url("tentang-kami") ?>">Tentang</a>
 				</li>
 				<?php if ($this->session->userdata("email")) : ?>
 					<li class="nav-item dropdown align-self-center">

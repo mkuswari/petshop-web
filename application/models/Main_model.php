@@ -31,4 +31,19 @@ class Main_model extends CI_Model
 	{
 		return $this->db->get_where("items", ["slug" => $slug])->row_array();
 	}
+
+	public function getGroomingPackages()
+	{
+		return $this->db->get("packages")->result_array();
+	}
+
+	public function getGroomingPackageBySlug($slug)
+	{
+		return $this->db->get_where("packages", ["slug" => $slug])->row_array();
+	}
+
+	public function registerGrooming($groomingData)
+	{
+		$this->db->insert("groomings", $groomingData);
+	}
 }

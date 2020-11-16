@@ -28,11 +28,14 @@ $route['kelola-produk/hapus/(:num)'] = 'product/delete/$1';
 // paket grooming route
 $route['paket-grooming'] = 'package';
 
-// Custom nama routing
-$route['produk'] = 'main/productpage';
-$route["detail"] = 'main/detailproduct';
+
+// kelola grooming
+$route['kelola-grooming'] = 'grooming';
 
 
 // routes for front office
+$route['tentang-kami'] = 'main/aboutus';
 $route['produk'] = 'main/productpage';
 $route['produk/(:any)'] = 'main/detailproduct/$1';
+// $route['proses-pendaftaran-grooming'] = 'main/registergrooming';
+$route['pendaftaran-grooming/(:any)'] = 'main/grooming/$1';
