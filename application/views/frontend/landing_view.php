@@ -17,9 +17,9 @@
 				<h4 class="my-4 font-weight-bold">Kategori</h4>
 				<div class="list-group shadow">
 					<?php foreach ($categories as $category) : ?>
-						<a href="#" class="list-group-item border-0"><?= $category["name"] ?></a>
+						<a href="<?= base_url("kategori/" . $category["category_id"]) ?>" class="list-group-item border-0"><?= $category["name"] ?></a>
 					<?php endforeach; ?>
-					<a href="#" class="list-group-item border-0 text-center text-muted">Lihat semua</a>
+					<a href="<?= base_url("kategori") ?>" class="list-group-item border-0 text-center text-muted">Lihat semua</a>
 				</div>
 
 			</div>
@@ -62,10 +62,14 @@
 						</div>
 						<div class="col-5 align-self-center">
 							<div class="input-group mb-3">
-								<input type="text" class="form-control" placeholder="Cari produk" aria-label="Recipient's username" aria-describedby="button-addon2">
-								<div class="input-group-append">
-									<button class="btn btn-primary" type="button" id="button-addon2">Cari</button>
-								</div>
+								<form action="<?= base_url("produk") ?>" method="POST">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder="Cari produk" name="keyword">
+										<div class="input-group-append">
+											<button class="btn btn-primary" type="submit">Cari</button>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -81,6 +85,10 @@
 												<a href="<?= base_url("produk/" . $product["slug"]) ?>"><?= $product["name"] ?></a>
 											</h5>
 											<h6>IDR. <?= $product["price"] ?></h6>
+											<div class="action text-center">
+												<a href="" class="btn btn-success btn-sm">Add to Cart</a>
+												<a href="" class="btn btn-warning btn-sm">Detail</a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -88,7 +96,7 @@
 						</div>
 						<!-- /.row -->
 						<div class="text-center mb-5">
-							<a href="">Lihat semua produk</a>
+							<a href="<?= base_url("produk") ?>">Lihat semua produk</a>
 						</div>
 					<?php else : ?>
 						<div class="alert alert-danger">
@@ -107,21 +115,22 @@
 					<hr>
 					<?php if ($packages) : ?>
 						<div class="row">
-							<?php foreach ($packages as $package) : ?>
-								<div class="col-lg-4 col-md-6 mb-4">
-									<div class="card h-100 text-center shadow border-0">
-										<div class="card-body">
-											<h4 class="card-title">
-												<a href="<?= base_url("pendaftaran-grooming/" . $package["slug"]) ?>"><?= $package["name"] ?></a>
-											</h4>
-											<h5>IDR. <?= $package["cost"] ?></h5>
+							<div class="col-sm-9 mx-auto">
+								<?php foreach ($packages as $package) : ?>
+									<a href="<?= base_url("pendaftaran-grooming/" . $package["slug"]) ?>" class="text-decoration-none text-dark">
+										<div class="card shadow border-0 mb-3" width="100%">
+											<div class="row no-gutters">
+												<div class="col-md-8">
+													<div class="card-body">
+														<h5 class="card-title font-weight-bold"><?= $package["name"] ?></h5>
+														<p class="card-text">IDR. <span class="text-success"><?= $package["cost"] ?></span></p>
+													</div>
+												</div>
+											</div>
 										</div>
-										<div class="card-footer">
-											<a href="<?= base_url("pendaftaran-grooming/" . $package["slug"]) ?>" class="btn btn-success btn-block">Pilih Paket</a>
-										</div>
-									</div>
-								</div>
-							<?php endforeach; ?>
+									</a>
+								<?php endforeach; ?>
+							</div>
 						</div>
 					<?php else : ?>
 						<div class="alert alert-danger">

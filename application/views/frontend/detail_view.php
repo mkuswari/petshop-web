@@ -33,7 +33,7 @@
 				<p class="text-muted">Stok : <?= $product["stock"] ?> Qty</p>
 				<hr>
 				<a href="" class="btn btn-warning btn-block text-white">Add to Cart</a>
-				<a href="" class="btn btn-light btn-block text-muted">Kembali</a>
+				<a href="<?= base_url() ?>" class="btn btn-light btn-block text-muted">Kembali</a>
 			</div>
 		</div>
 		<!-- <div class="row py-3 ml-0"> -->

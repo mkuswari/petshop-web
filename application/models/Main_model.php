@@ -10,9 +10,15 @@ class Main_model extends CI_Model
 		return $this->db->get("categories")->result_array();
 	}
 
+
 	public function getAllCategories()
 	{
 		return $this->db->get("categories")->result_array();
+	}
+
+	public function getCategoryById($id)
+	{
+		return $this->db->get_where("categories", ["category_id" => $id])->row_array();
 	}
 
 	public function getProducts()
@@ -42,12 +48,14 @@ class Main_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
-	public function getAllProductsWithPagination($limit, $start)
+	public function getAllProductsWithPagination($limit, $offset)
 	{
-		// $this->db->select("items.*, categories.name AS category_name");
-		// $this->db->from("items");
-		// $this->db->join("categories", "categories.category_id = items.category_id");
-		return $this->db->get("items", $limit, $start)->result_array();
+		$this->db->select("items.*, categories.name AS category_name");
+		$this->db->from("items");
+		$this->db->join("categories", "categories.category_id = items.category_id");
+		$this->db->order_by("item_id", "DESC");
+		$this->db->limit($limit, $offset);
+		return $this->db->get()->result_array();
 	}
 
 	public function getTitleBySlug($slug)
@@ -83,5 +91,10 @@ class Main_model extends CI_Model
 		$keyword = $this->input->post("keyword");
 		$this->db->like('name', $keyword);
 		return $this->db->get("items")->result_array();
+	}
+
+	public function getProductsByCategory($id)
+	{
+		return $this->db->get_where("items", ["category_id" => $id])->result_array();
 	}
 }

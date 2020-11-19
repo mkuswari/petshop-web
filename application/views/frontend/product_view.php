@@ -49,8 +49,6 @@
 				<?php endforeach; ?>
 			</div>
 
-			<?= $pagination; ?>
-
 		<?php else : ?>
 			<div class="alert alert-danger">
 				Maaf, Data tidak tersedia.
@@ -69,7 +67,7 @@
 				<div class="row">
 					<?php foreach ($categories as $category) : ?>
 						<div class="col-sm-3">
-							<a href="">
+							<a href="<?= base_url("kategori/" . $category["category_id"]) ?>">
 								<figure class="figure">
 									<img src="<?= base_url("assets/uploads/categories/" . $category["image"]) ?>" class="figure-img img-fluid rounded" alt="...">
 									<figcaption class="figure-caption text-center font-weight-bold"><?= $category["name"] ?></figcaption>
@@ -79,7 +77,7 @@
 					<?php endforeach; ?>
 				</div>
 				<div class="text-center">
-					<a href="">Lihat semua Kategori</a>
+					<a href="<?= base_url("kategori") ?>">Lihat semua Kategori</a>
 				</div>
 			<?php else : ?>
 				<div class="alert alert-danger">

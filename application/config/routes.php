@@ -37,5 +37,7 @@ $route['kelola-grooming'] = 'grooming';
 $route['produk'] = 'main/productpage';
 $route['produk/(:any)'] = 'main/detailproduct/$1';
 $route['kategori'] = 'main/categorypage';
+$route['kategori/(:num)'] = 'main/productbycategorypage/$1';
+$route['grooming'] = 'main/groomingpage';
 $route['pendaftaran-grooming/(:any)'] = 'main/grooming/$1';
 $route['tentang-kami'] = 'main/aboutus';

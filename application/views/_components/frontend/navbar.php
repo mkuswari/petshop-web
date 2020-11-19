@@ -16,7 +16,7 @@
 					<a href="<?= base_url("kategori") ?>" class="nav-link">Kategori</a>
 				</li>
 				<li class="nav-item align-self-center">
-					<a class="nav-link" href="<?= base_url("pendaftaran-grooming") ?>">Grooming</a>
+					<a class="nav-link" href="<?= base_url("grooming") ?>">Grooming</a>
 				</li>
 				<li class="nav-item align-self-center">
 					<a class="nav-link" href="<?= base_url("tentang-kami") ?>">Tentang</a>
