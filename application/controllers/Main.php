@@ -50,7 +50,7 @@ class Main extends CI_Controller
 	public function categoryPage()
 	{
 		$data["page_title"] = "Kategori";
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->input->post("email")])->row_array();
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Main_model->getAllCategories();
 
 		$this->load->view("frontend/category_view", $data);
@@ -71,48 +71,54 @@ class Main extends CI_Controller
 	{
 		$data["page_title"] = "Grooming";
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["packages"] = $this->Main_model->getGroomingPackages();
+		$userId = $data["user_session"]["user_id"];
+		$data["groomings"] = $this->Main_model->getGroomingsDataByUser($userId);
 
 		$this->load->view("frontend/grooming_view", $data);
 	}
 
-	public function grooming($slug)
+	public function registerGrooming()
 	{
 		must_login();
 
-		$data["page_title"] = "Pendaftaran Grooming";
+		$data["page_title"] = "Form Registrasi Grooming";
 		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["selected_package"] = $this->Main_model->getGroomingPackageBySlug($slug);
 		$data["packages"] = $this->Main_model->getGroomingPackages();
+		// $data["selected_package"] = $this->Main_model->getGroomingPackageBySlug($slug);
 
-		$this->_validateGrooming();
+		$this->form_validation->set_rules("customer_name", "Nama Customer", "required");
+		$this->form_validation->set_rules("customer_phone", "Phone Customer", "required");
+		$this->form_validation->set_rules("customer_address", "Alamat Customer", "required");
+		$this->form_validation->set_rules("pet_type", "Tipe Peliharaan", "required");
+		$this->form_validation->set_rules("package_id", "Paket Grooming", "required");
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view("frontend/grooming_registration_view", $data);
 		} else {
-			$customerName = htmlspecialchars($this->input->post("customer_name", true));
-			$customerPhone = htmlspecialchars($this->input->post("customer_phone", true));
-			$customerAddress = htmlspecialchars($this->input->post("customer_address", true));
+			$customerName = $this->input->post("customer_name");
+			$customerPhone = $this->input->post("customer_phone");
+			$customerAddress = $this->input->post("customer_address");
 			$petType = $this->input->post("pet_type");
-			$groomingPackage = $this->input->post("package_id");
-			$customerNotes = htmlspecialchars($this->input->post("notes", true));
+			$groomingStatus = "Diterima";
+			$packageId =  $this->input->post("package_id");
+			$notes = $this->input->post("notes");
+			$userId = $this->input->post("user_id");
 			$dateCreated = time();
-			$dateFinished = time();
 
 			$groomingData = [
 				"customer_name" => $customerName,
 				"customer_phone" => $customerPhone,
 				"customer_address" => $customerAddress,
 				"pet_type" => $petType,
-				"package_id" => $groomingPackage,
-				"notes" => $customerNotes,
-				"date_created" => $dateCreated,
-				"date_finished" => $dateFinished
+				"grooming_status" => $groomingStatus,
+				"package_id" => $packageId,
+				"notes"  => $notes,
+				"user_id" => $userId,
+				"date_created" => $dateCreated
 			];
 
-			// var_dump($groomingData);
-
 			$this->Main_model->registerGrooming($groomingData);
-			echo "Pendaftaran Grooming berhasil";
+			$this->session->set_flashdata('message', 'Berhasil');
+			redirect("grooming");
 		}
 	}
 
@@ -125,14 +131,17 @@ class Main extends CI_Controller
 		$this->load->view("frontend/about_view", $data);
 	}
 
+	// public function addToCart($id)
+	// {
+	// 	$item = $this->Main_model->getItemById($id);
+	// 	$data = array(
+	// 		'item_id' => $item["item_id"],
+	// 		"qty" => 1,
+	// 		"price" => $item["price"],
+	// 		"name" => $item["name"]
+	// 	);
 
-	private function _validateGrooming()
-	{
-		$this->form_validation->set_rules("customer_name", "Nama Customer", "required|trim");
-		$this->form_validation->set_rules("customer_phone", "Nomor Ponsel Customer", "required|trim");
-		$this->form_validation->set_rules("customer_address", "Alamat Customer", "required|trim");
-		$this->form_validation->set_rules("pet_type", "Tipe Peliharaan", "required");
-		$this->form_validation->set_rules("package_id", "Paket Grooming", "required");
-		$this->form_validation->set_rules("notes", "Catatan Customer", "required|trim");
-	}
+	// 	$this->cart->insert($data);
+	// 	redirect('home');
+	// }
 }

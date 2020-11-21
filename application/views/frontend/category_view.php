@@ -26,8 +26,8 @@
 			<div class="row">
 				<?php foreach ($categories as $category) : ?>
 					<div class="col-6">
-						<a href="<?= base_url("kategori/" . $category["category_id"]) ?>">
-							<div class="card mb-3" style="max-width: 540px;">
+						<a href="<?= base_url("kategori/" . $category["category_id"]) ?>" class="text-decoration-none text-dark">
+							<div class="card shadow border-0 mb-3" style="max-width: 540px;">
 								<div class="row no-gutters">
 									<div class="col-md-4">
 										<img src="<?= base_url("assets/uploads/categories/" . $category["image"]) ?>" class="card-img" height="100%" width="100%" style="object-fit: cover; object-position: center;">

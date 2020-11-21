@@ -31,7 +31,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-10 mx-auto">
-									<form action="<?= base_url("product/create") ?>" method="post" enctype="multipart/form-data">
+									<form action="<?= base_url("kelola-produk/tambah") ?>" method="post" enctype="multipart/form-data">
 										<div class="form-group row">
 											<label for="name" class="col-sm-2 col-form-label">Nama Produk</label>
 											<div class="col-sm-10">

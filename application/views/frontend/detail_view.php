@@ -29,7 +29,7 @@
 				<a href="" class="text-dark text-decoration-none">
 					<h5 class="font-weight-bold"><?= $product["name"] ?></h5>
 				</a>
-				<p class="lead text-muted">IDR. <span class="text-warning font-weight-bold"><?= $product["price"] ?></span></p>
+				<p class="lead text-muted">IDR. <span class="text-warning font-weight-bold"><?= number_format($product["price"]) ?></span></p>
 				<p class="text-muted">Stok : <?= $product["stock"] ?> Qty</p>
 				<hr>
 				<a href="" class="btn btn-warning btn-block text-white">Add to Cart</a>

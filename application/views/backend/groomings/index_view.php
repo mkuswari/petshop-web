@@ -25,7 +25,7 @@
 				<div class="container-fluid">
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
-						<a href="<?= base_url("kelola-user/tambah") ?>" class="btn btn-primary"><i class="fas fa-user-plus fa-sm text-white-50"></i> Tambah Grooming</a>
+						<a href="<?= base_url("kelola-grooming/tambah") ?>" class="btn btn-primary"><i class="fas fa-user-plus fa-sm text-white-50"></i> Tambah Grooming</a>
 					</div>
 
 					<div class="card mb-4">
@@ -43,6 +43,7 @@
 											<th>Paket Grooming</th>
 											<th>Biaya Grooming</th>
 											<th>Status</th>
+											<th>Tanggal Daftar</th>
 											<th width="150">Aksi</th>
 										</tr>
 									</thead>
@@ -54,18 +55,20 @@
 												<td width="250"><?= $grooming["customer_name"]; ?></td>
 												<td width="150"><?= $grooming["pet_type"]; ?></td>
 												<td width="300"><?= $grooming["package_name"]; ?></td>
-												<td width="200">IDR. <?= $grooming["cost"]; ?></td>
+												<td width="200">IDR. <?= number_format($grooming["cost"]); ?></td>
 												<td>
 													<?php if ($grooming["grooming_status"] == "Diterima") : ?>
-														<span class="badge badge-info"><?= $grooming["grooming_status"]; ?></span>
+														<a href="" data-toggle="modal" data-target="#statusModal"><span class="badge badge-info"><?= $grooming["grooming_status"]; ?></span></a>
 													<?php elseif ($grooming["grooming_status"] == "Diproses") : ?>
-														<span class="badge badge-warning"><?= $grooming["grooming_status"]; ?></span>
+														<a href="" data-toggle="modal" data-target="#statusModal"><span class="badge badge-warning"><?= $grooming["grooming_status"]; ?></span></a>
 													<?php else : ?>
-														<span class="badge badge-success"><?= $grooming["grooming_status"]; ?></span>
+														<a href="" data-toggle="modal" data-target="#statusModal"><span class="badge badge-success"><?= $grooming["grooming_status"]; ?></span></a>
 													<?php endif; ?>
 												</td>
+												<td><?= date('d F Y', $grooming["date_created"]) ?></td>
 												<td>
-													<a href="<?= base_url("kelola-user/ubah/" . $grooming["package_id"]); ?>" class="btn btn-info btn-sm">Detail</a>
+													<a href="<?= base_url("kelola-grooming/detail/" . $grooming["grooming_id"]); ?>" class="btn btn-info btn-sm">Detail</a>
+													<a href="<?= base_url("kelola-grooming/hapus/" . $grooming["grooming_id"]); ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -95,6 +98,45 @@
 		<i class="fas fa-angle-up"></i>
 	</a>
 
+	<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<form action="<?= base_url("kelola-grooming/ubah-status/" . $grooming["grooming_id"]) ?>" method="POST">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ubah Status Grooming</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="hidden" name="grooming_id" value="<?= $grooming["grooming_id"] ?>">
+							<label for="grooming_status">Status Grooming</label>
+							<select name="grooming_status" id="grooming_status" class="form-control">
+								<?php if ($grooming["grooming_status"] == "Diterima") : ?>
+									<option value="Diterima" selected>Diterima</option>
+									<option value="Diproses">Diproses</option>
+									<option value="Selesai">Selesai</option>
+								<?php elseif ($grooming["grooming_status"] == "Diproses") : ?>
+									<option value="Diterima">Diterima</option>
+									<option value="Diproses" selected>Diproses</option>
+									<option value="Selesai">Selesai</option>
+								<?php else : ?>
+									<option value="Diterima">Diterima</option>
+									<option value="Diproses">Diproses</option>
+									<option value="Selesai" selected>Selesai</option>
+								<?php endif; ?>
+							</select>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+						<button type="submit" class="btn btn-primary">Ubah</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 	<?php $this->load->view("_components/backend/scripts"); ?>
 
@@ -104,7 +146,7 @@
 		if (flashData) {
 			Swal.fire({
 				title: 'Yeay! Berhasil',
-				text: 'Data User Berhasil ' + flashData,
+				text: 'Data Grooming Berhasil ' + flashData,
 				icon: 'success'
 			});
 		}
@@ -117,7 +159,7 @@
 
 			Swal.fire({
 				title: 'Apakah anda yakin?',
-				text: "Data User akan dihapus!",
+				text: "Data Grooming akan dihapus!",
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',

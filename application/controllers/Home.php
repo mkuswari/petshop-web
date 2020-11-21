@@ -11,8 +11,8 @@ class Home extends CI_Controller
 
 	public function index()
 	{
-		$data["title"] = 'Home';
-		$data["user"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["page_title"] = 'Home';
+		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$this->load->view("frontend/home_view", $data);
 	}
 }

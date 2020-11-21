@@ -97,4 +97,22 @@ class Main_model extends CI_Model
 	{
 		return $this->db->get_where("items", ["category_id" => $id])->result_array();
 	}
+
+	public function getGroomingsDataByUser($userId)
+	{
+		$this->db->select("groomings.*, packages.cost, name AS package_name");
+		$this->db->from("groomings");
+		$this->db->join("packages", "packages.package_id = groomings.package_id");
+		$this->db->where("user_id", $userId);
+		return $this->db->get()->result_array();
+		// return $this->db->get_where("groomings", ["user_id" => $userId])->result_array();
+	}
+
+	// public function getItemById($id)
+	// {
+	// 	$this->db->select("*");
+	// 	$this->db->from("items");
+	// 	$this->db->where("item_id", $id);
+	// 	return $this->db->get()->row_array();
+	// }
 }

@@ -84,10 +84,12 @@
 											<h5 class="card-title">
 												<a href="<?= base_url("produk/" . $product["slug"]) ?>"><?= $product["name"] ?></a>
 											</h5>
-											<h6>IDR. <?= $product["price"] ?></h6>
+											<h6>IDR. <?= number_format($product["price"]) ?></h6>
+										</div>
+										<div class="card-footer border-top-0 bg-white">
 											<div class="action text-center">
-												<a href="" class="btn btn-success btn-sm">Add to Cart</a>
-												<a href="" class="btn btn-warning btn-sm">Detail</a>
+												<a href="<?= base_url("produk/tambah-keranjang/" . $product["item_id"]) ?>" class="btn btn-success btn-sm">Add to Cart</a>
+												<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-warning btn-sm text-white">Detail</a>
 											</div>
 										</div>
 									</div>
@@ -116,20 +118,17 @@
 					<?php if ($packages) : ?>
 						<div class="row">
 							<div class="col-sm-9 mx-auto">
-								<?php foreach ($packages as $package) : ?>
-									<a href="<?= base_url("pendaftaran-grooming/" . $package["slug"]) ?>" class="text-decoration-none text-dark">
-										<div class="card shadow border-0 mb-3" width="100%">
-											<div class="row no-gutters">
-												<div class="col-md-8">
-													<div class="card-body">
-														<h5 class="card-title font-weight-bold"><?= $package["name"] ?></h5>
-														<p class="card-text">IDR. <span class="text-success"><?= $package["cost"] ?></span></p>
-													</div>
-												</div>
+								<div class="card shadow border-0 mb-3" width="100%">
+									<div class="row no-gutters">
+										<div class="col-md-12">
+											<div class="card-body text-center">
+												<h5 class="font-weight-bold">Saya ingin Grooming</h5>
+												<p class="text-muted">Klik tombol dibawah untuk melakukan Pendaftaran Grooming</p>
+												<a href="<?= base_url("pendaftaran-grooming") ?>" class="btn btn-success shadow">Daftar Grooming</a>
 											</div>
 										</div>
-									</a>
-								<?php endforeach; ?>
+									</div>
+								</div>
 							</div>
 						</div>
 					<?php else : ?>

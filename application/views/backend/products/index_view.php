@@ -60,7 +60,7 @@
 													<small><?= $product["description"]; ?></small>
 												</td>
 												<td><?= $product["stock"]; ?></td>
-												<td><?= $product["price"]; ?></td>
+												<td>IDR. <?= number_format($product["price"]); ?></td>
 												<td><?= $product["category_name"]; ?></td>
 												<td>
 													<a href="<?= base_url("kelola-produk/ubah/" . $product["item_id"]); ?>" class="btn btn-warning btn-sm">Edit</a>

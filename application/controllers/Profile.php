@@ -19,7 +19,11 @@ class Profile extends CI_Controller
 
 		$data["title"] = "Profile Saya";
 
-		$this->load->view("backend/profile/profile_view", $data);
+		if ($this->session->userdata("role_id") > 2) {
+			$this->load->view("frontend/profile/profile_view", $data);
+		} else {
+			$this->load->view("backend/profile/profile_view", $data);
+		}
 	}
 
 	public function editProfile()

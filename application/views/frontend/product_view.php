@@ -42,7 +42,13 @@
 								<h5 class="card-title">
 									<a href="<?= base_url("produk/" . $product["slug"]) ?>"><?= $product["name"] ?></a>
 								</h5>
-								<h6>IDR. <?= $product["price"] ?></h6>
+								<h6>IDR. <?= number_format($product["price"]) ?></h6>
+							</div>
+							<div class="card-footer border-top-0 bg-white">
+								<div class="action text-center">
+									<a href="" class="btn btn-success btn-sm">Add to cart</a>
+									<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-warning btn-sm text-white">Detail</a>
+								</div>
 							</div>
 						</div>
 					</div>

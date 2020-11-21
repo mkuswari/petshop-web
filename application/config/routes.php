@@ -31,13 +31,19 @@ $route['paket-grooming'] = 'package';
 
 // kelola grooming
 $route['kelola-grooming'] = 'grooming';
+$route['kelola-grooming/tambah'] = 'grooming/create';
+$route['kelola-grooming/ubah-status/(:num)'] = 'grooming/update/$1';
+$route['kelola-grooming/detail/(:num)'] = 'grooming/detail/$1';
+$route['kelola-grooming/hapus/(:num)'] = 'grooming/delete/$1';
 
 
 // routes for front office
 $route['produk'] = 'main/productpage';
+// $route['produk/tambah-keranjang/(:num)'] = 'main/addtocart/$1';
 $route['produk/(:any)'] = 'main/detailproduct/$1';
 $route['kategori'] = 'main/categorypage';
 $route['kategori/(:num)'] = 'main/productbycategorypage/$1';
 $route['grooming'] = 'main/groomingpage';
-$route['pendaftaran-grooming/(:any)'] = 'main/grooming/$1';
+$route['pendaftaran-grooming'] = 'main/registergrooming';
+// $route['pendaftaran-grooming/(:any)'] = 'main/registergrooming/$1';
 $route['tentang-kami'] = 'main/aboutus';

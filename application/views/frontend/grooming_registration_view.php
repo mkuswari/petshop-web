@@ -13,7 +13,7 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?= base_url("") ?>">Paket Grooming</a></li>
-				<li class="breadcrumb-item active" aria-current="page"><?= $selected_package["name"] ?></li>
+				<li class="breadcrumb-item active" aria-current="page">Pendaftaran Grooming</li>
 			</ol>
 		</nav>
 
@@ -27,54 +27,65 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-8">
-				<form action="<?= base_url("pendaftaran-grooming/" . $selected_package["slug"]) ?>" method="post">
-					<div class="form-group">
-						<label for="costumer_name">Nama Customer</label>
-						<input type="text" class="form-control <?= form_error('customer_name') ? 'is-invalid' : ''; ?>" id="customer_name" name="customer_name" value="<?= $user_session["name"] ?>">
-						<?= form_error('customer_name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+			<div class="col-12">
+				<form action="<?= base_url("pendaftaran-grooming") ?>" method="post" enctype="multipart/form-data">
+					<div class="form-group row">
+						<label for="customer_name" class="col-sm-2 col-form-label">Nama Customer</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control <?= form_error('customer_name') ? 'is-invalid' : ''; ?>" id="customer_name" name="customer_name" value="<?= $user_session["name"] ?>">
+							<?= form_error('customer_name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="customer_phone">Nomor Ponsel</label>
-						<input type="number" class="form-control <?= form_error('customer_phone') ? 'is-invalid' : ''; ?>" id="customer_phone" name="customer_phone" value="<?= $user_session["phone"] ?>">
-						<?= form_error('customer_phone', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+					<div class="form-group row">
+						<label for="customer_phone" class="col-sm-2 col-form-label">Nomor HP Customer</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control <?= form_error('customer_phone') ? 'is-invalid' : ''; ?>" id="customer_phone" name="customer_phone" value="<?= $user_session["phone"] ?>">
+							<?= form_error('customer_phone', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="customer_address">Alamat Customer</label>
-						<textarea name="customer_address <?= form_error('customer_address') ? 'is-invalid' : ''; ?>" id="customer_address" rows="3" class="form-control"><?= $user_session["address"] ?></textarea>
-						<?= form_error('customer_address', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+					<div class="form-group row">
+						<label for="customer_address" class="col-sm-2 col-form-label">Alamat Customer</label>
+						<div class="col-sm-10">
+							<textarea name="customer_address" id="customer_address" rows="3" class="form-control <?= form_error('customer_address') ? 'is-invalid' : ''; ?>"><?= set_value("customer_address") ?><?= $user_session["address"] ?></textarea>
+							<?= form_error('customer_address', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="pet_type">Jenis Peliharaan</label>
-						<select name="pet_type" id="pet_type" class="form-control <?= form_error('pet_type') ? 'is-invalid' : ''; ?>">
-							<option value="" selected disabled>--Pilih Jenis Peliharaan--</option>
-							<option value="Kucing">Kucing</option>
-							<option value="Anjing">Anjing</option>
-						</select>
-						<?= form_error('pet_type', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+					<div class="form-group row">
+						<label for="pet_type" class="col-sm-2 col-form-label">Tipe Peliharaan</label>
+						<div class="col-sm-10">
+							<select name="pet_type" id="pet_type" class="form-control <?= form_error('pet_type') ? 'is-invalid' : ''; ?>">
+								<option value="" selected disabled>-PILIH TIPE PELIHARAAN-</option>
+								<option value="Kucing">Kucing</option>
+								<option value="Anjing">Anjing</option>
+								<?= form_error('pet_type', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</select>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="package_id">Paket Grooming</label>
-						<select name="package_id" id="package_id" class="form-control <?= form_error('package_id') ? 'is-invalid' : ''; ?>">
-							<option value="" selected disabled>--Pilih Jenis Peliharaan--</option>
-							<?php foreach ($packages as $package) : ?>
-								<?php if ($package["package_id"] == $selected_package["package_id"]) : ?>
-									<option value="<?= $package["package_id"]; ?>" selected><?= $package["name"]; ?></option>
-								<?php else : ?>
-									<option value="<?= $package["package_id"]; ?>"><?= $package["name"]; ?></option>
-								<?php endif; ?>
-							<?php endforeach; ?>
-						</select>
-						<?= form_error('package_id', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+					<div class="form-group row">
+						<label for="package_id" class="col-sm-2 col-form-label">Paket Grooming</label>
+						<div class="col-sm-10">
+							<select name="package_id" id="package_id" class="form-control <?= form_error('package_id') ? 'is-invalid' : ''; ?>">
+								<option value="" disabled selected>-PILIH PAKET GROOMING-</option>
+								<?php foreach ($packages as $package) : ?>
+									<option value="<?= $package["package_id"] ?>"><?= $package["name"] ?> (IDR. <?= number_format($package["cost"]) ?>)</option>
+								<?php endforeach; ?>
+								<?= form_error('package_id', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+							</select>
+						</div>
 					</div>
-					<div class="form-group">
-						<label for="notes">Catatan Customer</label>
-						<textarea name="notes" id="notes" rows="3" class="form-control <?= form_error('notes') ? 'is-invalid' : ''; ?>"></textarea>
-						<?= form_error('notes', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
+					<div class="form-group row">
+						<label for="notes" class="col-sm-2 col-form-label">Catatan Customer</label>
+						<div class="col-sm-10">
+							<textarea name="notes" id="notes" rows="3" class="form-control"></textarea>
+						</div>
 					</div>
-					<div class="form-action">
-						<button type="submit" class="btn btn-primary">Daftar Grooming</button>
-						<button type="reset" class="btn btn-warning text-white">Reset Form</button>
+					<input type="hidden" name="user_id" value="<?= $user_session["user_id"] ?>">
+					<div class="form-action row">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-primary">Tambah Produk</button>
+							<button type="reset" class="btn btn-warning text-white">Reset</button>
+						</div>
 					</div>
 				</form>
 			</div>

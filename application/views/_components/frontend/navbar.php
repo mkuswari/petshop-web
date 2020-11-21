@@ -16,7 +16,7 @@
 					<a href="<?= base_url("kategori") ?>" class="nav-link">Kategori</a>
 				</li>
 				<li class="nav-item align-self-center">
-					<a class="nav-link" href="<?= base_url("grooming") ?>">Grooming</a>
+					<a class="nav-link" href="<?= base_url("pendaftaran-grooming") ?>">Grooming</a>
 				</li>
 				<li class="nav-item align-self-center">
 					<a class="nav-link" href="<?= base_url("tentang-kami") ?>">Tentang</a>
@@ -30,9 +30,8 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<?php if ($this->session->userdata("role_id") <= 2) : ?>
 								<a class="dropdown-item" href="<?= base_url("dashboard") ?>">Dashboard</a>
-							<?php else : ?>
-								<a class="dropdown-item" href="<?= base_url("home") ?>">Home</a>
 							<?php endif; ?>
+							<a class="dropdown-item" href="<?= base_url("home") ?>">Akun Saya</a>
 							<a class="dropdown-item" href="dashboard-account.html">Settings</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item text-danger" href="<?= base_url("auth/logout") ?>">Logout</a>
