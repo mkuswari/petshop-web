@@ -47,3 +47,10 @@ $route['grooming'] = 'main/groomingpage';
 $route['pendaftaran-grooming'] = 'main/registergrooming';
 // $route['pendaftaran-grooming/(:any)'] = 'main/registergrooming/$1';
 $route['tentang-kami'] = 'main/aboutus';
+
+// custom route khusus untuk bagian admin
+// auth routes
+$route['admin'] = 'admin/auth';
+$route['admin/logout'] = 'admin/auth/logout';
+// dashboard routes
+$route['dashboard'] = 'admin/dashboard';

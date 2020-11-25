@@ -28,10 +28,6 @@
 											<?= form_error('name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 										</div>
 										<div class="form-group">
-											<input type="text" class="form-control form-control-user <?= form_error('nickname') ? 'is-invalid' : ''; ?>" id="nickname" name="nickname" placeholder="Nama Panggilan" autofocus>
-											<?= form_error('nickname', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
-										</div>
-										<div class="form-group">
 											<input type="number" class="form-control form-control-user <?= form_error('phone') ? 'is-invalid' : ''; ?>" id="phone" name="phone" placeholder="Nomor Ponsel" autofocus>
 											<?= form_error('phone', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 										</div>
