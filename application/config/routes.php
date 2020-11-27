@@ -76,3 +76,4 @@ $route['kelola-produk'] = 'admin/product';
 $route['kelola-produk/tambah'] = 'admin/product/create';
 $route['kelola-produk/ubah/(:num)'] = 'admin/product/edit/$1';
 $route['kelola-produk/hapus/(:num)'] = 'admin/product/delete/$1';
+$route['kelola-produk/detail/(:num)'] = 'admin/product/detail/$1';

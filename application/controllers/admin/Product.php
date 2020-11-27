@@ -144,6 +144,14 @@ class Product extends CI_Controller
 		redirect("kelola-produk");
 	}
 
+	public function detail($id)
+	{
+		$data["page_title"] = "Detail Produk";
+		$data["product"] = $this->Product_model->getProductById($id);
+
+		$this->load->view("admin/products/detail_view", $data);
+	}
+
 	private function _validationCreate()
 	{
 		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");

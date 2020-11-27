@@ -19,7 +19,6 @@
                 <section class="section">
                     <div class="section-header d-flex justify-content-between">
                         <h1><?= $page_title; ?></h1>
-                        <a href="<?= base_url("kelola-customer/tambah") ?>" class="btn btn-primary btn-lg">Tambah Customer</a>
                     </div>
                     <!-- alert flashdata -->
                     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
