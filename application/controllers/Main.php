@@ -12,18 +12,17 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-		$data["page_title"] = "Beli Makan untuk Kucing Kesayanganmu";
+		$data["page_title"] = "Petshop Wilayah Tegal";
 		$data["products"] = $this->Main_model->getProducts();
 		$data["categories"] = $this->Main_model->getCategories();
 		$data["packages"] = $this->Main_model->getGroomingPackages();
 
-		$this->load->view("frontend/landing_view", $data);
+		$this->load->view("landing_view", $data);
 	}
 
 	public function productPage()
 	{
 		$data["page_title"] = "Belanja";
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Main_model->getCategories();
 		$data["products"] = $this->Main_model->getAllProducts();
 
@@ -31,14 +30,13 @@ class Main extends CI_Controller
 			$data["products"] = $this->Main_model->getSearchResult();
 		}
 
-		$this->load->view("frontend/product_view", $data);
+		$this->load->view("customer/product_view", $data);
 	}
 
 	public function detailProduct($slug)
 	{
 		$getTitle = $this->Main_model->getTitleBySlug($slug);
 		$data["page_title"] = $getTitle["name"];
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["product"] = $this->Main_model->getProductBySlug($slug);
 		$data["products"] = $this->Main_model->getLatestProduct();
 
@@ -49,10 +47,9 @@ class Main extends CI_Controller
 	public function categoryPage()
 	{
 		$data["page_title"] = "Kategori";
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Main_model->getAllCategories();
 
-		$this->load->view("frontend/category_view", $data);
+		$this->load->view("customer/category_view", $data);
 	}
 
 	public function productByCategoryPage($id)
@@ -69,19 +66,16 @@ class Main extends CI_Controller
 	public function groomingPage()
 	{
 		$data["page_title"] = "Grooming";
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$userId = $data["user_session"]["user_id"];
 		$data["groomings"] = $this->Main_model->getGroomingsDataByUser($userId);
 
-		$this->load->view("frontend/grooming_view", $data);
+		$this->load->view("customer/grooming_view", $data);
 	}
 
 	public function registerGrooming()
 	{
-		must_login();
 
 		$data["page_title"] = "Form Registrasi Grooming";
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["packages"] = $this->Main_model->getGroomingPackages();
 		// $data["selected_package"] = $this->Main_model->getGroomingPackageBySlug($slug);
 
@@ -91,7 +85,7 @@ class Main extends CI_Controller
 		$this->form_validation->set_rules("pet_type", "Tipe Peliharaan", "required");
 		$this->form_validation->set_rules("package_id", "Paket Grooming", "required");
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("frontend/grooming_registration_view", $data);
+			$this->load->view("customer/grooming_registration_view", $data);
 		} else {
 			$customerName = $this->input->post("customer_name");
 			$customerPhone = $this->input->post("customer_phone");

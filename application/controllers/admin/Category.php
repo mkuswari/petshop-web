@@ -7,18 +7,15 @@ class Category extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		must_login();
-		must_admin_and_staff();
 
 		$this->load->model('Category_model');
 	}
 
 	public function index()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["page_title"] = "Kelola Kategori";
 
-		$this->load->view("backend/categories/index_view", $data);
+		$this->load->view("admin/categories/index_view", $data);
 	}
 
 	public function ajaxList()
@@ -41,8 +38,8 @@ class Category extends CI_Controller
 			$row[] = $category->slug;
 
 			// Action
-			$row[] = '<a class="btn btn-sm btn-warning" href="javascript:void(0)" title="Edit" onclick="editCategory(' . "'" . $category->category_id . 			"'" . ')">Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="deleteCategory(' . "'" . $category->category_id . "'" . ')">Delete</a>';
+			$row[] = '<a class="btn btn-icon btn-warning" href="javascript:void(0)" title="Edit" onclick="editCategory(' . "'" . $category->category_id . 			"'" . ')"><i class="fas fa-edit"></i></a>
+                  <a class="btn btn-icon btn-danger" href="javascript:void(0)" title="Hapus" onclick="deleteCategory(' . "'" . $category->category_id . "'" . ')"><i class="fas fa-trash"></i></a>';
 
 			$data[] = $row;
 		}

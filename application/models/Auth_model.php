@@ -6,6 +6,6 @@ class Auth_model extends CI_Model
 
 	public function userRegistration($userData)
 	{
-		$this->db->insert('users', $userData);
+		$this->db->insert('customers', $userData);
 	}
 }

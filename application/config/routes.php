@@ -5,19 +5,16 @@ $route['default_controller'] = 'main';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// routes for customers
 // auth routes
-$route['login'] = 'auth';
-$route['register'] = 'auth/register';
-$route['logout'] = 'auth/logout';
-
-// user routes
-$route['kelola-user'] = 'user';
-$route['kelola-user/tambah'] = 'user/create';
-$route['kelola-user/ubah/(:num)'] = 'user/edit/$1';
-$route['kelola-user/hapus/(:num)'] = 'user/delete/$1';
+$route['login'] = 'customer/auth';
+$route['register'] = 'customer/auth/register';
+$route['logout'] = 'customer/auth/logout';
+// home routes
+$route['home'] = 'customer/home';
 
 // categories routes
-$route['kelola-kategori'] = 'category';
+
 
 // items routes
 $route['kelola-produk'] = 'product';
@@ -48,9 +45,34 @@ $route['pendaftaran-grooming'] = 'main/registergrooming';
 // $route['pendaftaran-grooming/(:any)'] = 'main/registergrooming/$1';
 $route['tentang-kami'] = 'main/aboutus';
 
-// custom route khusus untuk bagian admin
-// auth routes
+/**
+ * Route untuk admin
+ */
+// auth
 $route['admin'] = 'admin/auth';
 $route['admin/logout'] = 'admin/auth/logout';
-// dashboard routes
+// dashboard
 $route['dashboard'] = 'admin/dashboard';
+// kelola customer
+$route['kelola-customer'] = 'admin/customer';
+$route['kelola-customer/tambah'] = 'admin/customer/create';
+$route['kelola-customer/ubah/(:num)'] = 'admin/customer/edit/$1';
+$route['kelola-customer/hapus/(:num)'] = 'admin/customer/delete/$1';
+$route['kelola-customer/detail/(:num)'] = 'admin/customer/detail/$1';
+// kelola admins
+$route['kelola-admin'] = 'admin/admin';
+$route['kelola-admin/tambah'] = 'admin/admin/create';
+$route['kelola-admin/ubah/(:num)'] = 'admin/admin/edit/$1';
+$route['kelola-admin/hapus/(:num)'] = 'admin/admin/delete/$1';
+// kelola kategori
+$route['kelola-kategori'] = 'admin/category';
+$route['kelola-kategori/ajaxlist'] = 'admin/category/ajaxlist';
+$route['kelola-kategori/ajaxedit/(:num)'] = 'admin/category/ajaxedit/$1';
+$route['kelola-kategori/ajaxadd'] = 'admin/category/ajaxadd';
+$route['kelola-kategori/ajaxupdate'] = 'admin/category/ajaxupdate';
+$route['kelola-kategori/ajaxdelete/(:num)'] = 'admin/category/ajaxdelete/$1';
+// kelola products
+$route['kelola-produk'] = 'admin/product';
+$route['kelola-produk/tambah'] = 'admin/product/create';
+$route['kelola-produk/ubah/(:num)'] = 'admin/product/edit/$1';
+$route['kelola-produk/hapus/(:num)'] = 'admin/product/delete/$1';

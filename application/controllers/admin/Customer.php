@@ -1,40 +1,33 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller
+class Customer extends CI_Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('User_model');
-
-		must_login();
-		must_admin();
+		$this->load->model('admin/Customer_model', 'Customer_model');
 	}
 
 	public function index()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["page_title"] = "Kelola User";
-		$data["users"] = $this->User_model->getAllUser();
+		$data["page_title"] = "Kelola Customer";
+		$data["customers"] = $this->Customer_model->getAllCustomers();
 
-		$this->load->view("backend/users/index_view", $data);
+		$this->load->view("admin/customers/index_view", $data);
 	}
 
 	public function create()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["title"] = "Tambah User";
-		$data["roles"] = $this->User_model->getAllRoles();
+		$data["page_title"] = "Tambah Customer";
 
 		$this->_validationAdd();
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("backend/users/create_view", $data);
+			$this->load->view("admin/customers/create_view", $data);
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
-			$nickName = strtolower(htmlspecialchars($this->input->post("nickname", true)));
 			$email = htmlspecialchars($this->input->post("email", true));
 			$phone = htmlspecialchars($this->input->post("phone", true));
 			$address = htmlspecialchars($this->input->post("address", true));
@@ -52,43 +45,35 @@ class User extends CI_Controller
 				}
 			}
 			$password = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
-			$roleId = $this->input->post("role_id");
 			$isActive = 1;
-			$dateCreated = time();
 
 			// Set Data
-			$userData = [
+			$customerData = [
 				"name" => $name,
-				"nickname" => $nickName,
 				"avatar" => $avatar,
 				"phone" => $phone,
 				"address" => $address,
 				"email" => $email,
 				"password" => $password,
-				"role_id" => $roleId,
-				"is_active" => $isActive,
-				"date_created" => $dateCreated
+				"is_active" => $isActive
 			];
 
-			$this->User_model->addNewUser($userData);
+			$this->Customer_model->addNewCustomer($customerData);
 			$this->session->set_flashdata('message', 'Ditambah');
-			redirect("kelola-user");
+			redirect("kelola-customer");
 		}
 	}
 
 	public function edit($id)
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["title"] = "Ubah Data User";
-		$data["user"] = $this->User_model->getUserById($id);
-		$data["roles"] = $this->User_model->getAllRoles();
+		$data["page_title"] = "Ubah Data Customer";
+		$data["customer"] = $this->Customer_model->getCustomerById($id);
 
 		$this->_validatonEdit();
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("backend/users/edit_view", $data);
+			$this->load->view("admin/customers/edit_view", $data);
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
-			$nickName = strtolower(htmlspecialchars($this->input->post("nickname", true)));
 			$email = htmlspecialchars($this->input->post("email", true));
 			$phone = htmlspecialchars($this->input->post("phone", true));
 			$address = htmlspecialchars($this->input->post("address", true));
@@ -99,60 +84,63 @@ class User extends CI_Controller
 				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
-					$user = $this->User_model->getUserById($id);
-					$oldAvatar = $user["avatar"];
+					$customer = $this->Customer_model->getCustomerById($id);
+					$oldAvatar = $customer["avatar"];
 					if ($oldAvatar != "default.jpg") {
 						unlink('./assets/uploads/avatars/' . $oldAvatar);
 					}
 					$newAvatar = $this->upload->data("file_name");
 					$avatar = $newAvatar;
 				} else {
-					$user = $this->User_model->getUserById($id);
-					$avatar = $user["avatar"];
+					$customer = $this->Customer_model->getCustomerById($id);
+					$avatar = $customer["avatar"];
 				}
 			}
-			$roleId = $this->input->post("role_id");
-			$isActive = 1;
+			$isActive = $this->input->post("is_active");
 
 			// Set Data
-			$userData = [
+			$customerData = [
 				"name" => $name,
-				"nickname" => $nickName,
 				"avatar" => $avatar,
 				"phone" => $phone,
 				"address" => $address,
 				"email" => $email,
-				"role_id" => $roleId,
 				"is_active" => $isActive,
 			];
-			$this->User_model->updateUser($userData);
+			$this->Customer_model->updateCustomer($customerData);
 			$this->session->set_flashdata('message', 'Diubah');
-			redirect("kelola-user");
+			redirect("kelola-customer");
 		}
 	}
 
 	public function delete($id)
 	{
-		$user = $this->User_model->getUserById($id);
-		if (file_exists('./assets/uploads/avatars/' . $user["avatar"]) && $user["avatar"] != "default.jpg") {
-			unlink('./assets/uploads/avatars/' . $user["avatar"]);
+		$customer = $this->Customer_model->getCustomerById($id);
+		if (file_exists('./assets/uploads/avatars/' . $customer["avatar"]) && $customer["avatar"] != "default.jpg") {
+			unlink('./assets/uploads/avatars/' . $customer["avatar"]);
 		}
-		$this->User_model->deleteUser($id);
+		$this->Customer_model->deleteCustomer($id);
 		$this->session->set_flashdata('message', 'Dihapus');
-		redirect("kelola-user");
+		redirect("kelola-customer");
 	}
 
+	public function detail($id)
+	{
+		$data["page_title"] = "Detail Data Customer";
+		$data["customer"] = $this->Customer_model->getCustomerById($id);
+
+		$this->load->view("admin/customers/detail_view", $data);
+	}
 
 
 	// validation function
 	private function _validationAdd()
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
-		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
-		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
+		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[customers.email]', [
 			'is_unique' => 'E-mail ini sudah digunakan'
 		]);
-		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim|is_unique[users.phone]', [
+		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim|is_unique[customers.phone]', [
 			'is_unique' => 'Nomor ini sudah digunakan'
 		]);
 		$this->form_validation->set_rules('address', 'Alamat', 'required|trim');
@@ -162,16 +150,13 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('password_confirm', 'Konfirmasi Password', 'required|trim|matches[password]', [
 			'matches' => 'Konfirmasi Password tidak sesuai'
 		]);
-		$this->form_validation->set_rules('role_id', 'Hak Akses', 'required');
 	}
 
 	private function _validatonEdit()
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
-		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email');
 		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim');
 		$this->form_validation->set_rules('address', 'Alamat Tinggal', 'required|trim');
-		$this->form_validation->set_rules('role_id', 'Hak Akses', 'required');
 	}
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $this->load->view("_components/frontend/head"); ?>
+<?php $this->load->view("customer/layouts/_head"); ?>
 
 <body>
 
 	<!-- Navigation -->
-	<?php $this->load->view("_components/frontend/navbar"); ?>
+	<?php $this->load->view("customer/layouts/_navbar"); ?>
 	<!-- Page Content -->
 	<div class="container py-5">
 
@@ -67,9 +67,9 @@
 	</section>
 
 	<!-- Footer -->
-	<?php $this->load->view("_components/frontend/footer"); ?>
+	<?php $this->load->view("customer/layouts/_footer"); ?>
 
-	<?php $this->load->view("_components/frontend/scripts"); ?>
+	<?php $this->load->view("customer/layouts/_scripts"); ?>
 
 </body>
 

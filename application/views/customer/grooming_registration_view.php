@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $this->load->view("_components/frontend/head"); ?>
+<?php $this->load->view("customer/layouts/_head"); ?>
 
 <body>
 
 	<!-- Navigation -->
-	<?php $this->load->view("_components/frontend/navbar"); ?>
+	<?php $this->load->view("customer/layouts/_navbar"); ?>
 	<!-- Page Content -->
 	<div class="container py-5">
 
@@ -32,7 +32,7 @@
 					<div class="form-group row">
 						<label for="customer_name" class="col-sm-2 col-form-label">Nama Customer</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control <?= form_error('customer_name') ? 'is-invalid' : ''; ?>" id="customer_name" name="customer_name" value="<?= $user_session["name"] ?>">
+							<input type="text" class="form-control <?= form_error('customer_name') ? 'is-invalid' : ''; ?>" id="customer_name" name="customer_name" value="<?= $this->session->userdata("logged_in") == "customer" ? $this->session->userdata("name") : ''; ?>">
 							<?= form_error('customer_name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 						</div>
 					</div>
@@ -94,9 +94,9 @@
 
 
 	<!-- Footer -->
-	<?php $this->load->view("_components/frontend/footer"); ?>
+	<?php $this->load->view("customer/layouts/_footer"); ?>
 
-	<?php $this->load->view("_components/frontend/scripts"); ?>
+	<?php $this->load->view("customer/layouts/_scripts"); ?>
 
 </body>
 

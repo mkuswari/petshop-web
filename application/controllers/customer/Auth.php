@@ -14,7 +14,7 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		if ($this->session->userdata("email")) {
+		if ($this->session->userdata("logged_in") == "customer") {
 			redirect("/");
 		}
 
@@ -35,28 +35,25 @@ class Auth extends CI_Controller
 		$password = $this->input->post("password");
 
 		// cek apakah dengan email yang di input ada
-		$userData = $this->db->get_where("users", ["email" => $email])->row_array();
+		$userData = $this->db->get_where("customers", ["email" => $email])->row_array();
 		if ($userData) {
 			// cek apakah akun user sudah aktif
 			if ($userData['is_active'] == 1) {
 				// cek apakah password yang dimasukkan benar
 				if (password_verify($password, $userData["password"])) {
-					$data = [
-						"user_id" => $userData["user_id"],
+					$customerData = [
+						"customer_id" => $userData["customer_id"],
+						"name" => $userData["name"],
+						"avatar" => $userData["avatar"],
+						"phone" => $userData["phone"],
+						"address" => $userData["address"],
 						"email" => $userData["email"],
-						"role_id" => $userData["role_id"]
+						"created_at" => $userData["created_at"],
+						"logged_in" => "customer"
 					];
 
-					$this->session->set_userdata($data);
-
-					// Cek hak akses
-					if ($userData["role_id"] == 1) {
-						redirect("dashboard");
-					} elseif ($userData["role_id"] == 2) {
-						redirect("dashboard");
-					} else {
-						redirect("home");
-					}
+					$this->session->set_userdata($customerData);
+					redirect("home");
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger">Password kamu salah</div>');
 					redirect("login");
@@ -109,8 +106,13 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$this->session->unset_userdata('email');
-		$this->session->unset_userdata('role_id');
+		$this->session->unset_userdata("customer_id");
+		$this->session->unset_userdata("avatar");
+		$this->session->unset_userdata("phone");
+		$this->session->unset_userdata("address");
+		$this->session->unset_userdata("email");
+		$this->session->unset_userdata("created_at");
+		$this->session->unset_userdata("logged_in");
 		$this->session->set_flashdata('message', '<div class="alert alert-success">Kamu berhasil logout</div>');
 		redirect("login");
 	}
@@ -131,11 +133,10 @@ class Auth extends CI_Controller
 	private function _registerValidation()
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
-		$this->form_validation->set_rules('nickname', 'Nama Panggilan', 'required|trim');
-		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[users.email]', [
+		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email|is_unique[customers.email]', [
 			'is_unique' => 'E-mail ini sudah terdaftar'
 		]);
-		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim');
+		$this->form_validation->set_rules('phone', 'Nomor Ponsel', 'required|trim|is_unique[customers.phone]');
 		$this->form_validation->set_rules('address', 'Alamat', 'required|trim');
 		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[4]', [
 			'min_length' => 'Password minimal harus 4 karakter'

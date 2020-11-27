@@ -10,28 +10,26 @@ class Product extends CI_Controller
 		must_login();
 		must_admin_and_staff();
 		$this->load->library('form_validation');
-		$this->load->model('Product_model');
+		$this->load->model('admin/Product_model', 'Product_model');
 	}
 
 	public function index()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
-		$data["page_title"] = "Kelola Item";
+		$data["page_title"] = "Kelola Produk";
 		$data["products"] = $this->Product_model->getAllProduct();
 
-		$this->load->view("backend/products/index_view", $data);
+		$this->load->view("admin/products/index_view", $data);
 	}
 
 	public function create()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["categories"] = $this->Product_model->getProductCategory();
-		$data["page_title"] = "Tambah Item";
+		$data["page_title"] = "Tambah Produk Baru";
 
 		$this->_validationCreate();
 		if ($this->form_validation->run() == FALSE) {
 
-			$this->load->view("backend/products/create_view", $data);
+			$this->load->view("admin/products/create_view", $data);
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
 			$description = htmlspecialchars($this->input->post("description", true));
@@ -78,14 +76,13 @@ class Product extends CI_Controller
 
 	public function edit($id)
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["page_title"] = "Edit Data Produk";
 		$data["product"] = $this->db->get_where("items", ["item_id" => $id])->row_array();
 		$data["categories"] = $this->Product_model->getProductCategory();
-		$data["page_title"] = "Edit Data Produk";
 
 		$this->_validationUpdate();
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("backend/products/edit_view", $data);
+			$this->load->view("admin/products/edit_view", $data);
 		} else {
 			// validasi berhasil
 			$name = htmlspecialchars($this->input->post("name", true));
@@ -128,9 +125,9 @@ class Product extends CI_Controller
 				"description" => $description,
 				"stock" => $stock,
 				"price" => $price,
-				"category_id" => $categoryId
+				"category_id" => $categoryId,
 			];
-			$this->Product_model->updateProduct($productData);
+			$this->Product_model->updateProduct($productData, $id);
 			$this->session->set_flashdata('message', 'Diubah');
 			redirect("kelola-produk");
 		}
@@ -150,8 +147,6 @@ class Product extends CI_Controller
 	private function _validationCreate()
 	{
 		$this->form_validation->set_rules("name", "Nama Produk", "required|trim");
-		// $this->form_validation->set_rules("thumbnail", "Thumbnail Produk", "required");
-		$this->form_validation->set_rules("description", "Deskripsi Produk", "required|trim");
 		$this->form_validation->set_rules("stock", "Stock Produk", "required|trim");
 		$this->form_validation->set_rules("price", "Harga Produk", "required|trim");
 		$this->form_validation->set_rules("category_id", "Kategori", "required");

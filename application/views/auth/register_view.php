@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $this->load->view("_components/auth/head"); ?>
+<?php $this->load->view("customer/layouts/_auth/_head"); ?>
 
 <body class="bg-gradient-primary">
 
@@ -67,7 +67,7 @@
 
 	</div>
 
-	<?php $this->load->view("_components/auth/scripts"); ?>
+	<?php $this->load->view("customer/layouts/_auth/_scripts"); ?>
 
 </body>
 

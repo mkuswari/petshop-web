@@ -1,65 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $this->load->view("_components/backend/head"); ?>
+<!-- head -->
+<?php $this->load->view("admin/layouts/_head"); ?>
 
-<body id="page-top">
+<body>
+	<div id="app">
+		<div class="main-wrapper main-wrapper-1">
 
-	<!-- Page Wrapper -->
-	<div id="wrapper">
+			<!-- topbar -->
+			<?php $this->load->view("admin/layouts/_topbar"); ?>
 
-		<!-- Sidebar -->
-		<?php $this->load->view("_components/backend/sidebar"); ?>
-		<!-- End of Sidebar -->
-
-		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
+			<!-- sidebar -->
+			<?php $this->load->view("admin/layouts/_sidebar"); ?>
 
 			<!-- Main Content -->
-			<div id="content">
+			<div class="main-content">
 
-				<!-- Topbar -->
-				<?php $this->load->view("_components/backend/topbar"); ?>
-				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
-				<div class="container-fluid">
-					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800"><?= $page_title; ?></h1>
-						<a href="javascript:void(0)" class="btn btn-primary showCreateModal" onclick="addCategory()"><i class="fas fa-plus-circle fa-sm text-white-50"></i> Tambah Kategori</a>
+				<section class="section">
+					<div class="section-header d-flex justify-content-between">
+						<h1><?= $page_title; ?></h1>
+						<a href="javascript:void(0)" class="btn btn-primary btn-lg showCreateModal" onclick="addCategory()">Tambah Kategori</a>
 					</div>
-
-					<div class="card mb-4">
-						<div class="card-body">
-
-							<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
-
-							<div class="table-responsive">
-								<table class="table table-bordered" id="table" width="100%">
-									<thead>
-										<tr>
-											<th width="50">No. </th>
-											<th width="300">Image</th>
-											<th>Nama</th>
-											<th>Slug</th>
-											<th width="200">Aksi</th>
-										</tr>
-									</thead>
-									<tbody>
-										<!-- Table generate from ajax -->
-									</tbody>
-								</table>
+					<!-- alert flashdata -->
+					<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+					<!-- end alert flashdata -->
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-striped" id="tableCategories" width="100%">
+											<thead>
+												<tr>
+													<th width="50">No. </th>
+													<th width="300">Image</th>
+													<th>Nama</th>
+													<th>Slug</th>
+													<th width="200">Aksi</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Table generate from ajax -->
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-
-				</div>
+				</section>
 
 				<!-- /.container-fluid -->
 			</div>
 			<!-- End of Main Content -->
 
 			<!-- Footer -->
-			<?php $this->load->view("_components/backend/footer"); ?>
+			<?php $this->load->view("admin/layouts/_footer"); ?>
 			<!-- End of Footer -->
 
 		</div>
@@ -116,7 +114,7 @@
 	</div>
 
 
-	<?php $this->load->view("_components/backend/scripts"); ?>
+	<?php $this->load->view("admin/layouts/_scripts"); ?>
 
 	<!-- ajax -->
 	<script>
@@ -126,7 +124,7 @@
 
 		$(document).ready(function() {
 			//datatables
-			table = $('#table').DataTable({
+			table = $('#tableCategories').DataTable({
 
 				"processing": true, //Feature control the processing indicator.
 				"serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -134,7 +132,7 @@
 
 				// Load data for the table's content from an Ajax source
 				"ajax": {
-					"url": "<?= base_url('category/ajaxlist') ?>",
+					"url": "<?= base_url('kelola-kategori/ajaxlist') ?>",
 					"type": "POST"
 				},
 
@@ -180,7 +178,7 @@
 
 			// load data from ajax
 			$.ajax({
-				url: "<?= base_url('category/ajaxedit') ?>/" + id,
+				url: "<?= base_url('kelola-kategori/ajaxedit') ?>/" + id,
 				type: "GET",
 				dataType: "JSON",
 				success: function(data) {
@@ -201,7 +199,7 @@
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					Swal.fire({
+					swal({
 						title: 'Error',
 						text: 'Gagal mendapatkan data dari AJAX',
 						icon: 'error'
@@ -220,9 +218,9 @@
 			let url;
 
 			if (saveMethod == 'add') {
-				url = "<?= base_url('category/ajaxadd') ?>";
+				url = "<?= base_url('kelola-kategori/ajaxadd') ?>";
 			} else {
-				url = "<?= base_url('category/ajaxupdate') ?>";
+				url = "<?= base_url('kelola-kategori/ajaxupdate') ?>";
 			}
 
 			// ajax adding data to database
@@ -242,14 +240,14 @@
 
 						if (saveMethod == 'add') {
 							$('#modal_form').modal('hide');
-							Swal.fire({
+							swal({
 								title: 'Berhasil',
 								text: 'Kategori berhasil ditambahkan',
 								icon: 'success'
 							});
 						} else {
 							$('#modal_form').modal('hide');
-							Swal.fire({
+							swal({
 								title: 'Berhasil',
 								text: 'Kategori berhasil diubah',
 								icon: 'success'
@@ -262,9 +260,9 @@
 						// 	$('[form-control="' + data.inputerror[i] + '"]').parent().addClass('is-invalid'); //select parent twice to select div form-group class and add has-error class
 						// 	$('[form-control="' + data.inputerror[i] + '"]').next().text(data.error_string[i]); //select span help-block class set text error string
 						// }
-						Swal.fire({
+						swal({
 							title: 'Gagal',
-							text: 'Lengkapi semua form',
+							text: 'Harus isi semua form',
 							icon: 'error'
 						});
 					}
@@ -274,7 +272,7 @@
 
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					Swal.fire({
+					swal({
 						title: 'Gagal',
 						text: 'Kategori gagal ditambahkan',
 						icon: 'error'
@@ -287,18 +285,16 @@
 		}
 
 		function deleteCategory(id) {
-			Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
+			swal({
+				title: "Anda yakin?",
+				text: "Data Kategori akan dihapus!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
 			}).then((result) => {
-				if (result.isConfirmed) {
+				if (result) {
 					$.ajax({
-						url: "<?= base_url('category/ajaxdelete') ?>/" + id,
+						url: "<?= base_url('kelola-kategori/ajaxdelete') ?>/" + id,
 						type: "POST",
 						dataType: "JSON",
 						success: function(data) {
@@ -307,16 +303,16 @@
 							reloadTable();
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
-							Swal.fire(
-								'Deleted!',
-								'Your file has been deleted.',
+							swal(
+								'Gagal!',
+								'Data kategori gagal dihapus .',
 								'error'
 							)
 						}
 					});
-					Swal.fire(
-						'Deleted!',
-						'Your file has been deleted.',
+					swal(
+						'Berhasil!',
+						'Data kategori dihapus.',
 						'success'
 					)
 				}
