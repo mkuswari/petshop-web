@@ -24,7 +24,7 @@
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-cat"></i> <span>Kelola Grooming</span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="utilities-contact.html">Kelola Paket</a></li>
+                    <li><a href="<?= base_url("paket-grooming") ?>">Kelola Paket</a></li>
                     <li><a class="nav-link" href="utilities-invoice.html">Data Grooming</a></li>
                 </ul>
             </li>

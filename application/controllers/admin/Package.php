@@ -7,17 +7,14 @@ class Package extends CI_Controller
 	{
 		parent::__construct();
 
-		must_login();
-		must_admin_and_staff();
-		$this->load->model('Package_model');
+		$this->load->model('admin/Package_model', 'Package_model');
 	}
 
 	public function index()
 	{
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
 		$data["page_title"] = "Kelola Paket Grooming";
 
-		$this->load->view("backend/types/index_view", $data);
+		$this->load->view("admin/packages/index_view", $data);
 	}
 
 	public function ajaxList()
@@ -32,10 +29,11 @@ class Package extends CI_Controller
 			$row[] = $i++;
 			$row[] = $package->name;
 			$row[] = $package->slug;
-			$row[] = $package->cost;
+			$row[] = $package->description;
+			$row[] = "IDR. " . number_format($package->cost);
 
-			$row[] = '<a class="btn btn-sm btn-warning" href="javascript:void(0)" title="Edit" onclick="editPackage(' . "'" . $package->package_id . 			"'" . ')">Edit</a>
-				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="deletePackage(' . "'" . $package->package_id . "'" . ')">Delete</a>';
+			$row[] = '<a class="btn btn-icon btn-warning" href="javascript:void(0)" title="Edit" onclick="editPackage(' . "'" . $package->package_id . 			"'" . ')"><i class="fas fa-edit"></i></a>
+				  <a class="btn btn-icon btn-danger" href="javascript:void(0)" title="Hapus" onclick="deletePackage(' . "'" . $package->package_id . "'" . ')"><i class="fas fa-trash"></i></a>';
 
 			$data[] = $row;
 		}
@@ -64,14 +62,14 @@ class Package extends CI_Controller
 		$trim = trim($string); // hilangkan spasi berlebihan dengan fungsi trim
 		$pre_slug = strtolower(str_replace(" ", "-", $trim)); // hilangkan spasi, kemudian ganti spasi dengan tanda strip (-)
 		$slug = $pre_slug; // tambahkan ektensi .html pada slug
+		$description = $this->input->post("description");
 		$cost = $this->input->post("cost");
-		$dateCreated = time();
 
 		$data = array(
 			"name" => $name,
 			"slug" => $slug,
-			"cost" => $cost,
-			"date_created" => $dateCreated
+			"description" => $description,
+			"cost" => $cost
 		);
 
 		$this->Package_model->save($data);
@@ -87,14 +85,14 @@ class Package extends CI_Controller
 		$trim = trim($string); // hilangkan spasi berlebihan dengan fungsi trim
 		$pre_slug = strtolower(str_replace(" ", "-", $trim)); // hilangkan spasi, kemudian ganti spasi dengan tanda strip (-)
 		$slug = $pre_slug; // tambahkan ektensi .html pada slug
+		$description = $this->input->post("description");
 		$cost = $this->input->post("cost");
-		$dateCreated = time();
 
 		$data = array(
 			"name" => $name,
 			"slug" => $slug,
-			"cost" => $cost,
-			"date_created" => $dateCreated
+			"description" => $description,
+			"cost" => $cost
 		);
 		$this->Package_model->update(array("package_id" => $this->input->post("package_id")), $data);
 		echo json_encode(array("status" => TRUE));

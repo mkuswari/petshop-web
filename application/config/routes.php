@@ -77,3 +77,10 @@ $route['kelola-produk/tambah'] = 'admin/product/create';
 $route['kelola-produk/ubah/(:num)'] = 'admin/product/edit/$1';
 $route['kelola-produk/hapus/(:num)'] = 'admin/product/delete/$1';
 $route['kelola-produk/detail/(:num)'] = 'admin/product/detail/$1';
+// Kelola paket grooming
+$route['paket-grooming'] = 'admin/package';
+$route['paket-grooming/ajaxlist'] = 'admin/package/ajaxlist';
+$route['paket-grooming/ajaxedit/(:num)'] = 'admin/package/ajaxedit/$1';
+$route['paket-grooming/ajaxadd'] = 'admin/package/ajaxadd';
+$route['paket-grooming/ajaxupdate'] = 'admin/package/ajaxupdate';
+$route['paket-grooming/ajaxdelete/(:num)'] = 'admin/package/ajaxdelete/$1';

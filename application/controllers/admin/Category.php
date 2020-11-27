@@ -8,7 +8,7 @@ class Category extends CI_Controller
 	{
 		parent::__construct();
 
-		$this->load->model('Category_model');
+		$this->load->model('admin/Category_model', 'Category_model');
 	}
 
 	public function index()
