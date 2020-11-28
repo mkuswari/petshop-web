@@ -40,11 +40,13 @@ class Auth extends CI_Controller
                 // cek apakah password yang dimasukkan benar
                 if (password_verify($password, $adminData["password"])) {
                     $data = [
-                        "admin_id" => $adminData["admin_id"],
                         "name" => $adminData["name"],
                         "avatar" => $adminData["avatar"],
                         "email" => $adminData["email"],
                         "role" => $adminData["role"],
+                        "is_active" => $adminData["is_active"],
+                        "created_at" => $adminData["created_at"],
+
                         "logged_in" => "admin"
                     ];
 

@@ -84,3 +84,7 @@ $route['paket-grooming/ajaxedit/(:num)'] = 'admin/package/ajaxedit/$1';
 $route['paket-grooming/ajaxadd'] = 'admin/package/ajaxadd';
 $route['paket-grooming/ajaxupdate'] = 'admin/package/ajaxupdate';
 $route['paket-grooming/ajaxdelete/(:num)'] = 'admin/package/ajaxdelete/$1';
+// Profile saya
+$route['profile'] = 'admin/profile';
+$route['profile/update-profile'] = 'admin/profile/editprofile';
+$route['profile/ubah-password'] = 'admin/profile/changepassword';

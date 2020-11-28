@@ -7,45 +7,38 @@ class Profile extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		must_login();
 		$this->load->library("form_validation");
-		$this->load->model("Profile_model");
+		$this->load->model("admin/Profile_model", 'Profile_model');
+	}
+
+	public function _getLoginInfo()
+	{
+		return $this->db->get_where("admins", ["email" => $this->session->userdata("email")])->row_array();
 	}
 
 	public function index()
 	{
-		// must_admin_and_staff();
-		$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+		$data["page_title"] = "Profile Saya";
+		// $data["user_session"] = $this->_getLoginInfo();
 
-		$data["title"] = "Profile Saya";
-
-		if ($this->session->userdata("role_id") > 2) {
-			$this->load->view("frontend/profile/profile_view", $data);
-		} else {
-			$this->load->view("backend/profile/profile_view", $data);
-		}
+		$this->load->view("admin/profile/index_view", $data);
 	}
 
 	public function editProfile()
 	{
 
-		// must_admin_and_staff();
-
 		$this->form_validation->set_rules("name", "Nama", "required|trim");
-		$this->form_validation->set_radio("nickname", "Nama Panggilan", "required|trim");
 		$this->form_validation->set_rules("email", "E-mail", "required|trim|valid_email");
-		$this->form_validation->set_rules("phone", "Nomor Ponsel", "required|trim");
-		$this->form_validation->set_rules("address", "Alamat", "required|trim");
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
+			$name = htmlspecialchars($this->input->post("name", true));
+			$email = htmlspecialchars($this->input->post("email", true));
 			$profileData = [
-				"name" => $this->input->post("name"),
-				"nickname" => $this->input->post("nickname"),
-				"email" => $this->input->post("email"),
-				"phone" => $this->input->post("phone"),
-				"address" => $this->input->post("address"),
+				"name" => $name,
+				"email" => $email
 			];
+			$this->session->set_userdata($profileData);
 			// cek jika ada gambar yang diupload
 			$uploadImage = $_FILES["avatar"];
 
@@ -56,13 +49,14 @@ class Profile extends CI_Controller
 				$config['file_name'] = round(microtime(true) * 1000);
 				$this->load->library("upload", $config);
 				if ($this->upload->do_upload("avatar")) {
-					$userSession = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+					$userSession = $this->db->get_where("admins", ["email" => $this->session->userdata("email")])->row_array();
 					$oldAvatar = $userSession["avatar"];
 					if ($oldAvatar != "default.jpg") {
 						unlink('./assets/uploads/avatars/' . $oldAvatar);
 					}
 					$newAvatar = $this->upload->data("file_name");
 					$this->db->set("avatar", $newAvatar);
+					$this->session->set_userdata("avatar", $newAvatar);
 				} else {
 					echo $this->upload->display_errors();
 				}
@@ -89,7 +83,7 @@ class Profile extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
-			$data["user_session"] = $this->db->get_where("users", ["email" => $this->session->userdata("email")])->row_array();
+			$data["user_session"] = $this->db->get_where("admins", ["email" => $this->session->userdata("email")])->row_array();
 			$currentPassword = $this->input->post("current_password");
 			$newPassword = $this->input->post("new_password");
 			if (password_verify($currentPassword, $data["users_session"]["password"])) {
@@ -105,7 +99,7 @@ class Profile extends CI_Controller
 
 					$this->Profile_model->updatePassword($passwordHash);
 
-					$this->session->set_flashdata('message', '<div class="alert alert-success">Password berhasil diupdate</div>');
+					$this->session->set_flashdata('message', '<div class="alert alert-success">Silahkan login dengan password baru</div>');
 					redirect("profile");
 				}
 			}

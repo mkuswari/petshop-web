@@ -30,7 +30,7 @@
             </li>
             <li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-credit-card"></i> <span>Kelola Transaksi</span></a></li>
             <li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-file"></i> <span>Laporan</span></a></li>
-            <li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-user-cog"></i> <span>Profile Saya</span></a></li>
+            <li><a class="nav-link" href="<?= base_url("profile") ?>"><i class="fas fa-user-cog"></i> <span>Profile Saya</span></a></li>
             <li><a class="nav-link text-danger" href="<?= base_url("admin/logout") ?>"><i class="fas fa-sign-out-alt"></i> <span>Keluar</span></a></li>
         </ul>
     </aside>

@@ -71,7 +71,7 @@
             </div>
         </li> -->
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                <img alt="image" src="<?= base_url("assets/uploads/avatars/" . $this->session->userdata("avatar")); ?>" class="rounded-circle mr-1">
+                <img alt="image" src="<?= base_url("assets/uploads/avatars/" . $this->session->userdata("avatar")); ?>" class="rounded-circle mr-1" style="width: 40px; height: 40px; object-fit: cover; object-position: center;">
                 <div class="d-sm-none d-lg-inline-block">Hi, <?= $this->session->userdata("name"); ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
