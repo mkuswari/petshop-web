@@ -107,37 +107,6 @@
 					<?php endif; ?>
 				</section>
 
-				<section class="groomings py-5">
-					<div class="row">
-						<div class="col-7">
-							<h4 class="font-weight-bold">Kami juga menawarkan jasa Grooming</h4>
-							<p class="small text-muted">Dengan beragam paket grooming yang sesuai dengan kebutuhan anda.</p>
-						</div>
-					</div>
-					<hr>
-					<?php if ($packages) : ?>
-						<div class="row">
-							<div class="col-sm-9 mx-auto">
-								<div class="card shadow border-0 mb-3" width="100%">
-									<div class="row no-gutters">
-										<div class="col-md-12">
-											<div class="card-body text-center">
-												<h5 class="font-weight-bold">Saya ingin Grooming</h5>
-												<p class="text-muted">Klik tombol dibawah untuk melakukan Pendaftaran Grooming</p>
-												<a href="<?= base_url("pendaftaran-grooming") ?>" class="btn btn-success shadow">Daftar Grooming</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					<?php else : ?>
-						<div class="alert alert-danger">
-							Maaf, belum ada paket grooming tersedia
-						</div>
-					<?php endif; ?>
-				</section>
-
 			</div>
 			<!-- /.col-lg-9 -->
 

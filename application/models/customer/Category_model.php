@@ -11,4 +11,9 @@ class Category_model extends CI_Model
 	{
 		return $this->db->get_where("categories", ["category_id" => $id])->row_array();
 	}
+
+	public function getProductsByCategory($id)
+	{
+		return $this->db->get_where("items", ["category_id" => $id])->result_array();
+	}
 }

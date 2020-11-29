@@ -53,7 +53,7 @@ class Auth extends CI_Controller
 					];
 
 					$this->session->set_userdata($customerData);
-					redirect("home");
+					redirect("/");
 				} else {
 					$this->session->set_flashdata('message', '<div class="alert alert-danger">Password kamu salah</div>');
 					redirect("login");

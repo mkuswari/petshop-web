@@ -25,11 +25,6 @@ class Main_model extends CI_Model
 		$this->db->insert("groomings", $groomingData);
 	}
 
-	public function getProductsByCategory($id)
-	{
-		return $this->db->get_where("items", ["category_id" => $id])->result_array();
-	}
-
 	public function getGroomingsDataByUser($userId)
 	{
 		$this->db->select("groomings.*, packages.cost, name AS package_name");

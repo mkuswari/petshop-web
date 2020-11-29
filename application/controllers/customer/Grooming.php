@@ -1,8 +1,7 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
-
-class Home extends CI_Controller
+class Grooming extends CI_Controller
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,8 +12,8 @@ class Home extends CI_Controller
 
 	public function index()
 	{
-		$data["page_title"] = 'Home';
+		$data["page_title"] = "Form Registrasi Grooming";
 
-		$this->load->view("customer/home_view", $data);
+		$this->load->view("customer/groomings/registration_view", $data);
 	}
 }

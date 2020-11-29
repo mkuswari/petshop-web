@@ -12,7 +12,6 @@ class Landing extends CI_Controller
 		$data["page_title"] = "Petshop Wilayah Tegal";
 		$data["products"] = $this->Landing_model->getProducts();
 		$data["categories"] = $this->Landing_model->getCategories();
-		$data["packages"] = $this->Landing_model->getGroomingPackages();
 
 		$this->load->view("landing_view", $data);
 	}
