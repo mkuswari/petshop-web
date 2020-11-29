@@ -20,30 +20,6 @@ class Main extends CI_Controller
 		$this->load->view("landing_view", $data);
 	}
 
-	public function productPage()
-	{
-		$data["page_title"] = "Belanja";
-		$data["categories"] = $this->Main_model->getCategories();
-		$data["products"] = $this->Main_model->getAllProducts();
-
-		if ($this->input->post("keyword")) {
-			$data["products"] = $this->Main_model->getSearchResult();
-		}
-
-		$this->load->view("customer/product_view", $data);
-	}
-
-	public function detailProduct($slug)
-	{
-		$getTitle = $this->Main_model->getTitleBySlug($slug);
-		$data["page_title"] = $getTitle["name"];
-		$data["product"] = $this->Main_model->getProductBySlug($slug);
-		$data["products"] = $this->Main_model->getLatestProduct();
-
-		$this->load->view("frontend/detail_view", $data);
-	}
-
-
 	public function categoryPage()
 	{
 		$data["page_title"] = "Kategori";

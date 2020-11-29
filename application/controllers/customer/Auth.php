@@ -8,7 +8,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Auth_model');
+		$this->load->model('customer/Auth_model', 'Auth_model');
 	}
 
 
@@ -22,7 +22,7 @@ class Auth extends CI_Controller
 
 		$this->_loginValidation();
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("auth/login_view", $data);
+			$this->load->view("customer/auth/login_view", $data);
 		} else {
 			// memanggil method aksi login
 			$this->_loginAction();
@@ -70,7 +70,7 @@ class Auth extends CI_Controller
 
 	public function register()
 	{
-		if ($this->session->userdata("email")) {
+		if ($this->session->userdata("logged_in") == "customer") {
 			redirect("/");
 		}
 
@@ -78,7 +78,7 @@ class Auth extends CI_Controller
 
 		$this->_registerValidation();
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view("auth/register_view", $data);
+			$this->load->view("customer/auth/register_view", $data);
 		} else {
 			$name = htmlspecialchars($this->input->post("name", true));
 			$email = htmlspecialchars($this->input->post("email", true));

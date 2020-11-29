@@ -35,13 +35,13 @@
 					</ol>
 					<div class="carousel-inner" role="listbox">
 						<div class="carousel-item active">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+							<img class="d-block img-fluid" src="<?= base_url("assets/customer/img/slider/slider-01.jpg") ?>" alt="First slide" style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+							<img class="d-block img-fluid" src="<?= base_url("assets/customer/img/slider/slider-02.jpg") ?>" alt="Second slide" style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+							<img class="d-block img-fluid" src="<?= base_url("assets/customer/img/slider/slider-03.jpg") ?>" alt="Third slide" style="width: 100%; height: 350px; object-fit: cover; object-position: center;">
 						</div>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
