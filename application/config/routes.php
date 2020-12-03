@@ -24,6 +24,10 @@ $route['kategori/(:num)'] = 'customer/category/productcategory/$1';
 $route['tentang-kami'] = 'main/aboutus';
 // groomings
 $route['grooming/register'] = 'customer/grooming';
+// profiles
+$route['customer/profile'] = 'customer/profile';
+$route['customer/profile/update-profile'] = 'customer/profile/editprofile';
+$route['customer/profile/ubah-password'] = 'customer/profile/changepassword';
 
 /**
  * Route untuk admin
@@ -66,5 +70,5 @@ $route['paket-grooming/ajaxupdate'] = 'admin/package/ajaxupdate';
 $route['paket-grooming/ajaxdelete/(:num)'] = 'admin/package/ajaxdelete/$1';
 // Profile saya
 $route['admin/profile'] = 'admin/profile';
-$route['profile/update-profile'] = 'admin/profile/editprofile';
-$route['profile/ubah-password'] = 'admin/profile/changepassword';
+$route['admin/profile/update-profile'] = 'admin/profile/editprofile';
+$route['admin/profile/ubah-password'] = 'admin/profile/changepassword';

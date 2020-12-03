@@ -38,7 +38,8 @@
                                                     <th width="250">Nama Paket</th>
                                                     <th width="250">Slug</th>
                                                     <th>Deskripsi Paket</th>
-                                                    <th width="150">Biaya Pelayanan</th>
+                                                    <th width="150">Tarif Kucing</th>
+                                                    <th width="150">Tarif Anjing</th>
                                                     <th width="120">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -100,8 +101,12 @@
                             <textarea name="description" id="description" rows="4" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="cost">Biaya Pelayanan</label>
-                            <input type="number" name="cost" id="cost" class="form-control">
+                            <label for="cost_for_cat">Biaya Pelayanan untuk Kucing</label>
+                            <input type="number" name="cost_for_cat" id="cost_for_cat" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="cost_for_dog">Biaya Pelayanan untuk Anjing</label>
+                            <input type="number" name="cost_for_dog" id="cost_for_dog" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -184,7 +189,8 @@
                     $('[name="name"]').val(data.name);
                     $('[name="slug"]').val(data.slug);
                     $('[name="description"]').val(data.description);
-                    $('[name="cost"]').val(data.cost);
+                    $('[name="cost_for_cat"]').val(data.cost_for_cat);
+                    $('[name="cost_for_dog"]').val(data.cost_for_dog);
                     $('#modal_form').modal('show'); // show bootstrap modal
                     $('.modal-title').text('Ubah Paket Grooming'); // Set Title to Bootstrap modal title
 

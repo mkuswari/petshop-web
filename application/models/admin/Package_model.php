@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Package_model extends CI_Model
 {
 	var $table = 'packages';
-	var $columnOrder = array('name', 'slug', 'description', 'cost', null);
+	var $columnOrder = array('name', 'slug', 'description', 'cost_for_cat', 'cost_for_dog', null);
 	var $columnSearch = array('name');
 	var $order = array('package_id' => "DESC");
 

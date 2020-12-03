@@ -30,7 +30,8 @@ class Package extends CI_Controller
 			$row[] = $package->name;
 			$row[] = $package->slug;
 			$row[] = $package->description;
-			$row[] = "IDR. " . number_format($package->cost);
+			$row[] = "IDR. " . number_format($package->cost_for_cat);
+			$row[] = "IDR. " . number_format($package->cost_for_dog);
 
 			$row[] = '<a class="btn btn-icon btn-warning" href="javascript:void(0)" title="Edit" onclick="editPackage(' . "'" . $package->package_id . 			"'" . ')"><i class="fas fa-edit"></i></a>
 				  <a class="btn btn-icon btn-danger" href="javascript:void(0)" title="Hapus" onclick="deletePackage(' . "'" . $package->package_id . "'" . ')"><i class="fas fa-trash"></i></a>';
@@ -63,13 +64,15 @@ class Package extends CI_Controller
 		$pre_slug = strtolower(str_replace(" ", "-", $trim)); // hilangkan spasi, kemudian ganti spasi dengan tanda strip (-)
 		$slug = $pre_slug; // tambahkan ektensi .html pada slug
 		$description = $this->input->post("description");
-		$cost = $this->input->post("cost");
+		$costForCat = $this->input->post("cost_for_cat");
+		$costForDog = $this->input->post("cost_for_dog");
 
 		$data = array(
 			"name" => $name,
 			"slug" => $slug,
 			"description" => $description,
-			"cost" => $cost
+			"cost_for_cat" => $costForCat,
+			"cost_for_dog" => $costForDog
 		);
 
 		$this->Package_model->save($data);
@@ -86,13 +89,15 @@ class Package extends CI_Controller
 		$pre_slug = strtolower(str_replace(" ", "-", $trim)); // hilangkan spasi, kemudian ganti spasi dengan tanda strip (-)
 		$slug = $pre_slug; // tambahkan ektensi .html pada slug
 		$description = $this->input->post("description");
-		$cost = $this->input->post("cost");
+		$costForCat = $this->input->post("cost_for_cat");
+		$costForDog = $this->input->post("cost_for_dog");
 
 		$data = array(
 			"name" => $name,
 			"slug" => $slug,
 			"description" => $description,
-			"cost" => $cost
+			"cost_for_cat" => $costForCat,
+			"cost_for_dog" => $costForDog
 		);
 		$this->Package_model->update(array("package_id" => $this->input->post("package_id")), $data);
 		echo json_encode(array("status" => TRUE));
@@ -117,8 +122,14 @@ class Package extends CI_Controller
 			$data['status'] = FALSE;
 		}
 
-		if ($this->input->post('cost') == '') {
-			$data['inputerror'][] = 'cost';
+		if ($this->input->post('cost_for_cat') == '') {
+			$data['inputerror'][] = 'cost_for_cat';
+			$data['error_string'][] = 'Biaya Grooming harus diisi';
+			$data['status'] = FALSE;
+		}
+
+		if ($this->input->post('cost_for_dog') == '') {
+			$data['inputerror'][] = 'cost_for_dog';
 			$data['error_string'][] = 'Biaya Grooming harus diisi';
 			$data['status'] = FALSE;
 		}

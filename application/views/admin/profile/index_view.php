@@ -31,7 +31,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><?= $this->session->userdata("name"); ?></h5>
                                             <p class="card-text"><?= $this->session->userdata("email"); ?></p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                            <p class="card-text"><small class="text-muted">Member Since : <?= date('d F Y', strtotime($this->session->userdata("created_at"))); ?></small></p>
                                             <?php if ($this->session->userdata("role") == "Admin") : ?>
                                                 <span class="badge badge-success">Admin</span>
                                             <?php else : ?>
@@ -48,7 +48,7 @@
                                 <div class="card-body">
                                     <h5>Edit Profil</h5>
                                     <hr>
-                                    <form action="<?= base_url("profile/update-profile") ?>" method="post" enctype="multipart/form-data">
+                                    <form action="<?= base_url("admin/profile/update-profile") ?>" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="name">Nama</label>
                                             <input type="text" id="name" name="name" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $this->session->userdata("name"); ?>">
@@ -75,7 +75,7 @@
                                 <div class="card-body">
                                     <h5>Ganti Password</h5>
                                     <hr>
-                                    <form action="<?= base_url("profile/ubah-password") ?>" method="post">
+                                    <form action="<?= base_url("admin/profile/ubah-password") ?>" method="post">
                                         <div class="form-group">
                                             <label for="current_password">Password sekarang</label>
                                             <input type="password" id="current_password" name="current_password" class="form-control <?= form_error('current_password') ? 'is-invalid' : ''; ?>">
