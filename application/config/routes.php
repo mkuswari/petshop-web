@@ -23,7 +23,10 @@ $route['kategori/(:num)'] = 'customer/category/productcategory/$1';
 // about us
 $route['tentang-kami'] = 'main/aboutus';
 // groomings
-$route['grooming/register'] = 'customer/grooming';
+$route['grooming'] = 'customer/grooming';
+$route['grooming/register'] = 'customer/grooming/groomingregistration';
+$route['grooming/detail/(:num)'] = 'customer/grooming/detailgrooming/$1';
+$route['grooming/hapus/(:num)'] = 'customer/grooming/deletegroomingdata/$1';
 // profiles
 $route['customer/profile'] = 'customer/profile';
 $route['customer/profile/update-profile'] = 'customer/profile/editprofile';

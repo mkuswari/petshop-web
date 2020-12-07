@@ -33,8 +33,14 @@
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url("profile"); ?>">
+			<i class="fas fa-fw fa-shopping-cart"></i>
+			<span>Keranjang</span>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?= base_url("grooming"); ?>">
 			<i class="fas fa-fw fa-cat"></i>
-			<span>Pantau Grooming</span>
+			<span>Status Grooming</span>
 		</a>
 	</li>
 	<li class="nav-item">
