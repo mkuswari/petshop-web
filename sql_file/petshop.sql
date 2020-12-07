@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2020 at 06:07 AM
+-- Generation Time: Dec 07, 2020 at 11:42 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.3.24
 
@@ -43,7 +43,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `name`, `avatar`, `email`, `password`, `role`, `is_active`, `created_at`) VALUES
-(1, 'Muhammad Kuswari', 'default.jpg', 'muh.kuswari10@gmail.com', '$2y$10$RShFAbcAZ7rBD78TQHdc1uzQi09u3RtMf0xQWcHK1YIin/NQ1mIq.', 'Admin', 1, '2020-11-25 05:58:14');
+(1, 'Muhammad Kuswari', '1606492404669.jpg', 'muh.kuswari10@gmail.com', '$2y$10$ed4ABi7LCxaLa8aLk1Jx/.TiZb.Y2QW3.Y4F1UU4h2vmsQIHrN0Sq', 'Admin', 1, '2020-11-28 02:13:56');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `name`, `avatar`, `phone`, `address`, `email`, `password`, `is_active`, `created_at`) VALUES
-(1, 'Muhammad Kuswari', 'default.jpg', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'muhammad.kuswari10@gmail.com', '$2y$10$skkNuX9u8KOWRXRDiBWIbOKioPgPHfYQM3edkL1y0HmLizs.Wixq2', 1, '2020-11-26 01:06:57');
+(1, 'Muhammad Kuswari', '1607220398327.jpg', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'muhammad.kuswari10@gmail.com', '$2y$10$skkNuX9u8KOWRXRDiBWIbOKioPgPHfYQM3edkL1y0HmLizs.Wixq2', 1, '2020-12-06 02:06:38');
 
 -- --------------------------------------------------------
 
@@ -105,19 +105,13 @@ CREATE TABLE `groomings` (
   `customer_phone` char(15) NOT NULL,
   `customer_address` text NOT NULL,
   `pet_type` enum('Kucing','Anjing') NOT NULL,
-  `grooming_status` enum('Diterima','Diproses','Selesai') NOT NULL,
+  `grooming_status` enum('Didaftarkan','Diterima','Dikerjakan','Selesai') NOT NULL,
   `package_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `notes` text NOT NULL,
-  `date_created` int(11) NOT NULL,
-  `date_finished` int(11) NOT NULL
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `date_finished` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `groomings`
---
-
-INSERT INTO `groomings` (`grooming_id`, `customer_name`, `customer_phone`, `customer_address`, `pet_type`, `grooming_status`, `package_id`, `notes`, `date_created`, `date_finished`) VALUES
-(3, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'Kucing', 'Diterima', 3, 'Lakukan dengan hati-hati karena ini kucing kesayangan saya', 1605505945, 0);
 
 -- --------------------------------------------------------
 
@@ -179,17 +173,18 @@ CREATE TABLE `packages` (
   `package_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `slug` varchar(128) NOT NULL,
-  `cost` float NOT NULL,
-  `date_created` int(11) NOT NULL
+  `description` text NOT NULL,
+  `cost_for_cat` float NOT NULL,
+  `cost_for_dog` float NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `packages`
 --
 
-INSERT INTO `packages` (`package_id`, `name`, `slug`, `cost`, `date_created`) VALUES
-(3, 'Mandi Biasa', 'mandi-biasa', 67000, 1605501559),
-(4, 'Mandi Lengkap', 'mandi-lengkap', 80000, 1605501421);
+INSERT INTO `packages` (`package_id`, `name`, `slug`, `description`, `cost_for_cat`, `cost_for_dog`, `created_at`) VALUES
+(11, 'Mandi Lengkap', 'mandi-lengkap', 'asasas', 45000, 70000, '2020-11-30 07:29:05');
 
 --
 -- Indexes for dumped tables
@@ -218,7 +213,8 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `groomings`
   ADD PRIMARY KEY (`grooming_id`),
-  ADD KEY `type_id` (`package_id`);
+  ADD KEY `type_id` (`package_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `items`
@@ -267,7 +263,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `groomings`
 --
 ALTER TABLE `groomings`
-  MODIFY `grooming_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `grooming_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -285,7 +281,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -295,7 +291,8 @@ ALTER TABLE `packages`
 -- Constraints for table `groomings`
 --
 ALTER TABLE `groomings`
-  ADD CONSTRAINT `groomings_ibfk_1` FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `groomings_ibfk_1` FOREIGN KEY (`package_id`) REFERENCES `packages` (`package_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `groomings_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `items`
