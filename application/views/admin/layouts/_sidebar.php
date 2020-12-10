@@ -25,7 +25,7 @@
 				<a href="#" class="nav-link has-dropdown"><i class="fas fa-cat"></i> <span>Kelola Grooming</span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?= base_url("paket-grooming") ?>">Kelola Paket</a></li>
-					<li><a class="nav-link" href="utilities-invoice.html">Data Grooming</a></li>
+					<li><a class="nav-link" href="<?= base_url("kelola-grooming") ?>">Data Grooming</a></li>
 				</ul>
 			</li>
 			<li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-credit-card"></i> <span>Kelola Transaksi</span></a></li>
