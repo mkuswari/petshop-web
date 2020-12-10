@@ -16,4 +16,19 @@ class Grooming_model extends CI_Model
         $this->db->where("grooming_id", $groomingId);
         $this->db->update("groomings");
     }
+
+    public function getGroomingById($id)
+    {
+        $this->db->select("*");
+        $this->db->where("grooming_id", $id);
+        $this->db->from("groomings");
+        $this->db->join("packages", "packages.package_id = groomings.package_id");
+        return $this->db->get()->row_array();
+    }
+
+    public function deleteGrooming($id)
+    {
+        $this->db->where("grooming_id", $id);
+        $this->db->delete("groomings");
+    }
 }

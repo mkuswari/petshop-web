@@ -74,6 +74,8 @@ $route['paket-grooming/ajaxdelete/(:num)'] = 'admin/package/ajaxdelete/$1';
 // Kelola grooming customer
 $route['kelola-grooming'] = 'admin/grooming';
 $route['kelola-grooming/ubah-status/(:num)'] = 'admin/grooming/changestatus/$1';
+$route['kelola-grooming/detail/(:num)'] = 'admin/grooming/detail/$1';
+$route['kelola-grooming/hapus/(:num)'] = 'admin/grooming/delete/$1';
 // Profile saya
 $route['admin/profile'] = 'admin/profile';
 $route['admin/profile/update-profile'] = 'admin/profile/editprofile';
