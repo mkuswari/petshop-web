@@ -28,7 +28,40 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <?= var_dump($grooming) ?>
+                                    <b>Nama Customer</b>
+                                    <p><?= $grooming["customer_name"]; ?></p>
+                                    <b>Nomor Ponsel Customer</b>
+                                    <p><?= $grooming["customer_phone"]; ?></p>
+                                    <b>Alamat Customer</b>
+                                    <p><?= $grooming["customer_address"]; ?></p>
+                                    <b>Jenis Peliharaan</b>
+                                    <p><?= $grooming["pet_type"]; ?></p>
+                                    <b>Tarif Grooming</b>
+                                    <p>
+                                        <?php if ($grooming["pet_type"] == "Kucing") : ?>
+                                            IDR. <?= number_format($grooming["cost_for_cat"]) ?>
+                                        <?php else : ?>
+                                            IDR. <?= number_format($grooming["cost_for_dog"]) ?>
+                                        <?php endif; ?>
+                                    </p>
+                                    <b>Status Grooming</b>
+                                    <p>
+                                        <?php if ($grooming["grooming_status"] == "Didaftarkan") : ?>
+                                            <span class="badge badge-secondary"><?= $grooming["grooming_status"] ?></span>
+                                        <?php elseif ($grooming["grooming_status"] == "Diterima") : ?>
+                                            <span class="badge badge-info"><?= $grooming["grooming_status"] ?></span>
+                                        <?php elseif ($grooming["grooming_status"] == "Dikerjakan") : ?>
+                                            <span class="badge badge-warning"><?= $grooming["grooming_status"] ?></span>
+                                        <?php else : ?>
+                                            <span class="badge badge-success"><?= $grooming["grooming_status"] ?></span>
+                                        <?php endif; ?>
+                                    </p>
+                                    <b>Jenis Paket Grooming</b>
+                                    <p><?= $grooming["name"]; ?></p>
+                                    <b>Catatan Customer</b>
+                                    <p><?= $grooming["notes"] ?></p>
+                                    <b>Tanggal Masuk</b>
+                                    <p><?= date('d F Y', strtotime($grooming["date_created"])); ?></p>
                                 </div>
                             </div>
                         </div>

@@ -19,7 +19,6 @@
                 <section class="section">
                     <div class="section-header d-flex justify-content-between">
                         <h1><?= $page_title; ?></h1>
-                        <a href="<?= base_url("kelola-admin/tambah") ?>" class="btn btn-primary btn-lg">Tambah Grooming</a>
                     </div>
                     <!-- alert flashdata -->
                     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
@@ -110,22 +109,22 @@
                                         <?php if ($grooming["grooming_status"] == "Didaftarkan") : ?>
                                             <option value="Didaftarkan" selected>Didaftarkan</option>
                                             <option value="Diterima">Diterima</option>
-                                            <option value="Diproses">Diproses</option>
+                                            <option value="Dikerjakan">Dikerjakan</option>
                                             <option value="Selesai">Selesai</option>
                                         <?php elseif ($grooming["grooming_status"] == "Diterima") : ?>
                                             <option value="Didaftarkan">Didaftarkan</option>
                                             <option value="Diterima" selected>Diterima</option>
-                                            <option value="Diproses">Diproses</option>
+                                            <option value="Dikerjakan">Dikerjakan</option>
                                             <option value="Selesai">Selesai</option>
-                                        <?php elseif ($grooming["grooming_status"] == "Diproses") : ?>
+                                        <?php elseif ($grooming["grooming_status"] == "Dikerjakan") : ?>
                                             <option value="Didaftarkan">Didaftarkan</option>
                                             <option value="Diterima">Diterima</option>
-                                            <option value="Diproses" selected>Diproses</option>
+                                            <option value="Dikerjakan" selected>Dikerjakan</option>
                                             <option value="Selesai">Selesai</option>
                                         <?php else : ?>
                                             <option value="Didaftarkan">Didaftarkan</option>
                                             <option value="Diterima">Diterima</option>
-                                            <option value="Diproses">Diproses</option>
+                                            <option value="Dikerjakan">Dikerjakan</option>
                                             <option value="Selesai" selected>Selesai</option>
                                         <?php endif; ?>
                                     </select>
