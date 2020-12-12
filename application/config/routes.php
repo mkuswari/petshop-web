@@ -17,6 +17,8 @@ $route['home'] = 'customer/home';
 // product
 $route['produk'] = 'customer/product';
 $route['produk/(:any)'] = 'customer/product/detail/$1';
+$route['produk/tambah-keranjang/(:num)'] = 'customer/product/addtocart/$1';
+$route['produk/tambah-keranjang'] = 'customer/product/addtocart';
 // category
 $route['kategori'] = 'customer/category';
 $route['kategori/(:num)'] = 'customer/category/productcategory/$1';

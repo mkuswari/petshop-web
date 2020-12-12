@@ -45,4 +45,15 @@ class Product_model extends CI_Model
 		$this->db->order_by("item_id", "DESC");
 		return $this->db->get()->result_array();
 	}
+
+	public function find($id)
+	{
+		$result = $this->db->where('item_id', $id)->limit(1)->get('items');
+
+		if ($result->num_rows() > 0) {
+			return $result->row();
+		} else {
+			return array();
+		}
+	}
 }

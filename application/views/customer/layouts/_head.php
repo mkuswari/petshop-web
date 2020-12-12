@@ -14,4 +14,7 @@
     <!-- Custom styles for this template -->
     <link href="<?= base_url("assets/customer/css/shop-homepage.css") ?>" rel="stylesheet">
 
+    <!-- Font awesome -->
+    <link href="<?= base_url("assets/customer/vendor/fontawesome-free/css/all.min.css") ?>" rel="stylesheet" type="text/css">
+
 </head>

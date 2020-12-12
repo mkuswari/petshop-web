@@ -21,11 +21,20 @@
 				<li class="nav-item align-self-center">
 					<a class="nav-link" href="<?= base_url("tentang-kami") ?>">Tentang</a>
 				</li>
+				<li class="nav-item align-self-center">
+					<a class="nav-link text-white" href="<?= base_url("tentang-kami") ?>">
+						<i class="fas fa-shopping-cart"></i> (
+						<?php
+						$cart = $this->cart->total_items();
+						?>
+						<?= $cart; ?>
+						)
+					</a>
+				</li>
 				<?php if ($this->session->userdata("logged_in") == "customer") : ?>
 					<li class="nav-item dropdown align-self-center">
 						<a class="nav-link" href="details.html#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img src="<?= base_url("assets/uploads/avatars/" . $this->session->userdata("avatar")); ?>" alt="" class="rounded-circle mr-2 profile-picture" style="height: 35px; width: 35px;" />
-							Hai, <?= $this->session->userdata("name"); ?>
+							<img src="<?= base_url("assets/uploads/avatars/" . $this->session->userdata("avatar")); ?>" alt="" class="rounded-circle profile-picture" style="height: 38px; width: 38px; object-fit: cover; object-position: center; border: 1px solid white;" />
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="<?= base_url("home") ?>">Akun Saya</a>

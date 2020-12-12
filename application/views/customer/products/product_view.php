@@ -46,7 +46,8 @@
 							</div>
 							<div class="card-footer border-top-0 bg-white">
 								<div class="action text-center">
-									<a href="" class="btn btn-success btn-sm">Add to cart</a>
+									<button class="btn btn-success btn-sm add_cart" data-productid="<?= $product["item_id"] ?>" data-productname="<?= $product["name"] ?>" data-productprice="<?= $product["price"] ?>">Add to cart</button>
+									<!-- <a href="" class="btn btn-success btn-sm">Add to cart</a> -->
 									<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-warning btn-sm text-white">Detail</a>
 								</div>
 							</div>
@@ -98,6 +99,33 @@
 	<?php $this->load->view("customer/layouts/_footer"); ?>
 
 	<?php $this->load->view("customer/layouts/_scripts"); ?>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.add_cart').click(function() {
+				var itemId = $(this).data("productid");
+				var itemName = $(this).data("productname");
+				var itemPrice = $(this).data("productprice");
+				var itemQyt = $('#' + itemId).val();
+				$.ajax({
+					url: "<?php echo site_url('product/tambah-keranjang'); ?>",
+					method: "POST",
+					data: {
+						item_id: itemId,
+						name: itemName,
+						price: itemPrice,
+						qty: itemQyt
+					},
+					success: function(data) {
+						// $('#detail_cart').html(data);
+						console.log("Berhasil");
+					}
+				});
+			});
+
+
+		});
+	</script>
 
 </body>
 

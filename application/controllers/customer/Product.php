@@ -30,4 +30,22 @@ class Product extends CI_Controller
 
 		$this->load->view("customer/products/detail_view", $data);
 	}
+
+	public function  addToCart($id)
+	{
+		$item = $this->Product_model->find($id);
+		$data = array(
+			'id'      => $this->input->post("item_id"),
+			'name'    => $this->input->post("name"),
+			'price'   => $this->input->post("price"),
+			'qty'     => $this->input->post("qty"),
+		);
+
+		$this->cart->insert($data);
+		redirect('produk');
+	}
+
+	public function showCart()
+	{
+	}
 }
