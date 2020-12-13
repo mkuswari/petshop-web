@@ -106,6 +106,7 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
+		$this->cart->destroy();
 		$this->session->unset_userdata("customer_id");
 		$this->session->unset_userdata("avatar");
 		$this->session->unset_userdata("phone");

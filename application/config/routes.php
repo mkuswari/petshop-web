@@ -17,8 +17,13 @@ $route['home'] = 'customer/home';
 // product
 $route['produk'] = 'customer/product';
 $route['produk/(:any)'] = 'customer/product/detail/$1';
-$route['produk/tambah-keranjang/(:num)'] = 'customer/product/addtocart/$1';
-$route['produk/tambah-keranjang'] = 'customer/product/addtocart';
+// cart
+$route['detail-keranjang'] = 'customer/cart';
+$route['tambah-keranjang/(:num)'] = 'customer/cart/addtocart/$1';
+$route['kosongkan-keranjang'] = 'customer/cart/emptycart';
+// proses order
+$route['proses-order'] = 'customer/cart/processorder';
+$route['checkout-success'] = 'customer/cart/checkoutsuccess';
 // category
 $route['kategori'] = 'customer/category';
 $route['kategori/(:num)'] = 'customer/category/productcategory/$1';

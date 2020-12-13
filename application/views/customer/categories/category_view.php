@@ -53,7 +53,7 @@
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<?php $this->load->view("customer/layouts/_footer"); ?>
+	<!-- <?php $this->load->view("customer/layouts/_footer"); ?> -->
 
 	<?php $this->load->view("customer/layouts/_scripts"); ?>
 

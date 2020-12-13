@@ -56,4 +56,16 @@ class Product_model extends CI_Model
 			return array();
 		}
 	}
+
+	public function addOrder($dataOrder)
+	{
+		$this->db->insert("orders", $dataOrder);
+		$id = $this->db->insert_id();
+		return (isset($id)) ? $id : FALSE;
+	}
+
+	public  function addOrderDetail($dataDetailOrder)
+	{
+		$this->db->insert("order_details", $dataDetailOrder);
+	}
 }

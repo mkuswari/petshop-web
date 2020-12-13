@@ -28,13 +28,7 @@
 	<li class="nav-item">
 		<a class="nav-link" href="<?= base_url("profile"); ?>">
 			<i class="fas fa-fw fa-credit-card"></i>
-			<span>Transaksi Saya</span>
-		</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="<?= base_url("profile"); ?>">
-			<i class="fas fa-fw fa-shopping-cart"></i>
-			<span>Keranjang</span>
+			<span>Orderan Saya</span>
 		</a>
 	</li>
 	<li class="nav-item">
