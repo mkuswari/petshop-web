@@ -26,7 +26,7 @@
 		Menu
 	</div>
 	<li class="nav-item">
-		<a class="nav-link" href="<?= base_url("profile"); ?>">
+		<a class="nav-link" href="<?= base_url("orderan-saya"); ?>">
 			<i class="fas fa-fw fa-credit-card"></i>
 			<span>Orderan Saya</span>
 		</a>

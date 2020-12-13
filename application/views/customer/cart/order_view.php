@@ -39,43 +39,36 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Nama Customer</th>
-                                            <th>Jenis Peliharaan</th>
-                                            <th>Biaya Grooming</th>
+                                            <th>Tanggal Order</th>
+                                            <th>Nama Penerima</th>
+                                            <th>Alamat COD</th>
+                                            <th>Total Bayar</th>
                                             <th>Status</th>
-                                            <th>Tanggal Masuk</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $i = 1; ?>
-                                        <?php foreach ($groomings as $grooming) : ?>
+                                        <?php foreach ($orders as $order) : ?>
                                             <tr>
                                                 <td><?= $i++; ?></td>
-                                                <td><?= $grooming["customer_name"]; ?></td>
-                                                <td><?= $grooming["pet_type"]; ?></td>
+                                                <td><?= date('d F Y', strtotime($order["order_date"])) ?></td>
+                                                <td><?= $order["receipent_name"] ?></td>
+                                                <td><?= $order["receipent_address"] ?></td>
+                                                <td>Rp. <?= number_format($order["total_payment"]) ?></td>
                                                 <td>
-                                                    <?php if ($grooming["pet_type"] == "Kucing") : ?>
-                                                        IDR. <?= number_format($grooming["cost_for_cat"]) ?>
+                                                    <?php if ($order["order_status"] == "Masuk") : ?>
+                                                        <span class="badge badge-info"><?= $order["order_status"] ?></span>
+                                                    <?php elseif ($order["order_status"] == "Diproses") : ?>
+                                                        <span class="badge badge-warning"><?= $order["order_status"] ?></span>
+                                                    <?php elseif ($order["order_status"] == "Diantar") : ?>
+                                                        <span class="badge badge-primary"><?= $order["order_status"] ?></span>
                                                     <?php else : ?>
-                                                        IDR. <?= number_format($grooming["cost_for_dog"]) ?>
+                                                        <span class="badge badge-success"><?= $order["order_status"] ?></span>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <?php if ($grooming["grooming_status"] == "Didaftarkan") : ?>
-                                                        <span class="badge badge-secondary"><?= $grooming["grooming_status"] ?></span>
-                                                    <?php elseif ($grooming["grooming_status"] == "Diterima") : ?>
-                                                        <span class="badge badge-info"><?= $grooming["grooming_status"] ?></span>
-                                                    <?php elseif ($grooming["grooming_status"] == "Dikerjakan") : ?>
-                                                        <span class="badge badge-warning"><?= $grooming["grooming_status"] ?></span>
-                                                    <?php else : ?>
-                                                        <span class="badge badge-success"><?= $grooming["grooming_status"] ?></span>
-                                                    <?php endif; ?>
-                                                </td>
-                                                <td><?= date('d F Y', strtotime($grooming["date_created"])) ?></td>
-                                                <td>
-                                                    <a href="<?= base_url("grooming/detail/" . $grooming["grooming_id"]) ?>" class="btn btn-info btn-sm">Detail</a>
-                                                    <a href="<?= base_url("grooming/hapus/" . $grooming["grooming_id"]) ?>" class="btn btn-danger btn-sm button-delete">Hapus</a>
+                                                    <a href="<?= base_url("orderan-saya/detail/" . $order["order_id"]) ?>" class="btn btn-info btn-sm shadow rounded-0">Detail Orderan</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -74,7 +74,16 @@ class Cart extends CI_Controller
     public function showMyOrder()
     {
         $data["page_title"] = "Orderan Saya";
+        $data["orders"] = $this->Product_model->getAllOrdersByUser();
 
         $this->load->view("customer/cart/order_view", $data);
+    }
+
+    public function showDetailOrder($id)
+    {
+        $data["page_title"] = "Detail Orderan";
+        $data["items"] = $this->Product_model->getDetailOrderById($id);
+
+        $this->load->view("customer/cart/detail_view", $data);
     }
 }

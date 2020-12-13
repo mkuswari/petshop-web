@@ -68,4 +68,22 @@ class Product_model extends CI_Model
 	{
 		$this->db->insert("order_details", $dataDetailOrder);
 	}
+
+	public function getAllOrdersByUser()
+	{
+		// $this->db->select("orders.*", "order_details.order_id");
+		// $this->db->from("orders");
+		// $this->db->join("order_details", "order_details.order_id = orders.order_id");
+		// return $this->db->get()->result_array();
+		return $this->db->get_where("orders", ["customer_id" => $this->session->userdata("customer_id")])->result_array();
+	}
+
+	public function getDetailOrderById($id)
+	{
+		$this->db->select("*");
+		$this->db->from("order_details");
+		$this->db->join("items", "items.item_id = order_details.item_id");
+		$this->db->where("order_id", $id);
+		return $this->db->get()->result_array();
+	}
 }

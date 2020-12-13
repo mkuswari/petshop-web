@@ -41,6 +41,7 @@
                                             <th>No.</th>
                                             <th>Nama Customer</th>
                                             <th>Jenis Peliharaan</th>
+                                            <th>Paket Grooming</th>
                                             <th>Biaya Grooming</th>
                                             <th>Status</th>
                                             <th>Tanggal Masuk</th>
@@ -54,6 +55,7 @@
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $grooming["customer_name"]; ?></td>
                                                 <td><?= $grooming["pet_type"]; ?></td>
+                                                <td><?= $grooming["name"] ?></td>
                                                 <td>
                                                     <?php if ($grooming["pet_type"] == "Kucing") : ?>
                                                         IDR. <?= number_format($grooming["cost_for_cat"]) ?>

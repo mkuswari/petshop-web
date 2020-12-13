@@ -24,6 +24,9 @@ $route['kosongkan-keranjang'] = 'customer/cart/emptycart';
 // proses order
 $route['proses-order'] = 'customer/cart/processorder';
 $route['checkout-success'] = 'customer/cart/checkoutsuccess';
+// lihat order
+$route['orderan-saya'] = 'customer/cart/showmyorder';
+$route['orderan-saya/detail/(:num)'] = 'customer/cart/showdetailorder/$1';
 // category
 $route['kategori'] = 'customer/category';
 $route['kategori/(:num)'] = 'customer/category/productcategory/$1';
