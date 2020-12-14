@@ -9,6 +9,9 @@ class Profile extends CI_Controller
 		parent::__construct();
 		$this->load->library("form_validation");
 		$this->load->model("admin/Profile_model", 'Profile_model');
+		if ($this->session->userdata("logged_in") !== "admin") {
+			redirect("/");
+		}
 	}
 
 	public function _getLoginInfo()

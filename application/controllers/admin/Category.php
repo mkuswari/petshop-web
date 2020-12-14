@@ -9,6 +9,9 @@ class Category extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('admin/Category_model', 'Category_model');
+		if ($this->session->userdata("logged_in") !== "admin") {
+			redirect("/");
+		}
 	}
 
 	public function index()

@@ -69,15 +69,15 @@
                         <input type="hidden" name="total_payment" value="<?= $this->cart->total(); ?>">
                         <div class="form-group">
                             <label for="receipent_name">Nama Penerima</label>
-                            <input type="text" name="receipent_name" id="receipent_name" class="form-control" required>
+                            <input type="text" name="receipent_name" id="receipent_name" class="form-control" value="<?= $this->session->userdata("name"); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="receipent_phone">Nomor HP</label>
-                            <input type="number" name="receipent_phone" id="receipent_phone" class="form-control" required>
+                            <input type="number" name="receipent_phone" id="receipent_phone" class="form-control" value="<?= $this->session->userdata("phone"); ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="receipent_address">Alamat Penerima</label>
-                            <textarea name="receipent_address" id="receipent_address" rows="3" class="form-control" required></textarea>
+                            <textarea name="receipent_address" id="receipent_address" rows="3" class="form-control" required><?= $this->session->userdata("address"); ?></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

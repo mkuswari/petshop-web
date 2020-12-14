@@ -7,10 +7,11 @@ class Product extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		must_login();
-		must_admin_and_staff();
 		$this->load->library('form_validation');
 		$this->load->model('admin/Product_model', 'Product_model');
+		if ($this->session->userdata("logged_in") !== "admin") {
+			redirect("/");
+		}
 	}
 
 	public function index()

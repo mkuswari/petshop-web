@@ -8,6 +8,9 @@ class Package extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('admin/Package_model', 'Package_model');
+		if ($this->session->userdata("logged_in") !== "admin") {
+			redirect("/");
+		}
 	}
 
 	public function index()

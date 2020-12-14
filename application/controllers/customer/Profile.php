@@ -6,6 +6,9 @@ class Profile extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('customer/Profile_model', 'Profile_model');
+        if ($this->session->userdata("logged_in") !== "customer") {
+            redirect("login");
+        }
     }
 
     public function index()

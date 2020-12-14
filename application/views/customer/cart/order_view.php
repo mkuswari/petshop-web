@@ -27,7 +27,6 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Orderan Saya</h1>
-                        <a href="<?= base_url("grooming/register") ?>" class="btn btn-primary shadow-sm">Daftar Grooming Baru</a>
                     </div>
                     <!-- alert flashdata -->
                     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>

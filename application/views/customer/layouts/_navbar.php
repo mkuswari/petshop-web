@@ -18,9 +18,6 @@
 				<li class="nav-item align-self-center">
 					<a class="nav-link" href="<?= base_url("grooming/register") ?>">Grooming</a>
 				</li>
-				<li class="nav-item align-self-center">
-					<a class="nav-link" href="<?= base_url("tentang-kami") ?>">Tentang</a>
-				</li>
 				<?php if ($this->session->userdata("logged_in") == "customer") : ?>
 					<li class="nav-item align-self-center">
 						<?php

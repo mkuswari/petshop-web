@@ -8,6 +8,9 @@ class Grooming extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('admin/Grooming_model', 'Grooming_model');
+		if ($this->session->userdata("logged_in") !== "admin") {
+			redirect("/");
+		}
 	}
 
 	public function index()

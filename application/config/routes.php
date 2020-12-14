@@ -86,6 +86,11 @@ $route['kelola-grooming'] = 'admin/grooming';
 $route['kelola-grooming/ubah-status/(:num)'] = 'admin/grooming/changestatus/$1';
 $route['kelola-grooming/detail/(:num)'] = 'admin/grooming/detail/$1';
 $route['kelola-grooming/hapus/(:num)'] = 'admin/grooming/delete/$1';
+// kelola orderan customer
+$route['kelola-orderan'] = 'admin/order';
+$route['kelola-orderan/ubah-status/(:num)'] = 'admin/order/changeorderstatus/$1';
+$route['kelola-orderan/hapus/(:num)'] = 'admin/order/deleteorder/$1';
+$route['kelola-orderan/detail/(:num)'] = 'admin/order/detailorder/$1';
 // Profile saya
 $route['admin/profile'] = 'admin/profile';
 $route['admin/profile/update-profile'] = 'admin/profile/editprofile';

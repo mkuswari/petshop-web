@@ -32,7 +32,7 @@
 				<p class="lead text-muted">IDR. <span class="text-warning font-weight-bold"><?= number_format($product["price"]) ?></span></p>
 				<p class="text-muted">Stok : <?= $product["stock"] ?> Qty</p>
 				<hr>
-				<a href="" class="btn btn-warning btn-block text-white">Add to Cart</a>
+				<a href="<?= base_url("tambah-keranjang/" . $product["item_id"]) ?>" class="btn btn-warning btn-block text-white">Add to Cart</a>
 				<a href="<?= base_url() ?>" class="btn btn-light btn-block text-muted">Kembali</a>
 			</div>
 		</div>

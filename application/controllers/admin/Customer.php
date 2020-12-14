@@ -9,6 +9,9 @@ class Customer extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('admin/Customer_model', 'Customer_model');
+		if ($this->session->userdata("logged_in") !== "admin") {
+			redirect("/");
+		}
 	}
 
 	public function index()
