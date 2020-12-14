@@ -95,3 +95,6 @@ $route['kelola-orderan/detail/(:num)'] = 'admin/order/detailorder/$1';
 $route['admin/profile'] = 'admin/profile';
 $route['admin/profile/update-profile'] = 'admin/profile/editprofile';
 $route['admin/profile/ubah-password'] = 'admin/profile/changepassword';
+// laporan
+$route['laporan'] = 'admin/report';
+$route['laporan/filter'] = 'admin/report/filterreports';
