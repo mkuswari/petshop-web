@@ -13,7 +13,7 @@
 			</li>
 			<li class="menu-header">Main Menu</li>
 			<li><a class="nav-link" href="<?= base_url("kelola-customer") ?>"><i class="fas fa-users"></i> <span>Kelola Customer</span></a></li>
-			<?php if ($this->session->userdata("role") == "admin") : ?>
+			<?php if ($this->session->userdata("logged_in") == "admin" && $this->session->userdata("role") == "Admin") : ?>
 				<li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-users"></i> <span>Kelola Admin & Staff</span></a></li>
 			<?php endif; ?>
 			<li class="dropdown">

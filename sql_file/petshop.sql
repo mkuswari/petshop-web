@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2020 at 09:58 AM
+-- Generation Time: Dec 19, 2020 at 07:04 AM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.3.24
 
@@ -43,7 +43,8 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `name`, `avatar`, `email`, `password`, `role`, `is_active`, `created_at`) VALUES
-(1, 'Muhammad Kuswari', '1606492404669.jpg', 'muh.kuswari10@gmail.com', '$2y$10$ed4ABi7LCxaLa8aLk1Jx/.TiZb.Y2QW3.Y4F1UU4h2vmsQIHrN0Sq', 'Admin', 1, '2020-11-28 02:13:56');
+(3, 'Site Administrator', '1608357080619.png', 'admin@mail.com', '$2y$10$DsJvLX1WH3TzONzf9xYYz.JXJnY/WXwhqEbHgIuZdbD0uPphzLgqe', 'Admin', 1, '2020-12-19 05:51:51'),
+(4, 'Site Staff', 'default.jpg', 'staff@mail.com', '$2y$10$yUm/7jyg0rSTrbZcCqWFWOo6aZ9UwuG0nzQ3tmIem/QAqzau7/Gty', 'Staff', 1, '2020-12-19 05:39:08');
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `name`, `avatar`, `phone`, `address`, `email`, `password`, `is_active`, `created_at`) VALUES
-(1, 'Muhammad Kuswari', '1607220398327.jpg', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'muhammad.kuswari10@gmail.com', '$2y$10$skkNuX9u8KOWRXRDiBWIbOKioPgPHfYQM3edkL1y0HmLizs.Wixq2', 1, '2020-12-06 02:06:38');
+(6, 'Site Customer', '1608357453866.png', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram', 'customer@mail.com', '$2y$10$heyAPdEKex5I3SPZ5RA92OCP8cNqpapPFRWkuF/LPFqLZeuPOVC0m', 1, '2020-12-19 05:59:27');
 
 -- --------------------------------------------------------
 
@@ -133,8 +134,7 @@ CREATE TABLE `groomings` (
 --
 
 INSERT INTO `groomings` (`grooming_id`, `customer_name`, `customer_phone`, `customer_address`, `pet_type`, `grooming_status`, `package_id`, `customer_id`, `notes`, `date_created`, `date_finished`) VALUES
-(13, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'Kucing', 'Selesai', 11, 1, '', '2020-12-13 15:55:43', NULL),
-(14, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'Anjing', 'Selesai', 11, 1, '', '2020-12-13 15:56:01', NULL);
+(15, 'Site Customer', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram', 'Kucing', 'Diterima', 12, 6, '', '2020-12-19 05:56:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -162,10 +162,11 @@ INSERT INTO `items` (`item_id`, `name`, `slug`, `images`, `stock`, `price`, `des
 (3, 'Kandang Kucing model minimalis', 'kandang-kucing-model-minimalis', '1605519450652.jpeg', 10, 150000, 'Langsung dari pengrajin ????, Menggunakan kayu solid buka serbuk kayu sehingga tidak mudah lapuk dan awet ????, ✅ Seluruh foto di sini ASLI milik kami', 38, '2020-12-14 08:55:43'),
 (4, 'Kandang Kucing 80cm Tingkat 2', 'kandang-kucing-80cm-tingkat-2', '1605519640184.jpeg', 5, 325000, 'Kandang kucing 80 cm 2 tingkat, dimensi 80x50x50, pintu atas bawah dan samping untuk litter box, warna hitam ready, Cat powder coating anti karat,', 38, '0000-00-00 00:00:00'),
 (5, 'Jual Kucing persia anakan umur 2 bulan', 'jual-kucing-persia-anakan-umur-2-bulan', '1605519915190.jpg', 1, 750000, 'kucing persia anakang umur 2 bulan. kucing persia anakang umur 2 bulan order sepasang harga 800rb', 40, '0000-00-00 00:00:00'),
-(6, 'Bolt 1Kg Tuna Ikan - Makanan Kucing Murah', 'bolt-1kg-tuna-ikan---makanan-kucing-murah', '1605520083844.jpg', 99, 19700, 'Jual Bolt 1Kg Tuna Ikan - Makanan Kucing Murah - Repack - Cat Food dengan harga Rp19.700 dari toko online', 37, '0000-00-00 00:00:00'),
+(6, 'Bolt 1Kg Tuna Ikan - Makanan Kucing Murah', 'bolt-1kg-tuna-ikan---makanan-kucing-murah', '1605520083844.jpg', 98, 19700, 'Jual Bolt 1Kg Tuna Ikan - Makanan Kucing Murah - Repack - Cat Food dengan harga Rp19.700 dari toko online', 37, '2020-12-19 05:56:03'),
 (7, 'Tokopedia Jual Pakan Kucing Me-o Meo Tuna 1.2 Kg', 'tokopedia-jual-pakan-kucing-me-o-meo-tuna-1.2-kg', '1605520258517.jpg', 80, 54000, 'Jual Pakan Kucing Me-o Meo Tuna 1.2 Kg dengan harga Rp54.000 . termurah', 37, '0000-00-00 00:00:00'),
 (12, 'Felibite makanan kucing bentuk ikan kemasan 1 kg', 'felibite-makanan-kucing-bentuk-ikan-kemasan-1-kg', '1605565403891.jpeg', 88, 67000, 'Belanja Felibite Bentuk IKAN Makanan Kucing Kemasan 1kg indonesia Murah - Belanja Makanan Kering di Lazada. FREE ONGKIR &amp; Bisa COD', 37, '0000-00-00 00:00:00'),
-(13, 'Jual kucing bar bar', 'jual-kucing-bar-bar', '1605565534933.jpg', 1, 290000, 'Jual kucing bar bar, sangat lincah. alasan jual karena mukanya ngeselin, pengen ngajak gelud tiap liat mukanya', 40, '0000-00-00 00:00:00');
+(13, 'Jual kucing bar bar', 'jual-kucing-bar-bar', '1605565534933.jpg', 0, 290000, 'Jual kucing bar bar, sangat lincah. alasan jual karena mukanya ngeselin, pengen ngajak gelud tiap liat mukanya', 40, '2020-12-19 05:56:03'),
+(16, 'Kalung Kucing Murah meriah', 'kalung-kucing-murah-meriah', '1608357774815.jpg', 53, 35000, '&lt;p&gt;Kalung kucing dengan harga murah dan terjangkau&lt;/p&gt;', 42, '2020-12-19 06:03:46');
 
 -- --------------------------------------------------------
 
@@ -189,12 +190,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `receipent_name`, `receipent_phone`, `receipent_address`, `total_payment`, `order_status`, `order_date`) VALUES
-(43, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 19700, 'Diterima', '2020-12-13 15:59:20'),
-(46, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 376700, 'Masuk', '2020-12-14 07:16:48'),
-(47, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 54000, 'Masuk', '2020-12-14 07:16:56'),
-(48, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 217000, 'Masuk', '2020-12-14 07:17:07'),
-(49, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 150000, 'Masuk', '2020-12-14 08:55:30'),
-(50, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 150000, 'Masuk', '2020-12-14 08:55:43');
+(51, 6, 'Site Customer', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram', 309700, 'Diproses', '2020-12-19 05:56:37'),
+(52, 6, 'Site Customer', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram', 35000, 'Masuk', '2020-12-19 06:03:46');
 
 -- --------------------------------------------------------
 
@@ -216,15 +213,9 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`oder_details_id`, `order_id`, `item_id`, `qty`, `total_price`, `date_order`) VALUES
-(15, 43, 6, 1, 19700, '2020-12-13 15:48:55'),
-(19, 46, 6, 1, 19700, '2020-12-14 07:16:48'),
-(20, 46, 12, 1, 67000, '2020-01-14 07:16:48'),
-(21, 46, 13, 1, 290000, '2020-12-14 07:16:48'),
-(22, 47, 7, 1, 54000, '2019-01-14 07:16:56'),
-(23, 48, 12, 1, 67000, '2019-12-14 07:17:07'),
-(24, 48, 3, 1, 150000, '2020-11-14 07:17:07'),
-(25, 49, 3, 1, 150000, '2020-12-14 08:55:30'),
-(26, 50, 3, 1, 150000, '2020-12-14 08:55:43');
+(27, 51, 6, 1, 19700, '2020-12-19 05:56:03'),
+(28, 51, 13, 1, 290000, '2020-12-19 05:56:03'),
+(29, 52, 16, 1, 35000, '2020-12-19 06:03:46');
 
 --
 -- Triggers `order_details`
@@ -258,7 +249,10 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`package_id`, `name`, `slug`, `description`, `cost_for_cat`, `cost_for_dog`, `created_at`) VALUES
-(11, 'Mandi Lengkap', 'mandi-lengkap', 'asasas', 45000, 70000, '2020-11-30 07:29:05');
+(12, 'Mandi Lengkap', 'mandi-lengkap', '', 50000, 80000, '2020-12-19 05:33:05'),
+(13, 'Mandi Hewan Berjamur', 'mandi-hewan-berjamur', '', 60000, 85000, '2020-12-19 05:33:27'),
+(14, 'Mandi Biasa', 'mandi-biasa', '', 40000, 60000, '2020-12-19 05:33:45'),
+(15, 'Mandi Hewan berkutu', 'mandi-hewan-berkutu', '', 65000, 70000, '2020-12-19 05:35:40');
 
 --
 -- Indexes for dumped tables
@@ -334,7 +328,7 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -352,37 +346,37 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `groomings`
 --
 ALTER TABLE `groomings`
-  MODIFY `grooming_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `grooming_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `oder_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `oder_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `package_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

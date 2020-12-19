@@ -8,11 +8,7 @@ class Admin extends CI_Controller
 		parent::__construct();
 		$this->load->model('admin/Admin_model', 'Admin_model');
 		$this->load->library('form_validation');
-		if ($this->session->userdata("logged_in") !== "admin") {
-			redirect("/");
-		}
-
-		if ($this->session->userdata("role") !== "admin") {
+		if ($this->session->userdata("logged_in") == "admin" && $this->session->userdata("role") !== "Admin") {
 			redirect("/");
 		}
 	}

@@ -1,25 +1,17 @@
 <?php
 
-function must_login()
+function must_admin_staff()
 {
-	$isLogin = get_instance();
-	if (!$isLogin->session->userdata("email")) {
-		redirect("auth");
+	$isAdminStaff = get_instance();
+	if ($isAdminStaff->session->userdata("logged_in") !== "admin") {
+		redirect("access-denied");
 	}
 }
 
 function must_admin()
 {
 	$isAdmin = get_instance();
-	if ($isAdmin->session->userdata("role_id") > 1) {
-		redirect("auth/blocked");
-	}
-}
-
-function must_admin_and_staff()
-{
-	$isAdminAndStaff = get_instance();
-	if ($isAdminAndStaff->session->userdata("role_id") > 2) {
-		redirect("auth/blocked");
+	if ($isAdmin->session->userdata("logged_in") !== "admin" && $isAdmin->session->userdata("role") !== "Admin") {
+		redirect("access-denied");
 	}
 }

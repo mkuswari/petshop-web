@@ -122,7 +122,7 @@ class Auth extends CI_Controller
 	{
 		$data["page_title"] = "Akses Ditolak";
 
-		$this->load->view("auth/blocked_view", $data);
+		$this->load->view("customer/auth/blocked_view", $data);
 	}
 
 	private function _loginValidation()

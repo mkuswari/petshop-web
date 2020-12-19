@@ -42,6 +42,10 @@ $route['customer/profile'] = 'customer/profile';
 $route['customer/profile/update-profile'] = 'customer/profile/editprofile';
 $route['customer/profile/ubah-password'] = 'customer/profile/changepassword';
 
+
+// auth blocked
+$route['access-denied'] = 'customer/auth/blocked';
+
 /**
  * Route untuk admin
  */
