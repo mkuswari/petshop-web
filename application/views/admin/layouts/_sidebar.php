@@ -13,7 +13,9 @@
 			</li>
 			<li class="menu-header">Main Menu</li>
 			<li><a class="nav-link" href="<?= base_url("kelola-customer") ?>"><i class="fas fa-users"></i> <span>Kelola Customer</span></a></li>
-			<li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-users"></i> <span>Kelola Admin & Staff</span></a></li>
+			<?php if ($this->session->userdata("role") == "admin") : ?>
+				<li><a class="nav-link" href="<?= base_url("kelola-admin") ?>"><i class="fas fa-users"></i> <span>Kelola Admin & Staff</span></a></li>
+			<?php endif; ?>
 			<li class="dropdown">
 				<a href="#" class="nav-link has-dropdown"><i class="fas fa-shopping-bag"></i> <span>Kelola Items</span></a>
 				<ul class="dropdown-menu">

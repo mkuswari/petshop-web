@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2020 at 11:42 PM
+-- Generation Time: Dec 14, 2020 at 09:58 AM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.3.24
 
@@ -44,6 +44,21 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`admin_id`, `name`, `avatar`, `email`, `password`, `role`, `is_active`, `created_at`) VALUES
 (1, 'Muhammad Kuswari', '1606492404669.jpg', 'muh.kuswari10@gmail.com', '$2y$10$ed4ABi7LCxaLa8aLk1Jx/.TiZb.Y2QW3.Y4F1UU4h2vmsQIHrN0Sq', 'Admin', 1, '2020-11-28 02:13:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `cart_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total_price` float NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -113,6 +128,14 @@ CREATE TABLE `groomings` (
   `date_finished` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `groomings`
+--
+
+INSERT INTO `groomings` (`grooming_id`, `customer_name`, `customer_phone`, `customer_address`, `pet_type`, `grooming_status`, `package_id`, `customer_id`, `notes`, `date_created`, `date_finished`) VALUES
+(13, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'Kucing', 'Selesai', 11, 1, '', '2020-12-13 15:55:43', NULL),
+(14, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 'Anjing', 'Selesai', 11, 1, '', '2020-12-13 15:56:01', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -136,8 +159,7 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `name`, `slug`, `images`, `stock`, `price`, `description`, `category_id`, `created_at`) VALUES
-(2, 'Whiskas Junior 1,1 Kg makanan kucing', 'whiskas-junior-1,1-kg-makanan-kucing', '1605482081341.jpeg', 12, 65000, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia, dui eu fermentum scelerisque, lectus enim sollicitudin urna, vel ultrices felis ipsum at velit. Cras hendrerit tellus et sodales venenatis. Sed ullamcorper dui id velit rutrum, at venenatis leo pretium. Aenean dictum nisi quis sem aliquet auctor.', 37, '2020-11-26 22:44:45'),
-(3, 'Kandang Kucing model minimalis', 'kandang-kucing-model-minimalis', '1605519450652.jpeg', 12, 150000, 'Langsung dari pengrajin ????, Menggunakan kayu solid buka serbuk kayu sehingga tidak mudah lapuk dan awet ????, ✅ Seluruh foto di sini ASLI milik kami', 38, '2020-11-26 22:46:56'),
+(3, 'Kandang Kucing model minimalis', 'kandang-kucing-model-minimalis', '1605519450652.jpeg', 10, 150000, 'Langsung dari pengrajin ????, Menggunakan kayu solid buka serbuk kayu sehingga tidak mudah lapuk dan awet ????, ✅ Seluruh foto di sini ASLI milik kami', 38, '2020-12-14 08:55:43'),
 (4, 'Kandang Kucing 80cm Tingkat 2', 'kandang-kucing-80cm-tingkat-2', '1605519640184.jpeg', 5, 325000, 'Kandang kucing 80 cm 2 tingkat, dimensi 80x50x50, pintu atas bawah dan samping untuk litter box, warna hitam ready, Cat powder coating anti karat,', 38, '0000-00-00 00:00:00'),
 (5, 'Jual Kucing persia anakan umur 2 bulan', 'jual-kucing-persia-anakan-umur-2-bulan', '1605519915190.jpg', 1, 750000, 'kucing persia anakang umur 2 bulan. kucing persia anakang umur 2 bulan order sepasang harga 800rb', 40, '0000-00-00 00:00:00'),
 (6, 'Bolt 1Kg Tuna Ikan - Makanan Kucing Murah', 'bolt-1kg-tuna-ikan---makanan-kucing-murah', '1605520083844.jpg', 99, 19700, 'Jual Bolt 1Kg Tuna Ikan - Makanan Kucing Murah - Repack - Cat Food dengan harga Rp19.700 dari toko online', 37, '0000-00-00 00:00:00'),
@@ -153,15 +175,67 @@ INSERT INTO `items` (`item_id`, `name`, `slug`, `images`, `stock`, `price`, `des
 
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
-  `order_code` varchar(128) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `total_price` float NOT NULL,
-  `receipents_address` text NOT NULL,
+  `receipent_name` varchar(128) NOT NULL,
+  `receipent_phone` char(15) NOT NULL,
+  `receipent_address` text NOT NULL,
+  `total_payment` float NOT NULL,
   `order_status` enum('Masuk','Diproses','Diantar','Diterima') NOT NULL,
-  `data_order` int(11) NOT NULL
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `receipent_name`, `receipent_phone`, `receipent_address`, `total_payment`, `order_status`, `order_date`) VALUES
+(43, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 19700, 'Diterima', '2020-12-13 15:59:20'),
+(46, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 376700, 'Masuk', '2020-12-14 07:16:48'),
+(47, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 54000, 'Masuk', '2020-12-14 07:16:56'),
+(48, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 217000, 'Masuk', '2020-12-14 07:17:07'),
+(49, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 150000, 'Masuk', '2020-12-14 08:55:30'),
+(50, 1, 'Muhammad Kuswari', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram.', 150000, 'Masuk', '2020-12-14 08:55:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+CREATE TABLE `order_details` (
+  `oder_details_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `qty` float NOT NULL,
+  `total_price` float NOT NULL,
+  `date_order` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`oder_details_id`, `order_id`, `item_id`, `qty`, `total_price`, `date_order`) VALUES
+(15, 43, 6, 1, 19700, '2020-12-13 15:48:55'),
+(19, 46, 6, 1, 19700, '2020-12-14 07:16:48'),
+(20, 46, 12, 1, 67000, '2020-01-14 07:16:48'),
+(21, 46, 13, 1, 290000, '2020-12-14 07:16:48'),
+(22, 47, 7, 1, 54000, '2019-01-14 07:16:56'),
+(23, 48, 12, 1, 67000, '2019-12-14 07:17:07'),
+(24, 48, 3, 1, 150000, '2020-11-14 07:17:07'),
+(25, 49, 3, 1, 150000, '2020-12-14 08:55:30'),
+(26, 50, 3, 1, 150000, '2020-12-14 08:55:43');
+
+--
+-- Triggers `order_details`
+--
+DELIMITER $$
+CREATE TRIGGER `trigger_qty` AFTER INSERT ON `order_details` FOR EACH ROW BEGIN
+	UPDATE items SET stock = stock-NEW.qty
+    WHERE item_id = NEW.item_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -197,6 +271,14 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `item_id` (`item_id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -228,7 +310,14 @@ ALTER TABLE `items`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
-  ADD KEY `user_id` (`customer_id`),
+  ADD KEY `user_id` (`customer_id`);
+
+--
+-- Indexes for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD PRIMARY KEY (`oder_details_id`),
+  ADD KEY `oder_id` (`order_id`),
   ADD KEY `item_id` (`item_id`);
 
 --
@@ -248,6 +337,12 @@ ALTER TABLE `admins`
   MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -263,7 +358,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `groomings`
 --
 ALTER TABLE `groomings`
-  MODIFY `grooming_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `grooming_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -275,7 +370,13 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `order_details`
+--
+ALTER TABLE `order_details`
+  MODIFY `oder_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -286,6 +387,13 @@ ALTER TABLE `packages`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `carts`
+--
+ALTER TABLE `carts`
+  ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carts_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `groomings`
@@ -304,8 +412,14 @@ ALTER TABLE `items`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_details_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

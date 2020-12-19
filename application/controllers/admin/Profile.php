@@ -68,7 +68,7 @@ class Profile extends CI_Controller
 
 			$this->Profile_model->updateProfile($profileData);
 			$this->session->set_flashdata('message', '<div class="alert alert-success">Profile Berhasil diperbarui</div>');
-			redirect("profile");
+			redirect("admin/profile");
 		}
 	}
 
@@ -103,7 +103,7 @@ class Profile extends CI_Controller
 					$this->Profile_model->updatePassword($passwordHash);
 
 					$this->session->set_flashdata('message', '<div class="alert alert-success">Silahkan login dengan password baru</div>');
-					redirect("profile");
+					redirect("admin/profile");
 				}
 			}
 		}

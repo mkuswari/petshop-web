@@ -66,8 +66,7 @@ class Product extends CI_Controller
 				"description" => $description,
 				"stock" => $stock,
 				"price" => $price,
-				"category_id" => $categoryId,
-				"date_created" => $dateCreated
+				"category_id" => $categoryId
 			];
 			$this->Product_model->addNewProduct($productData);
 			$this->session->set_flashdata('message', 'Ditambah');
