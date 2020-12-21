@@ -36,7 +36,6 @@ class Product_model extends CI_Model
 		$this->db->set("stock", $productData["stock"]);
 		$this->db->set("price", $productData["price"]);
 		$this->db->set("category_id", $productData["category_id"]);
-		$this->db->set("updated_at", $productData["updated_at"]);
 		$this->db->where("item_id", $id);
 		$this->db->update("items", $productData);
 	}

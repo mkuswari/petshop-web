@@ -77,23 +77,26 @@
 					<?php if ($products) : ?>
 						<div class="row">
 							<?php foreach ($products as $product) : ?>
-								<div class="col-lg-4 col-md-6 mb-4">
-									<div class="card h-100 shadow border-0">
-										<a href="<?= base_url("produk/" . $product["slug"]) ?>"><img class="card-img-top" src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" style="height: 180px; object-fit: cover; object-position: center;"></a>
-										<div class="card-body">
-											<h5 class="card-title">
-												<a href="<?= base_url("produk/" . $product["slug"]) ?>"><?= $product["name"] ?></a>
-											</h5>
-											<h6>IDR. <?= number_format($product["price"]) ?></h6>
-										</div>
-										<div class="card-footer border-top-0 bg-white">
-											<div class="action text-center">
-												<a href="<?= base_url("tambah-keranjang/" . $product["item_id"]) ?>" class="btn btn-success btn-sm">Add to Cart</a>
-												<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-warning btn-sm text-white">Detail</a>
+								<?php if ($product["stock"] > 0) : ?>
+									<div class="col-lg-4 col-md-6 mb-4">
+										<div class="card h-100 shadow border-0">
+											<a href="<?= base_url("produk/" . $product["slug"]) ?>"><img class="card-img-top" src="<?= base_url("assets/uploads/items/" . $product["images"]) ?>" style="height: 180px; object-fit: cover; object-position: center;"></a>
+											<div class="card-body">
+												<h5 class="card-title">
+													<a href="<?= base_url("produk/" . $product["slug"]) ?>"><?= $product["name"] ?></a>
+												</h5>
+												<h6>IDR. <?= number_format($product["price"]) ?></h6>
 											</div>
+											<div class="card-footer border-top-0 bg-white">
+												<div class="action text-center">
+													<a href="<?= base_url("tambah-keranjang/" . $product["item_id"]) ?>" class="btn btn-success btn-sm">Add to Cart</a>
+													<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-warning btn-sm text-white">Detail</a>
+												</div>
+											</div>
+											<p class="text-muted text-center">Stock Habis</p>
 										</div>
 									</div>
-								</div>
+								<?php endif; ?>
 							<?php endforeach; ?>
 						</div>
 						<!-- /.row -->
