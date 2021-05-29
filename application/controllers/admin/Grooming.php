@@ -23,11 +23,18 @@ class Grooming extends CI_Controller
 
 	public function changeStatus($id)
 	{
-		$groomingId = $this->input->post("grooming_id");
-		$groomingStatus = $this->input->post("grooming_status");
-		$this->Grooming_model->updateGroomingStatus($groomingId, $groomingStatus);
-		$this->session->set_flashdata('message', 'Diubah');
-		redirect('kelola-grooming');
+		$data["page_title"] = "Ubah Status Grooming";
+		$data["grooming"] = $this->Grooming_model->getGroomingById($id);
+
+		$this->form_validation->set_rules("grooming_status", "Status Grooming", 'required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view("admin/groomings/changestatus_view", $data);
+		} else {
+			$groomingStatus = $this->input->post("grooming_status");
+			$this->Grooming_model->updateGroomingStatus($id, $groomingStatus);
+			$this->session->set_flashdata('message', 'Diubah');
+			redirect("kelola-grooming");
+		}
 	}
 
 	public function detail($id)

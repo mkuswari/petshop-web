@@ -58,15 +58,17 @@
 															<?php endif; ?>
 														</td>
 														<td>
-															<?php if ($grooming["grooming_status"] == "Didaftarkan") : ?>
-																<a href="#" data-toggle="modal" data-target="#modalStatus" class="badge badge-secondary"><?= $grooming["grooming_status"] ?></a>
-															<?php elseif ($grooming["grooming_status"] == "Diterima") : ?>
-																<a href="#" data-toggle="modal" data-target="#modalStatus" class="badge badge-info"><?= $grooming["grooming_status"] ?></a>
-															<?php elseif ($grooming["grooming_status"] == "Dikerjakan") : ?>
-																<a href="#" data-toggle="modal" data-target="#modalStatus" class="badge badge-warning"><?= $grooming["grooming_status"] ?></a>
-															<?php else : ?>
-																<a href="#" data-toggle="modal" data-target="#modalStatus" class="badge badge-success"><?= $grooming["grooming_status"] ?></a>
-															<?php endif; ?>
+															<a href="<?= base_url("admin/grooming/changestatus/" . $grooming["grooming_id"]) ?>">
+																<?php if ($grooming["grooming_status"] == "Didaftarkan") : ?>
+																	<span class="badge badge-secondary"><?= $grooming["grooming_status"] ?></span>
+																<?php elseif ($grooming["grooming_status"] == "Diterima") : ?>
+																	<span class="badge badge-info"><?= $grooming["grooming_status"] ?></span>
+																<?php elseif ($grooming["grooming_status"] == "Dikerjakan") : ?>
+																	<span class="badge badge-warning"><?= $grooming["grooming_status"] ?></span>
+																<?php else : ?>
+																	<span class="badge badge-success"><?= $grooming["grooming_status"] ?></span>
+																<?php endif; ?>
+															</a>
 														</td>
 														<td>
 															<a href="<?= base_url("kelola-grooming/detail/" . $grooming["grooming_id"]) ?>" class="btn btn-icon btn-info">
@@ -90,55 +92,6 @@
 			<!-- footer -->
 			<?php $this->load->view("admin/layouts/_footer"); ?>
 
-			<!-- modal status -->
-			<div class="modal fade" id="modalStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<form action="<?= base_url("kelola-grooming/ubah-status/" . $grooming["grooming_id"]) ?>" method="POST">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Ubah Status Grooming</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<div class="form-group">
-									<input type="hidden" name="grooming_id" value="<?= $grooming["grooming_id"] ?>">
-									<label for="grooming_status">Status Grooming</label>
-									<select name="grooming_status" id="grooming_status" class="form-control">
-										<?php if ($grooming["grooming_status"] == "Didaftarkan") : ?>
-											<option value="Didaftarkan" selected>Didaftarkan</option>
-											<option value="Diterima">Diterima</option>
-											<option value="Dikerjakan">Dikerjakan</option>
-											<option value="Selesai">Selesai</option>
-										<?php elseif ($grooming["grooming_status"] == "Diterima") : ?>
-											<option value="Didaftarkan">Didaftarkan</option>
-											<option value="Diterima" selected>Diterima</option>
-											<option value="Dikerjakan">Dikerjakan</option>
-											<option value="Selesai">Selesai</option>
-										<?php elseif ($grooming["grooming_status"] == "Dikerjakan") : ?>
-											<option value="Didaftarkan">Didaftarkan</option>
-											<option value="Diterima">Diterima</option>
-											<option value="Dikerjakan" selected>Dikerjakan</option>
-											<option value="Selesai">Selesai</option>
-										<?php else : ?>
-											<option value="Didaftarkan">Didaftarkan</option>
-											<option value="Diterima">Diterima</option>
-											<option value="Dikerjakan">Dikerjakan</option>
-											<option value="Selesai" selected>Selesai</option>
-										<?php endif; ?>
-									</select>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-								<button type="submit" class="btn btn-primary">Ubah</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- end of modal status -->
 
 		</div>
 	</div>

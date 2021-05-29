@@ -52,13 +52,13 @@
 														<td>Rp. <?= number_format($order["total_payment"]) ?></td>
 														<td>
 															<?php if ($order["order_status"] == "Masuk") : ?>
-																<a href="<?= base_url("kelola-orderan/ubah-status/" . $order["order_id"]) ?>" data-toggle="modal" data-target="#modalStatus" class="badge badge-info"><?= $order["order_status"] ?></a>
+																<a href="<?= base_url("admin/order/changestatus/" . $order["order_id"]) ?>" class="badge badge-info"><?= $order["order_status"] ?></a>
 															<?php elseif ($order["order_status"] == "Diproses") : ?>
-																<a href="<?= base_url("kelola-orderan/ubah-status/" . $order["order_id"]) ?>" data-toggle="modal" data-target="#modalStatus" class="badge badge-warning"><?= $order["order_status"] ?></a>
+																<a href="<?= base_url("admin/order/changestatus/" . $order["order_id"]) ?>" class="badge badge-warning"><?= $order["order_status"] ?></a>
 															<?php elseif ($order["order_status"] == "Diantar") : ?>
-																<a href="<?= base_url("kelola-orderan/ubah-status/" . $order["order_id"]) ?>" data-toggle="modal" data-target="#modalStatus" class="badge badge-primary"><?= $order["order_status"] ?></a>
+																<a href="<?= base_url("admin/order/changestatus/" . $order["order_id"]) ?>" class="badge badge-primary"><?= $order["order_status"] ?></a>
 															<?php else : ?>
-																<a href="<?= base_url("kelola-orderan/ubah-status/" . $order["order_id"]) ?>" data-toggle="modal" data-target="#modalStatus" class="badge badge-success"><?= $order["order_status"] ?></a>
+																<a href="<?= base_url("admin/order/changestatus/" . $order["order_id"]) ?>" class="badge badge-success"><?= $order["order_status"] ?></a>
 															<?php endif; ?>
 														</td>
 														<td><?= $order["info"] ?></td>
@@ -83,56 +83,6 @@
 			</div>
 			<!-- footer -->
 			<?php $this->load->view("admin/layouts/_footer"); ?>
-
-			<!-- modal status -->
-			<div class="modal fade" id="modalStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<form action="<?= base_url("kelola-orderan/ubah-status/" . $order["order_id"]) ?>" method="POST">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Ubah Status Orderan</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<div class="form-group">
-									<input type="hidden" name="order_id" value="<?= $order["order_id"] ?>">
-									<label for="order_status">Status Orderan</label>
-									<select name="order_status" id="order_status" class="form-control">
-										<?php if ($order["order_status"] == "Masuk") : ?>
-											<option value="Masuk" selected>Masuk</option>
-											<option value="Diproses">Diproses</option>
-											<option value="Diantar">Diantarkan</option>
-											<option value="Diterima">Diterima</option>
-										<?php elseif ($order["order_status"] == "Diproses") : ?>
-											<option value="Masuk">Masuk</option>
-											<option value="Diproses" selected>Diproses</option>
-											<option value="Diantar">Diantarkan</option>
-											<option value="Diterima">Diterima</option>
-										<?php elseif ($order["order_status"] == "Diantar") : ?>
-											<option value="Masuk">Masuk</option>
-											<option value="Diproses">Diproses</option>
-											<option value="Diantar" selected>Diantarkan</option>
-											<option value="Diterima">Diterima</option>
-										<?php else : ?>
-											<option value="Masuk">Masuk</option>
-											<option value="Diproses">Diproses</option>
-											<option value="Diantar">Diantarkan</option>
-											<option value="Diterima" selected>Diterima</option>
-										<?php endif; ?>
-									</select>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
-								<button type="submit" class="btn btn-primary">Ubah</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- end of modal status -->
 
 		</div>
 	</div>
