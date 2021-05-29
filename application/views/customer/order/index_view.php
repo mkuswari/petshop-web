@@ -25,7 +25,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="">
+				<a href="<?= base_url("customer/order/cod") ?>">
 					<div class="card shadow border-0 text-center text-decoration-none text-muted" style="border-radius: 20px; margin-top: 20px;">
 						<div class="card-body">
 							<h3>Bayar di tempat</h3>

@@ -26,7 +26,9 @@
 						</div>
 					</div>
 				</div>
-				<form action="<?= base_url("customer/order/processorder") ?>" method="post" enctype="multipart/form-data">
+				<form action="<?= base_url("customer/order/transfer") ?>" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="customer_id" value="<?= $this->session->userdata("customer_id"); ?>">
+					<input type="hidden" name="total_payment" value="<?= $this->cart->total(); ?>">
 					<div class="card shadow border-0 text-decoration-none text-muted" style="border-radius: 20px; margin-top: 20px;">
 						<div class="card-body">
 							<div class="text-center">
@@ -34,7 +36,8 @@
 							</div>
 							<div class="form-group">
 								<label for="payment_slip">Slip Pembayaran</label>
-								<input type="file" name="payment_slip" id="payment_slip" class="form-control">
+								<input type="file" name="payment_slip" id="payment_slip" class="form-control <?= form_error('payment_slip') ? 'is-invalid' : ''; ?>">
+								<?= form_error('payment_slip', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 						</div>
 					</div>
@@ -45,15 +48,18 @@
 							</div>
 							<div class="form-group">
 								<label for="receipent_name">Nama Penerima</label>
-								<input type="text" class="form-control" name="receipent_name" id="receipent_name" placeholder="Nama Penerima">
+								<input type="text" class="form-control <?= form_error('receipent_name') ? 'is-invalid' : ''; ?>" name="receipent_name" id="receipent_name" placeholder="Nama Penerima" value="<?= $this->session->userdata("name"); ?>">
+								<?= form_error('receipent_name', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
 								<label for="receipent_phone">Nomor HP Penerima</label>
-								<input type="number" class="form-control" name="receipent_phone" id="receipent_phone" placeholder="Nomor HP Penerima">
+								<input type="number" class="form-control <?= form_error('receipent_phone') ? 'is-invalid' : ''; ?>" name="receipent_phone" id="receipent_phone" placeholder="Nomor HP Penerima" value="<?= $this->session->userdata("phone"); ?>">
+								<?= form_error('receipent_phone', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
 								<label for="receipent_address">Alamat Penerima</label>
-								<textarea name="receipent_address" id="receipent_address" rows="4" class="form-control"></textarea>
+								<textarea name="receipent_address" id="receipent_address" rows="4" class="form-control <?= form_error('receipent_address') ? 'is-invalid' : ''; ?>"><?= $this->session->userdata("address"); ?></textarea>
+								<?= form_error('receipent_address', '<div class="invalid-feedback font-weight-bold pl-1">', '</div>') ?>
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary btn-block">Order Sekarang</button>
