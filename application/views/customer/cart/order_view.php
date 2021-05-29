@@ -43,7 +43,8 @@
 											<th>Alamat COD</th>
 											<th>Total Bayar</th>
 											<th>Status</th>
-											<th>Info</th>
+											<th>Informasi</th>
+											<th>Slip Pembayaran</th>
 											<th>Aksi</th>
 										</tr>
 									</thead>
@@ -67,9 +68,20 @@
 														<span class="badge badge-success"><?= $order["order_status"] ?></span>
 													<?php endif; ?>
 												</td>
-												<th>
-													<?= $order["info"] ?>
-												</th>
+												<td>
+													<?php if ($order["info"] == "Lunas") : ?>
+														<span class="badge badge-success"><?= $order["info"] ?></span>
+													<?php else : ?>
+														<span class="badge badge-warning"><?= $order["info"] ?></span>
+													<?php endif; ?>
+												</td>
+												<td>
+													<?php if ($order["info"] == "Lunas") : ?>
+														<img src="<?= base_url("assets/uploads/payments/" . $order["payment_slip"]) ?>" width="200">
+													<?php else : ?>
+														-
+													<?php endif; ?>
+												</td>
 												<td>
 													<a href="<?= base_url("orderan-saya/detail/" . $order["order_id"]) ?>" class="btn btn-info btn-sm shadow rounded-0">Detail Orderan</a>
 												</td>

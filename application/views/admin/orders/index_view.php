@@ -38,6 +38,7 @@
 													<th>Total Pembayaran</th>
 													<th>Status Orderan</th>
 													<th>Informasi</th>
+													<th>Slip Pembayaran</th>
 													<th>Aksi</th>
 												</tr>
 											</thead>
@@ -61,7 +62,20 @@
 																<a href="<?= base_url("admin/order/changestatus/" . $order["order_id"]) ?>" class="badge badge-success"><?= $order["order_status"] ?></a>
 															<?php endif; ?>
 														</td>
-														<td><?= $order["info"] ?></td>
+														<td>
+															<?php if ($order["info"] == "Lunas") : ?>
+																<span class="badge badge-success"><?= $order["info"] ?></span>
+															<?php else : ?>
+																<span class="badge badge-warning"><?= $order["info"] ?></span>
+															<?php endif; ?>
+														</td>
+														<td>
+															<?php if ($order["info"] == "Lunas") : ?>
+																<img src="<?= base_url("assets/uploads/payments/" . $order["payment_slip"]) ?>" width="200">
+															<?php else : ?>
+																-
+															<?php endif; ?>
+														</td>
 														<td>
 															<a href="<?= base_url("kelola-orderan/detail/" . $order["order_id"]) ?>" class="btn btn-icon btn-info">
 																<i class="far fa-eye"></i>
