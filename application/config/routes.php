@@ -20,6 +20,7 @@ $route['produk/(:any)'] = 'customer/product/detail/$1';
 // cart
 $route['detail-keranjang'] = 'customer/cart';
 $route['tambah-keranjang/(:num)'] = 'customer/cart/addtocart/$1';
+$route['hapus-keranjang/(:num)'] = 'customer/cart/removecartitem/$1';
 $route['kosongkan-keranjang'] = 'customer/cart/emptycart';
 // proses order
 $route['proses-order'] = 'customer/cart/processorder';

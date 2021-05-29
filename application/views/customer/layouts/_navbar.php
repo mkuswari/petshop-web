@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 shadow">
 	<div class="container">
-		<a class="navbar-brand font-weight-bold" href="<?= base_url() ?>">PetShop</a>
+		<a class="navbar-brand" href="<?= base_url() ?>">
+			<img src="<?= base_url("assets/customer/img/logo.png") ?>" height="36">
+		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -23,7 +25,7 @@
 						<?php
 						$keranjang = $this->cart->total_items();
 						?>
-						<a class="nav-link text-white" href="<?= base_url("detail-keranjang") ?>">
+						<a class="nav-link" href="<?= base_url("detail-keranjang") ?>">
 							<i class="fas fa-shopping-cart"></i> (<?= $keranjang ?>)
 						</a>
 					</li>

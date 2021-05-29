@@ -19,7 +19,7 @@
 				<section class="section">
 					<div class="section-header d-flex justify-content-between">
 						<h1><?= $page_title; ?></h1>
-						<a href="<?= base_url("kelola-customer/tambah") ?>" class="btn btn-primary btn-lg">Tambah Customer</a>
+						<a href="<?= base_url("kelola-customer/tambah") ?>" class="btn btn-primary btn-lg">Tambah Bank</a>
 					</div>
 					<!-- alert flashdata -->
 					<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
@@ -33,40 +33,27 @@
 											<thead>
 												<tr>
 													<th>No.</th>
-													<th>Avatar</th>
-													<th>Nama</th>
-													<th>Nomor Hp</th>
-													<th>E-mail</th>
-													<th>Status Akun</th>
+													<th>Logo</th>
+													<th>Nama Bank</th>
+													<th>Nama Pemilik</th>
 													<th>Aksi</th>
 												</tr>
 											</thead>
 											<tbody>
 												<?php $i = 1; ?>
-												<?php foreach ($customers as $customer) : ?>
+												<?php foreach ($banks as $bank) : ?>
 													<tr>
 														<td><?= $i++ ?></td>
 														<td>
-															<img src="<?= base_url("assets/uploads/avatars/" . $customer["avatar"]) ?>" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; object-position: center;">
+															<img src="<?= base_url("assets/uploads/banks/" . $bank["logo"]) ?>" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; object-position: center;">
 														</td>
-														<td><?= $customer["name"] ?></td>
-														<td><?= $customer["phone"] ?></td>
-														<td><?= $customer["email"] ?></td>
-														<td>
-															<?php if ($customer["is_active"] == 1) : ?>
-																<span class="badge badge-success">Aktif</span>
-															<?php else : ?>
-																<span class="badge badge-danger">Nonaktif</span>
-															<?php endif; ?>
-														</td>
+														<td><?= $bank["name"] ?></td>
+														<td><?= $bank["holder"] ?></td>
 														<th>
-															<a href="<?= base_url("kelola-customer/detail/" . $customer["customer_id"]) ?>" class="btn btn-icon btn-info">
-																<i class="fas fa-eye"></i>
-															</a>
-															<a href="<?= base_url("kelola-customer/ubah/" . $customer["customer_id"]) ?>" class="btn btn-icon btn-warning">
+															<a href="<?= base_url("admin/bank/editbank/" . $bank["bank_id"]) ?>" class="btn btn-icon btn-warning">
 																<i class="far fa-edit"></i>
 															</a>
-															<a href="<?= base_url("kelola-customer/hapus/" . $customer["customer_id"]) ?>" class="btn btn-icon btn-danger button-delete">
+															<a href="<?= base_url("admin/bank/deletebank/" . $bank["bank_id"]) ?>" class="btn btn-icon btn-danger button-delete">
 																<i class="fas fa-trash"></i>
 															</a>
 														</th>

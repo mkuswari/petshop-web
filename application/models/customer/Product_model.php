@@ -13,6 +13,7 @@ class Product_model extends CI_Model
 		$this->db->select("items.*, categories.name AS category_name");
 		$this->db->from("items");
 		$this->db->join("categories", "categories.category_id = items.category_id");
+		$this->db->where("stock > 0");
 		return $this->db->get()->result_array();
 	}
 
@@ -41,6 +42,7 @@ class Product_model extends CI_Model
 		$this->db->select("items.*, categories.name AS category_name");
 		$this->db->from("items");
 		$this->db->join("categories", "categories.category_id = items.category_id");
+		$this->db->where("stock > 0");
 		$this->db->limit(4);
 		$this->db->order_by("item_id", "DESC");
 		return $this->db->get()->result_array();
