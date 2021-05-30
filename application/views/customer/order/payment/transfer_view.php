@@ -23,6 +23,24 @@
 						<h4 class="font-weight-bold">Transfer</h4>
 						<div class="text-center">
 							<p>Harap Transfer pembayaran ke rekening berikut : </p>
+							<div class="card shadow border-0" style="border-radius: 20px;">
+								<div class="card-body">
+									<div>
+										<?php foreach ($banks as $bank) : ?>
+											<div class="row">
+												<div class="col-sm-3">
+													<img src="<?= base_url("assets/uploads/banks/" . $bank["logo"]) ?>" style="width: 100%; height:100px; object-position: center; object-fit: cover;">
+												</div>
+												<div class="col-sm-8">
+													<h3><?= $bank["name"] ?></h3>
+													<p><?= $bank["number"] ?></p>
+													<p>A/N : <?= $bank["holder"] ?></p>
+												</div>
+											</div>
+										<?php endforeach; ?>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

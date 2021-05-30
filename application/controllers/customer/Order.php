@@ -10,15 +10,22 @@ class Order extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('Customer/Product_model', 'Product_model');
+		$this->load->model('admin/Bank_model', 'Bank_model');
 	}
 
 	public function transfer()
 	{
 		$data["page_title"] = "Lengkapi Detail Pesanan";
+		$data["banks"] = $this->Bank_model->getAllBanks();
 
 		$this->form_validation->set_rules('receipent_name', 'Nama Penerima', 'required');
 		$this->form_validation->set_rules('receipent_phone', 'No Hp Penerima', 'required');
 		$this->form_validation->set_rules("receipent_address", "Alamat penerima", "required");
+
+		if (empty($_FILES['payment_slip']['name'])) {
+			$this->form_validation->set_rules('payment_slip', 'Slip Pembayaran', 'required');
+		}
+
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view("customer/order/payment/transfer_view", $data);
 		} else {

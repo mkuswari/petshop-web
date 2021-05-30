@@ -19,7 +19,7 @@
 				<section class="section">
 					<div class="section-header d-flex justify-content-between">
 						<h1><?= $page_title; ?></h1>
-						<a href="<?= base_url("kelola-customer/tambah") ?>" class="btn btn-primary btn-lg">Tambah Bank</a>
+						<a href="<?= base_url("admin/bank/addnewbank") ?>" class="btn btn-primary btn-lg">Tambah Bank</a>
 					</div>
 					<!-- alert flashdata -->
 					<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
@@ -35,6 +35,7 @@
 													<th>No.</th>
 													<th>Logo</th>
 													<th>Nama Bank</th>
+													<th>No Rekening</th>
 													<th>Nama Pemilik</th>
 													<th>Aksi</th>
 												</tr>
@@ -45,9 +46,10 @@
 													<tr>
 														<td><?= $i++ ?></td>
 														<td>
-															<img src="<?= base_url("assets/uploads/banks/" . $bank["logo"]) ?>" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; object-position: center;">
+															<img src="<?= base_url("assets/uploads/banks/" . $bank["logo"]) ?>" style="width: 100px; height: 100px; object-fit: cover; object-position: center;">
 														</td>
 														<td><?= $bank["name"] ?></td>
+														<td><?= $bank["number"] ?></td>
 														<td><?= $bank["holder"] ?></td>
 														<th>
 															<a href="<?= base_url("admin/bank/editbank/" . $bank["bank_id"]) ?>" class="btn btn-icon btn-warning">

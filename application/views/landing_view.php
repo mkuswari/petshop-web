@@ -94,7 +94,7 @@
 										<div class="card-footer border-top-0 bg-white">
 											<div class="action text-center">
 												<a href="<?= base_url("tambah-keranjang/" . $product["item_id"]) ?>" class="btn btn-success btn-sm">Add to Cart</a>
-												<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-warning btn-sm text-white">Detail</a>
+												<a href="<?= base_url("produk/" . $product["slug"]) ?>" class="btn btn-primary btn-sm text-white">Detail</a>
 											</div>
 										</div>
 									</div>
