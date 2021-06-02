@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="description">Deskripsi Produk</label>
-                                                    <textarea class="summernote-simple" name="description" id="description"></textarea>
+                                                    <textarea class="form-control" rows="5" name="description" id="description"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="category_id">Kategori</label>

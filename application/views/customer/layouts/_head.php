@@ -17,4 +17,6 @@
 	<!-- Font awesome -->
 	<link href="<?= base_url("assets/customer/vendor/fontawesome-free/css/all.min.css") ?>" rel="stylesheet" type="text/css">
 
+	<link rel="stylesheet" href="<?= base_url("assets/admin/modules/summernote/summernote-bs4.css") ?>">
+
 </head>

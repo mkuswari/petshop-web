@@ -33,7 +33,10 @@
                                         </div>
                                         <div class="col-8">
                                             <h5><?= $product["name"] ?></h5>
-                                            <p><?= $product["description"] ?></p>
+											<div>
+											<?= $product["description"] ?>
+											</div>
+                                            <!-- <p><?= $product["description"] ?></p> -->
                                             <h5>Harga : IDR. <?= number_format($product["price"]) ?></h5>
                                             <h5>Stok Barang : <?= $product["stock"] ?></h5>
                                             <p>Tanggal Diposting : <?= date('d F Y', strtotime($product["created_at"])) ?></p>
