@@ -125,6 +125,126 @@ class Auth extends CI_Controller
 		$this->load->view("customer/auth/blocked_view", $data);
 	}
 
+	// fungsi kirim email
+	private function _sendEmail($token, $type)
+	{
+		$config = [
+			'protocol'  => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			"smtp_user" => "petshoptegal@gmail.com",
+			"smtp_pass" => "PetshopApp123",
+			'smtp_port' => 465,
+			'mailtype'  => 'html',
+			'charset'   => 'utf-8',
+			'newline'   => "\r\n"
+		];
+
+		$this->email->initialize($config);
+		$this->email->from("petshoptegal@gmail.com", "Admin Tegal Petshop");
+		$this->email->to($this->input->post("email"));
+
+		if ($type == "forgot") {
+			$this->email->subject("Permintaan Reset Password");
+			$this->email->message('Sebuah permintaan reset password telah diterima, klik link berikut untuk melakukan reset password : <a href="' . base_url() . 'customer/auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a>. Jika kamu tidak pernah melakukan permintaan reset password, abaikan email ini.');
+		}
+
+		if ($this->email->send()) {
+			return true;
+		} else {
+			echo $this->email->print_debugger();
+			die;
+		}
+	}
+
+	// lupa password
+	public function forgotPassword()
+	{
+		$data["page_title"] = "Lupa Password";
+
+		$this->form_validation->set_rules("email", 'E-mail', 'required|valid_email');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view("customer/auth/forgotpassword_view", $data);
+		} else {
+			$email = $this->input->post("email");
+			$user =  $this->db->get_where("customers", ["email" => $email])->row_array();
+
+			if ($user) {
+				// buat token 
+				$token = base64_encode(random_bytes(32));
+				$user_token = [
+					'email' => $email,
+					'token' => $token,
+					'date_created' => time()
+				];
+
+				$this->db->insert("customer_tokens", $user_token);
+				$this->_sendEmail($token, 'forgot');
+
+				$this->session->set_flashdata('message', '<div class="alert alert-success">Silahkan cek email kamu untuk reset password</div>');
+				redirect("customer/auth/forgotpassword");
+			} else {
+				// user tidak terfaftar
+				$this->session->set_flashdata('message', '<div class="alert alert-danger">Email ini belum terdaftar</div>');
+				redirect("customer/auth/forgotpassword");
+			}
+		}
+	}
+
+	// reset password
+	public function resetPassword()
+	{
+		$email = $this->input->get('email');
+		$token = $this->input->get("token");
+
+		$user = $this->db->get_where("customers", ["email" => $email])->row_array();
+
+		if ($user) {
+			$user_token = $this->db->get_where("customer_tokens", ["token" => $token])->row_array();
+
+			if ($user_token) {
+				$this->session->set_userdata("reset_email", $email);
+				$this->changePassword();
+			} else {
+				$this->session->set_flashdata("message", "<div class='alert alert-danger'>Reset Password Gagal! Token Salah</div>");
+				redirect("login");
+			}
+		} else {
+			$this->session->set_flashdata("message", "<div class='alert alert-danger'>Reset Password Gagal! Token Salah</div>");
+			redirect("login");
+		}
+	}
+
+	// change password
+	public function changePassword()
+	{
+		if (!$this->session->userdata('reset_email')) {
+			redirect('logn');
+		}
+
+		$data["page_title"] = "Reset Password Kamu";
+
+		$this->form_validation->set_rules("new_password", "Password Baru", "trim|required|min_length[3]|matches[new_password_confirm]");
+		$this->form_validation->set_rules('new_password_confirm', 'Konfirmasi Password', 'trim|required|min_length[3]|matches[new_password]');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view("customer/auth/changepassword_view", $data);
+		} else {
+			$password = password_hash($this->input->post("new_password"), PASSWORD_DEFAULT);
+			$email = $this->session->userdata("reset_email");
+
+			$this->db->set("password", $password);
+			$this->db->where("email", $email);
+			$this->db->update("customers");
+
+			$this->session->unset_userdata("reset_email");
+			$this->db->delete("customer_tokens", ["email" => $email]);
+
+			$this->session->set_flashdata("message", "<div class='alert alert-success'>Berhasil Ganti Password! Silahkan Login</div>");
+			redirect("login");
+		}
+	}
+
+	// validation method
+
 	private function _loginValidation()
 	{
 		$this->form_validation->set_rules('email', 'E-mail', 'required|trim|valid_email');
