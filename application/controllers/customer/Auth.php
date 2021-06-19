@@ -218,7 +218,7 @@ class Auth extends CI_Controller
 	public function changePassword()
 	{
 		if (!$this->session->userdata('reset_email')) {
-			redirect('logn');
+			redirect('login');
 		}
 
 		$data["page_title"] = "Reset Password Kamu";
