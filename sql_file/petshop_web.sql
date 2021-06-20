@@ -2,10 +2,10 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 30, 2021 at 02:59 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Host: localhost
+-- Generation Time: Jun 20, 2021 at 07:40 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,28 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `name`, `avatar`, `email`, `password`, `role`, `is_active`, `created_at`) VALUES
-(3, 'Site Administrator', '1608357080619.png', 'admin@mail.com', '$2y$10$DsJvLX1WH3TzONzf9xYYz.JXJnY/WXwhqEbHgIuZdbD0uPphzLgqe', 'Admin', 1, '2020-12-19 05:51:51');
+(3, 'Site Administrator', '1608357080619.png', 'admin@mail.com', '$2y$10$DsJvLX1WH3TzONzf9xYYz.JXJnY/WXwhqEbHgIuZdbD0uPphzLgqe', 'Admin', 1, '2020-12-19 05:51:51'),
+(5, 'Muhammad Kuswari', 'default.jpg', 'muh.kuswari10@gmail.com', '$2y$10$UQPAGLDqgV6YP0RHcA7v6eLSzafxU8mn/ZHR113ahNsD6zRpznNay', 'Admin', 1, '2021-06-19 14:49:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_tokens`
+--
+
+CREATE TABLE `admin_tokens` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin_tokens`
+--
+
+INSERT INTO `admin_tokens` (`id`, `email`, `token`, `date_created`) VALUES
+(1, 'admin@mail.com', 'cTD/674X/GsnRCpDEYqIP8C5uz/mbEkKoQMKbg6uEQM=', 1624113403);
 
 -- --------------------------------------------------------
 
@@ -127,7 +148,21 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `name`, `avatar`, `phone`, `address`, `email`, `password`, `is_active`, `created_at`) VALUES
-(6, 'Site Customer', '1608357453866.png', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram', 'customer@mail.com', '$2y$10$heyAPdEKex5I3SPZ5RA92OCP8cNqpapPFRWkuF/LPFqLZeuPOVC0m', 1, '2020-12-20 10:31:12');
+(6, 'Site Customer', '1608357453866.png', '081939448487', 'Jl. Bunga Matahari, No.11 Gomong Lama, Mataram', 'customer@mail.com', '$2y$10$heyAPdEKex5I3SPZ5RA92OCP8cNqpapPFRWkuF/LPFqLZeuPOVC0m', 1, '2020-12-20 10:31:12'),
+(7, 'Muhammad Kuswari', 'default.jpg', '081803405952', 'Jl. Bunga Matahari, No.11 Gomong, Mataram.', 'muhammad.kuswari10@gmail.com', '$2y$10$XIuOvaiOTZ7RXQufTpgGOuAnMqvkAkgTNYz1imuWli48XsDwwLQsy', 1, '2021-06-19 13:55:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_tokens`
+--
+
+CREATE TABLE `customer_tokens` (
+  `id` int(11) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `token` varchar(128) NOT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -293,6 +328,12 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `admin_tokens`
+--
+ALTER TABLE `admin_tokens`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
@@ -317,6 +358,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
+
+--
+-- Indexes for table `customer_tokens`
+--
+ALTER TABLE `customer_tokens`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `groomings`
@@ -362,7 +409,13 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `admin_tokens`
+--
+ALTER TABLE `admin_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bank_accounts`
@@ -386,7 +439,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `customer_tokens`
+--
+ALTER TABLE `customer_tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `groomings`
