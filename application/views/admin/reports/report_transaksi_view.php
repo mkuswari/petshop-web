@@ -47,6 +47,7 @@
             <tr>
                 <th>No. </th>
                 <th>Tanggal</th>
+				<th>Nama Pembeli</th>
                 <th>Nama Item</th>
                 <th>Harga Item</th>
                 <th>Qty</th>
@@ -59,6 +60,7 @@
                 <tr>
                     <td><?= $i++; ?></td>
                     <td><?= date('d F Y', strtotime($trx["date_order"])); ?></td>
+					<td><?= $trx["receipent_name"] ?></td>
                     <td><?= $trx["name"]; ?></td>
                     <td>Rp. <?= number_format($trx["price"]); ?></td>
                     <td><?= $trx["qty"] ?> Item</td>

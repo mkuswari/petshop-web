@@ -17,6 +17,7 @@ class Report_model extends CI_Model
         $this->db->select("*");
         $this->db->from("order_details");
         $this->db->join("items", "items.item_id = order_details.item_id");
+		$this->db->join("orders", "orders.order_id = order_details.order_id");
         $this->db->where("MONTH(date_order)", $bulan);
         $this->db->where("YEAR(date_order)", $tahun);
         return $this->db->get()->result_array();
@@ -27,6 +28,7 @@ class Report_model extends CI_Model
         $this->db->select("*");
         $this->db->from("order_details");
         $this->db->join("items", "items.item_id = order_details.item_id");
+		$this->db->join("orders", "orders.order_id = order_details.order_id");
         $this->db->where("YEAR(date_order)", $tahun);
         return $this->db->get()->result_array();
     }
